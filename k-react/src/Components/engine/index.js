@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import styles from "./engine.module.scss";
 import { useEvent } from "../../hooks";
 
-const BLOCKS = [140, 250, 390];
-
 const charWidth = 100;
 const charHeight = 100;
 
@@ -27,32 +25,6 @@ function CreateEngine(setState) {
   this.direction = "up";
   this.position = 0;
   this.max = this.settings.tile * 40;
-  // this.blocks = BLOCKS.map((b) => b * this.settings.tile);
-
-  // const checkBlocks = () => {
-  //   const charXPos = this.stage + 200;
-  //   const charYPos = this.position;
-
-  //   // if the char has past all blocks
-  //   if (
-  //     charXPos > this.blocks[this.blocks.length - 1] + 200 &&
-  //     this.position <= 0
-  //   ) {
-  //     this.game = "win";
-  //   }
-
-  //   this.blocks.forEach((block) => {
-  //     // if char hits a block
-  //     if (
-  //       charXPos + charWidth >= block &&
-  //       charYPos <= blockHeight &&
-  //       charYPos + charHeight >= 0 &&
-  //       charXPos <= block + blockWidth
-  //     ) {
-  //       this.game = "fail";
-  //     }
-  //   });
-  // };
 
   const doJump = () => {
     // if not jumping, reset and return
@@ -96,7 +68,6 @@ function CreateEngine(setState) {
     setState({
       stage: this.stage,
       jump: this.position,
-      blocks: this.blocks,
       status: this.game,
     });
 
