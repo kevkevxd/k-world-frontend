@@ -1,21 +1,23 @@
 @font-face {
-  font-family: '8BIT WONDER';
-  src: url('assets/8BITWONDERNominal.eot');
-  src: url('assets/8BITWONDERNominal.eot?#iefix') format('embedded-opentype'),
-    url('assets/8BITWONDERNominal.woff') format('woff'),
-    url('assets/8BITWONDERNominal.ttf') format('truetype');
+  font-family: "8BIT WONDER";
+  src: url("assets/8BITWONDERNominal.eot");
+  src: url("assets/8BITWONDERNominal.eot?#iefix") format("embedded-opentype"),
+    url("assets/8BITWONDERNominal.woff") format("woff"),
+    url("assets/8BITWONDERNominal.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
-html, body, #root {
+html,
+body,
+#root {
   background: black;
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
   color: white;
-  font-family: 'Helvetica Neue';
+  font-family: "Helvetica Neue";
   font-size: 3vw;
 }
 
@@ -51,7 +53,7 @@ pre {
 }
 
 .start {
-  font-family: '8BIT WONDER';
+  font-family: "8BIT WONDER";
   display: block;
   width: 400px;
   font-size: 24px;
@@ -73,7 +75,7 @@ pre {
 }
 
 .fade.active {
- opacity: 1;
+  opacity: 1;
 }
 
 * {
