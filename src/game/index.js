@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-// import Matter from "matter-js";
+import Matter from "matter-js";
 import { AudioPlayer, Loop, Stage, KeyListener, World } from "react-game-kit";
 import Portal from "./Portal";
 import Character from "./character";
@@ -16,13 +16,13 @@ export default class Game extends Component {
 
   //base music
   componentDidMount() {
-    this.player = new AudioPlayer("/assets/ellinia.wav", () => {
-      this.stopMusic = this.player.play({
-        loop: true,
-        offset: 1,
-        volume: 0.1,
-      });
-    });
+    // this.player = new AudioPlayer("/assets/ellinia.wav", () => {
+    //   this.stopMusic = this.player.play({
+    //     loop: true,
+    //     offset: 1,
+    //     volume: 0.1,
+    //   });
+    // });
 
     this.setState({
       fade: false,
@@ -41,12 +41,12 @@ export default class Game extends Component {
     this.stopMusic();
     this.keyListener.unsubscribe();
   }
-  //onInit={this.physicsInit} goes in World
+
   render() {
     return (
       <Loop>
         <Stage style={{ background: "#3a9bdc" }}>
-          <World>
+          <World onInit={this.physicsInit}>
             <Level store={GameStore} />
             <Character
               onEnterBuilding={this.handleEnterBuilding}
@@ -61,24 +61,24 @@ export default class Game extends Component {
     );
   }
 
-  // physicsInit(engine) {
-  //   //adds barriers to our game
-  //   const ground = Matter.Bodies.rectangle(512 * 3, 448, 1024 * 3, 64, {
-  //     isStatic: true,
-  //   });
+  physicsInit(engine) {
+    //adds barriers to our game
+    const ground = Matter.Bodies.rectangle(512 * 3, 448, 1024 * 3, 64, {
+      isStatic: true,
+    });
 
-  //   const leftWall = Matter.Bodies.rectangle(-64, 288, 64, 576, {
-  //     isStatic: true,
-  //   });
+    const leftWall = Matter.Bodies.rectangle(-64, 288, 64, 576, {
+      isStatic: true,
+    });
 
-  //   const rightWall = Matter.Bodies.rectangle(3008, 288, 64, 576, {
-  //     isStatic: true,
-  //   });
+    const rightWall = Matter.Bodies.rectangle(3008, 288, 64, 576, {
+      isStatic: true,
+    });
 
-  //   Matter.World.addBody(engine.world, ground);
-  //   Matter.World.addBody(engine.world, leftWall);
-  //   Matter.World.addBody(engine.world, rightWall);
-  // }
+    Matter.World.addBody(engine.world, ground);
+    Matter.World.addBody(engine.world, leftWall);
+    Matter.World.addBody(engine.world, rightWall);
+  }
 
   handleEnterBuilding(index) {
     this.setState({
