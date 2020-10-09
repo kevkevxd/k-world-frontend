@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { observer } from "mobx-react";
-// import Matter from "matter-js";
+import Matter from "matter-js";
 
 import { AudioPlayer, Body, Sprite } from "react-game-kit";
 
-@observer
-export default class Character extends Component {
+// @observer
+class Character extends Component {
   static propTypes = {
     keys: PropTypes.object,
     onEnterBuilding: PropTypes.func,
@@ -34,7 +34,7 @@ export default class Character extends Component {
     };
 
     this.handlePlayStateChanged = this.handlePlayStateChanged.bind(this);
-    // this.jump = this.jump.bind(this);
+    this.jump = this.jump.bind(this);
     this.punch = this.punch.bind(this);
     this.getDoorIndex = this.getDoorIndex.bind(this);
     this.enterBuilding = this.enterBuilding.bind(this);
@@ -43,14 +43,14 @@ export default class Character extends Component {
     //.bind(this) gives them this prop in functional component
   }
 
-  // componentDidMount() {
-  //   this.jumpNoise = new AudioPlayer("/assets/jump.wav");
-  //   Matter.Events.on(this.context.engine, "afterUpdate", this.update);
-  // } //character will pin top left without it
+  componentDidMount() {
+    this.jumpNoise = new AudioPlayer("/assets/jump.wav");
+    Matter.Events.on(this.context.engine, "afterUpdate", this.update);
+  } //character will pin top left without it
 
-  // componentWillUnmount() {
-  //   Matter.Events.off(this.context.engine, "afterUpdate", this.update);
-  // }
+  componentWillUnmount() {
+    Matter.Events.off(this.context.engine, "afterUpdate", this.update);
+  }
 
   getWrapperStyles() {
     const { characterPosition, stageX } = this.props.store;
@@ -80,7 +80,7 @@ export default class Character extends Component {
           <Sprite //current character selected
             repeat={this.state.repeat}
             onPlayStateChanged={this.handlePlayStateChanged}
-            src="assets/leattyspritesheet.png"
+            src="/assets/leattyspritesheet.png"
             scale={this.context.scale * 2}
             state={this.state.characterState}
             steps={[9, 9, 0, 4, 5]}
@@ -96,16 +96,16 @@ export default class Character extends Component {
     });
   }
 
-  // move(body, x) {
-  //   Matter.Body.setVelocity(body, { x, y: 0 });
-  // }
+  move(body, x) {
+    Matter.Body.setVelocity(body, { x, y: 0 });
+  }
 
-  // jump(body) {
-  //   this.jumpNoise.play();
-  //   this.isJumping = true;
-  //   Matter.Body.applyForce(body, { x: 0, y: 0 }, { x: 0, y: -0.15 });
-  //   Matter.Body.set(body, "friction", 0.0001);
-  // }
+  jump(body) {
+    this.jumpNoise.play();
+    this.isJumping = true;
+    Matter.Body.applyForce(body, { x: 0, y: 0 }, { x: 0, y: -0.15 });
+    Matter.Body.set(body, "friction", 0.0001);
+  }
 
   punch() {
     this.isPunching = true;
@@ -153,9 +153,9 @@ export default class Character extends Component {
       return this.punch();
     }
 
-    // if (keys.isDown(keys.SPACE)) {
-    //   this.jump(body);
-    // }
+    if (keys.isDown(keys.SPACE)) {
+      this.jump(body);
+    }
 
     if (keys.isDown(keys.UP)) {
       return this.enterBuilding(body);
@@ -166,14 +166,14 @@ export default class Character extends Component {
         store.setStageX(store.stageX + 5);
       }
 
-      // this.move(body, -5);
+      this.move(body, -5);
       characterState = 1;
     } else if (keys.isDown(keys.RIGHT)) {
       if (shouldMoveStageRight) {
         store.setStageX(store.stageX - 5);
       }
 
-      // this.move(body, 5);
+      this.move(body, 5);
       characterState = 0;
     }
 
@@ -195,10 +195,10 @@ export default class Character extends Component {
 
     const velY = parseFloat(body.velocity.y.toFixed(10));
 
-    // if (velY === 0) {
-    //   this.isJumping = false;
-    //   Matter.Body.set(body, "friction", 0.9999);
-    // }
+    if (velY === 0) {
+      this.isJumping = false;
+      Matter.Body.set(body, "friction", 0.9999);
+    }
 
     if (!this.isJumping && !this.isPunching && !this.isLeaving) {
       this.checkKeys(shouldMoveStageLeft, shouldMoveStageRight);
@@ -220,3 +220,5 @@ export default class Character extends Component {
     this.lastX = body.position.x;
   }
 }
+
+export default observer(Character);

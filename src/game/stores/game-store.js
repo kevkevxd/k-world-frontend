@@ -1,9 +1,9 @@
 import { observable } from "mobx";
 //observable defines a trackable field that stores the state.
 class GameStore {
-  @observable characterPosition = { x: 0, y: 0 };
+  characterPosition = observable({ x: 0, y: 0 });
 
-  @observable stageX = 0;
+  stageX = observable(0);
 
   setCharacterPosition(position) {
     this.characterPosition = position;
