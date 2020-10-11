@@ -153,9 +153,9 @@ export default class Character extends Component {
     let characterState = 2;
 
     // Punch when you press A
-    if (keys.isDown(keys.A)) {
-      return this.punch();
-    }
+    // if (keys.isDown(keys.A)) {
+    //   return this.punch();
+    // }
 
     // Jump when you press space
     if (keys.isDown(keys.SPACE)) {
@@ -163,11 +163,11 @@ export default class Character extends Component {
     }
 
     // Enter building when you press up
-    if (keys.isDown(keys.UP)) {
-      return this.enterBuilding(body);
-    }
+    // if (keys.isDown(keys.UP)) {
+    //   return this.enterBuilding(body);
+    // }
 
-    // ???? when you press down
+    // Move left or right
     if (keys.isDown(keys.LEFT)) {
       if (shouldMoveStageLeft) {
         store.setStageX(store.stageX + 5);
@@ -178,6 +178,8 @@ export default class Character extends Component {
     } else if (keys.isDown(keys.RIGHT)) {
       if (shouldMoveStageRight) {
         store.setStageX(store.stageX - 5);
+
+        store.checkEnterPortal();
       }
 
       this.move(body, 5);
@@ -217,8 +219,6 @@ export default class Character extends Component {
       this.checkKeys(shouldMoveStageLeft, shouldMoveStageRight);
 
       store.setCharacterPosition(body.position);
-
-      store.checkEnterPortal();
     } else {
       if (this.isPunching && this.state.spritePlaying === false) {
         this.isPunching = false;
