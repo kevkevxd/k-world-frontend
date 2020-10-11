@@ -6,6 +6,8 @@ import { TileMap } from "react-game-kit";
 
 import GameStore from "./stores/game-store";
 
+const apikey = process.env.REACT_APP_ACCESS_APIKEY;
+
 export default class Level extends Component {
   static contextTypes = {
     scale: PropTypes.number,
@@ -47,7 +49,13 @@ export default class Level extends Component {
       transformOrigin: "top left",
     };
   }
-
+  // componentDidMount() {
+  //   fetch(
+  //     `https://api.unsplash.com/photos/random?page=1&query=space&w=3072&h=512&fit=max&dpr=2&client_id=${apikey}`
+  //   )
+  //     .then((res) => res.json)
+  //     .then((data) => console.log(data));
+  // }
   render() {
     const pretendWorkingApiPull =
       "https://images.unsplash.com/photo-1532891463981-a5b6ca49f344?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&h=512&w=3072&fit=crop&ixid=eyJhcHBfaWQiOjE3MjgzNH0";
@@ -55,7 +63,7 @@ export default class Level extends Component {
       <div style={this.getWrapperStyles()}>
         <TileMap
           style={{ top: Math.floor(64 * this.context.scale) }}
-          src="/assets/Space.png"
+          src="assets/Space.png"
           tileSize={128}
           columns={24}
           rows={4}
@@ -162,7 +170,8 @@ export default class Level extends Component {
         />
         <TileMap
           style={{ top: Math.floor(-63 * this.context.scale) }}
-          src={pretendWorkingApiPull}
+          // src={pretendWorkingApiPull}
+          src={this.props.currentPaper}
           rows={1}
           columns={6}
           tileSize={512}
