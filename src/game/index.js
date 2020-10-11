@@ -79,9 +79,11 @@ export default class Game extends Component {
   };
 
   closePortal = () => {
+    console.log("closePortal");
     this.setState({
       isPortalOpen: false,
     });
+    this.bgRandomizer();
   };
 
   checkEnterPortal = () => {
@@ -116,7 +118,7 @@ export default class Game extends Component {
       this.keyListener.CTRL,
     ]);
 
-    fetch("http://localhost:5005/ocean_papers")
+    fetch("http://localhost:5000/ocean_papers")
       .then((res) => res.json())
       .then((data) => {
         const papers = data.map((paper) => paper.source);
@@ -127,14 +129,17 @@ export default class Game extends Component {
       });
   }
 
-  // componentWillUnmount() {
-  //   this.stopMusic();
-  //   this.keyListener.unsubscribe();
-  // }
+  componentWillUnmount() {
+    this.stopMusic();
+    this.keyListener.unsubscribe();
+  }
 
   bgRandomizer = () => {
     const papers = this.state.papers;
-    const randomPaperNum = Math.round(Math.random() * papers.length);
+
+    this.setState({
+      backgroundIndex: Math.round(Math.random() * papers.length),
+    });
   };
 
   render() {
@@ -153,7 +158,13 @@ export default class Game extends Component {
 
     return (
       <Loop>
-        <Stage style={{ background: "#3a9bdc" }}>
+        <Stage
+          style={{
+            background: `url(${
+              this.state.papers[this.state.backgroundIndex]
+            }) center / cover no-repeat`,
+          }}
+        >
           <World
             onInit={this.physicsInit}
             onCollision={(param) => {

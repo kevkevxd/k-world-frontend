@@ -57,6 +57,7 @@ export default class Level extends Component {
   render() {
     const pretendWorkingApiPull =
       "https://images.unsplash.com/photo-1532891463981-a5b6ca49f344?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&h=512&w=3072&fit=crop&ixid=eyJhcHBfaWQiOjE3MjgzNH0";
+
     return (
       <div style={this.getWrapperStyles()}>
         <TileMap
@@ -165,15 +166,6 @@ export default class Level extends Component {
               1,
             ],
           ]}
-        />
-        <TileMap
-          style={{ top: Math.floor(-63 * this.context.scale) }}
-          // src={pretendWorkingApiPull}
-          src={this.props.currentPaper}
-          rows={1}
-          columns={6}
-          tileSize={512}
-          layers={[[1, 2, 3, 4, 5, 6]]}
         />
       </div>
     );
