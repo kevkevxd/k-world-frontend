@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { observer } from "mobx-react";
 import { Body, Sprite } from "react-game-kit";
 
 class Portal extends React.Component {
@@ -55,4 +54,4 @@ class Portal extends React.Component {
   }
 }
 
-export default observer(Portal);
+export default Portal;

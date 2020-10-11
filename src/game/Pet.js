@@ -1,9 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { observer } from "mobx-react";
 import { Body, Sprite } from "react-game-kit";
 
-// @observer
 class Pet extends React.Component {
   static propTypes = {
     keys: PropTypes.object,

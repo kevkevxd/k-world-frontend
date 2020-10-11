@@ -8,7 +8,6 @@ import Character from "./character";
 import Level from "./level";
 import Fade from "./fade";
 
-import GameStore from "./stores/game-store";
 import KeyListener from "../utils/key-listener";
 
 export default class Game extends Component {
@@ -16,21 +15,83 @@ export default class Game extends Component {
     onLeave: PropTypes.func,
   };
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
+    this.keyListener = new KeyListener();
+    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+    window.context = window.context || new AudioContext();
 
     this.state = {
       fade: true,
       papers: [],
       backgroundIndex: 0,
       currentPaper: "url",
+
+      // game store
+      characterPosition: { x: 0, y: 0 },
+      stageX: 0,
+      portalPosition: { x: 0, y: 0 },
+      isPortalOpen: false,
     };
-    this.keyListener = new KeyListener();
-    window.AudioContext = window.AudioContext || window.webkitAudioContext;
-    window.context = window.context || new AudioContext();
 
     this.handleEnterBuilding = this.handleEnterBuilding.bind(this);
   }
+
+  // Setting state in game store
+  setCharacterPosition = (position) => {
+    this.setState({
+      characterPosition: position,
+    });
+  };
+
+  setStageX = (x) => {
+    let stageX;
+    //movement gets stuck w/o this
+    if (x > 0) {
+      stageX = 0;
+    } else if (x < -2048) {
+      stageX = -2048;
+    } else {
+      stageX = x;
+    }
+    this.setState({
+      stageX,
+    });
+  };
+
+  setPortalPosition = (position) => {
+    this.setState({
+      portalPosition: position,
+    });
+  };
+
+  openPortal = () => {
+    const newPortalPosition = {
+      x: this.state.characterPosition.x + 500,
+      y: this.state.characterPosition.y - 40,
+    };
+
+    this.setPortalPosition(newPortalPosition);
+
+    this.setState({
+      isPortalOpen: true,
+    });
+  };
+
+  closePortal = () => {
+    this.setState({
+      isPortalOpen: false,
+    });
+  };
+
+  checkEnterPortal = () => {
+    if (
+      this.state.characterPosition.x >= this.state.portalPosition.x - 20 &&
+      this.state.characterPosition.x <= this.state.portalPosition.x + 20
+    ) {
+      this.closePortal();
+    }
+  };
 
   //base music
   componentDidMount() {
@@ -66,10 +127,10 @@ export default class Game extends Component {
       });
   }
 
-  componentWillUnmount() {
-    this.stopMusic();
-    this.keyListener.unsubscribe();
-  }
+  // componentWillUnmount() {
+  //   this.stopMusic();
+  //   this.keyListener.unsubscribe();
+  // }
 
   bgRandomizer = () => {
     const papers = this.state.papers;
@@ -77,6 +138,19 @@ export default class Game extends Component {
   };
 
   render() {
+    const GameStore = {
+      portalPosition: this.state.portalPosition,
+      stageX: this.state.stageX,
+      characterPosition: this.state.characterPosition,
+      isPortalOpen: this.state.isPortalOpen,
+
+      setStageX: this.setStageX,
+      openPortal: this.openPortal,
+      closePortal: this.closePortal,
+      setCharacterPosition: this.setCharacterPosition,
+      checkEnterPortal: this.checkEnterPortal,
+    };
+
     return (
       <Loop>
         <Stage style={{ background: "#3a9bdc" }}>
@@ -132,7 +206,7 @@ export default class Game extends Component {
       fade: true,
     });
     setTimeout(() => {
-      this.props.onLeave(index);
+      // this.props.onLeave(index);
     }, 500);
   }
 }

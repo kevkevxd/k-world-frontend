@@ -4,8 +4,6 @@ import { autorun } from "mobx";
 
 import { TileMap } from "react-game-kit";
 
-import GameStore from "./stores/game-store";
-
 const apikey = process.env.REACT_APP_ACCESS_APIKEY;
 
 export default class Level extends Component {
@@ -24,7 +22,7 @@ export default class Level extends Component {
   componentDidMount() {
     //character will get stuck at the first building w/o this
     this.cameraWatcher = autorun(() => {
-      const targetX = Math.round(GameStore.stageX * this.context.scale);
+      const targetX = Math.round(this.props.store.stageX * this.context.scale);
       this.setState({
         stageX: targetX,
       });
@@ -32,7 +30,7 @@ export default class Level extends Component {
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
-    const targetX = Math.round(GameStore.stageX * nextContext.scale);
+    const targetX = Math.round(this.props.store.stageX * nextContext.scale);
     this.setState({
       stageX: targetX,
     });
