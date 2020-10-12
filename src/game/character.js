@@ -118,6 +118,8 @@ export default class Character extends Component {
     if (keys.isDown(keys.LEFT)) {
       if (shouldMoveStageLeft) {
         store.setStageX(store.stageX + 5);
+        store.checkIcecreamLoot();
+        store.checkEnterPortal();
       }
 
       this.move(body, -5);

@@ -15,6 +15,8 @@ export default class Game extends Component {
     onLeave: PropTypes.func,
   };
 
+  static iceCreamColors = ["red", "yellow", "blue", "green", "black"];
+
   constructor() {
     super();
     this.keyListener = new KeyListener();
@@ -101,10 +103,11 @@ export default class Game extends Component {
     }
   };
   icecreamSpawner = () => {
-    const iceCreamColors = ["red", "yellow", "blue", "green", "black"];
     const icecreamSpawnChance = Math.round(Math.random() * 10);
     if (icecreamSpawnChance >= 1) {
-      this.setState({ isIcecreamThere: true });
+      this.setState({
+        isIcecreamThere: true,
+      });
     }
   };
 
@@ -113,14 +116,19 @@ export default class Game extends Component {
       this.state.characterPosition.x >= this.state.icecreamPosition.x - 24 &&
       this.state.characterPosition.x <= this.state.icecreamPosition.x + 24
     ) {
-      this.lootIcecream();
-      this.setState({ isIcecreamThere: false });
+      console.log("eat ice cream");
+      // console.log(this.state);
+      this.setState({
+        isIcecreamThere: false,
+        // icecreamIndex: this.state.icecreamIndex + 1,
+      });
+      // this.lootIcecream();
+      // console.log("iceindex:", this.state.icecreamIndex);
     }
   };
 
   lootIcecream = () => {
     console.log("icecream looted");
-    this.setState({ icecreamIndex: this.state.icecreamIndex + 1 });
     console.log("iceindex:", this.state.icecreamIndex);
     //make icecream dissappear.
     //make it appear in bag => send to backend + hold bag state.
@@ -158,6 +166,17 @@ export default class Game extends Component {
           backgroundIndex: Math.round(Math.random() * papers.length),
         });
       });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      prevState.isIcecreamThere === true &&
+      this.state.isIcecreamThere === false &&
+      // the next one will be 4 which is the last index
+      this.state.icecreamIndex <= 3
+    ) {
+      this.setState({ icecreamIndex: this.state.icecreamIndex + 1 });
+    }
   }
 
   componentWillUnmount() {
@@ -219,7 +238,10 @@ export default class Game extends Component {
               keys={this.keyListener}
             />
             <Portal store={GameStore} />
-            <Icecream store={GameStore} />
+            <Icecream
+              store={GameStore}
+              currentIndex={this.state.icecreamIndex}
+            />
           </World>
         </Stage>
         <Fade visible={this.state.fade} />
