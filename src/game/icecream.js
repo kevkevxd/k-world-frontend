@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Body, Sprite } from "react-game-kit";
-
-class Portal extends React.Component {
+import IcecreamIcon from "../assets/SVG/icecreamIcon";
+class Icecream extends React.Component {
   static propTypes = {
     keys: PropTypes.object,
     store: PropTypes.object,
@@ -14,28 +14,26 @@ class Portal extends React.Component {
   };
 
   getWrapperStyles() {
-    const { portalPosition, stageX } = this.props.store;
+    const { icecreamPosition, stageX } = this.props.store;
     const { scale } = this.context;
-    const { x, y } = portalPosition;
+    const { x, y } = icecreamPosition;
     const targetX = x + stageX;
     const targetY = y;
 
     return {
       position: "absolute",
-      // Translate is a CSS property that will move the container
       transform: `translate(${targetX * scale}px, ${targetY * scale}px)`,
       transformOrigin: "left top",
     };
   }
-
   render() {
     const x = this.props.store.characterPosition.x;
     return (
-      this.props.store.isPortalOpen && (
-        <div className="portal" style={this.getWrapperStyles()}>
-          <img src="assets/portal.png" style={{ width: "auto", height: 150 }} />
+      this.props.store.isIcecreamThere && (
+        <div className="icecream" style={this.getWrapperStyles()}>
+          <IcecreamIcon style={{ width: 75 }} />
           {/* <Body
-            label="portal"
+            label="icecream"
             args={[x, 384, 120, 120]}
             inertia={Infinity}
             ref={(b) => {
@@ -49,4 +47,4 @@ class Portal extends React.Component {
   }
 }
 
-export default Portal;
+export default Icecream;
