@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Matter from "matter-js";
-
+import Icecream from "./icecream";
 import { AudioPlayer, Loop, Stage, World } from "react-game-kit";
 import Portal from "./Portal";
 import Character from "./character";
@@ -25,13 +25,16 @@ export default class Game extends Component {
       fade: true,
       papers: [],
       backgroundIndex: 0,
+      icecreamIndex: 0,
       currentPaper: "url",
 
       // game store
       characterPosition: { x: 0, y: 0 },
       stageX: 0,
       portalPosition: { x: 0, y: 0 },
+      icecreamPosition: { x: 500, y: 220 },
       isPortalOpen: false,
+      isIcecreamThere: false,
     };
 
     this.handleEnterBuilding = this.handleEnterBuilding.bind(this);
@@ -59,6 +62,7 @@ export default class Game extends Component {
     });
   };
 
+  //// portal behavior ////////////////////////////////////
   setPortalPosition = (position) => {
     this.setState({
       portalPosition: position,
@@ -67,7 +71,7 @@ export default class Game extends Component {
 
   openPortal = () => {
     const newPortalPosition = {
-      x: this.state.characterPosition.x + 500,
+      x: this.state.characterPosition.x + 250,
       y: this.state.characterPosition.y - 40,
     };
 
@@ -84,17 +88,41 @@ export default class Game extends Component {
       isPortalOpen: false,
     });
     this.bgRandomizer();
+    this.icecreamSpawner();
   };
 
   checkEnterPortal = () => {
     if (
       this.state.characterPosition.x >= this.state.portalPosition.x - 20 &&
-      this.state.characterPosition.x <= this.state.portalPosition.x + 20
+      this.state.characterPosition.x <= this.state.portalPosition.x + 20 &&
+      this.state.isPortalOpen
     ) {
       this.closePortal();
     }
   };
+  icecreamSpawner = () => {
+    const icecreamIndex = Math.round(Math.random() * 10);
+    if (icecreamIndex >= 1) {
+      this.setState({ isIcecreamThere: true });
+    }
+  };
 
+  checkIcecreamLoot = () => {
+    if (
+      this.state.characterPosition.x >= this.state.icecreamPosition.x - 20 &&
+      this.state.characterPosition.x <= this.state.icecreamPosition.x + 20
+    ) {
+      this.lootIcecream();
+      this.setState({ isIcecreamThere: false });
+    }
+  };
+
+  lootIcecream = () => {
+    console.log("icecream looted");
+    //make icecream dissappear.
+    //make it appear in bag => send to backend + hold bag state.
+  };
+  //////////////////////////////////////////////////////////
   //base music
   componentDidMount() {
     this.player = new AudioPlayer("/assets/ellinia.wav", () => {
@@ -118,7 +146,7 @@ export default class Game extends Component {
       this.keyListener.CTRL,
     ]);
 
-    fetch("http://localhost:5000/ocean_papers")
+    fetch("http://localhost:5000/space_papers")
       .then((res) => res.json())
       .then((data) => {
         const papers = data.map((paper) => paper.source);
@@ -143,17 +171,23 @@ export default class Game extends Component {
   };
 
   render() {
+    // console.log(this.state.characterPosition);
+    // console.log(this.state.icecreamPosition);
     const GameStore = {
       portalPosition: this.state.portalPosition,
       stageX: this.state.stageX,
       characterPosition: this.state.characterPosition,
       isPortalOpen: this.state.isPortalOpen,
+      icecreamPosition: this.state.icecreamPosition,
+      isIcecreamThere: this.state.isIcecreamThere,
 
       setStageX: this.setStageX,
       openPortal: this.openPortal,
       closePortal: this.closePortal,
       setCharacterPosition: this.setCharacterPosition,
       checkEnterPortal: this.checkEnterPortal,
+      checkIcecreamLoot: this.checkIcecreamLoot,
+      lootIcecream: this.lootIcecream,
     };
 
     return (
@@ -182,6 +216,7 @@ export default class Game extends Component {
               keys={this.keyListener}
             />
             <Portal store={GameStore} />
+            <Icecream store={GameStore} />
           </World>
         </Stage>
         <Fade visible={this.state.fade} />
@@ -199,7 +234,7 @@ export default class Game extends Component {
       isStatic: true,
     });
 
-    const leftWall = Matter.Bodies.rectangle(-64, 288, 64, 576, {
+    const leftWall = Matter.Bodies.rectangle(-80, 288, 64, 576, {
       isStatic: true,
     });
 

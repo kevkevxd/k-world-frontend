@@ -29,7 +29,7 @@ class Pet extends React.Component {
   }
   render() {
     return (
-      <div className="portal" style={this.getWrapperStyles()}>
+      <div className="pet" style={this.getWrapperStyles()}>
         <Body
           args={[300, 384, 64, 64]}
           inertia={Infinity}
