@@ -47,17 +47,8 @@ export default class Level extends Component {
       transformOrigin: "top left",
     };
   }
-  // componentDidMount() {
-  //   fetch(
-  //     `https://api.unsplash.com/photos/random?page=1&query=space&w=3072&h=512&fit=max&dpr=2&client_id=${apikey}`
-  //   )
-  //     .then((res) => res.json)
-  //     .then((data) => console.log(data));
-  // }
-  render() {
-    const pretendWorkingApiPull =
-      "https://images.unsplash.com/photo-1532891463981-a5b6ca49f344?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&h=512&w=3072&fit=crop&ixid=eyJhcHBfaWQiOjE3MjgzNH0";
 
+  render() {
     return (
       <div style={this.getWrapperStyles()}>
         <TileMap
@@ -65,81 +56,9 @@ export default class Level extends Component {
           src="assets/Space.png"
           tileSize={128}
           columns={24}
-          rows={4}
+          rows={1}
           layers={[
             [
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
               1,
               1,
               1,
