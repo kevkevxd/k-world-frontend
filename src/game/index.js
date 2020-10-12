@@ -15,7 +15,7 @@ export default class Game extends Component {
     onLeave: PropTypes.func,
   };
 
-  static iceCreamColors = ["red", "yellow", "blue", "green", "black"];
+  // static iceCreamColors = ["red", "yellow", "blue", "green", "black"];
 
   constructor() {
     super();
@@ -34,7 +34,7 @@ export default class Game extends Component {
       characterPosition: { x: 0, y: 0 },
       stageX: 0,
       portalPosition: { x: 0, y: 0 },
-      icecreamPosition: { x: 500, y: 220 },
+      icecreamPosition: { x: 500, y: 245 },
       isPortalOpen: false,
       isIcecreamThere: false,
     };

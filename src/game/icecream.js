@@ -54,15 +54,6 @@ class Icecream extends React.Component {
             primaryColor={primary}
             shadingColor={shading}
           />
-          {/* <Body
-            label="icecream"
-            args={[x, 384, 120, 120]}
-            inertia={Infinity}
-            ref={(b) => {
-              this.body = b;
-            }}
-          >
-          </Body> */}
         </div>
       )
     );
