@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Body, Sprite } from "react-game-kit";
+// import { Body, Sprite } from "react-game-kit";
 import IcecreamIcon from "../assets/SVG/icecreamIcon";
 class Icecream extends React.Component {
   static propTypes = {
@@ -36,8 +36,13 @@ class Icecream extends React.Component {
       { primary: "#3e4541", shading: "#2e3330" },
     ];
     const iceMap = icecreamColors.map(({ primary, shading }) => (
-      <IcecreamIcon style={{ width: 75 }} primary={primary} shading={shading} />
+      <IcecreamIcon
+        style={{ width: 75 }}
+        primaryColor={primary}
+        shadingColor={shading}
+      />
     ));
+
     return (
       this.props.store.isIcecreamThere && (
         <div className="icecream" style={this.getWrapperStyles()}>
