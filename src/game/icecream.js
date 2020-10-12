@@ -35,13 +35,6 @@ class Icecream extends React.Component {
       { primary: "#65e08e", shading: "#42995f" },
       { primary: "#3e4541", shading: "#2e3330" },
     ];
-    // const iceMap = icecreamColors.map(({ primary, shading }) => (
-    //   <IcecreamIcon
-    //     style={{ width: 75 }}
-    //     primaryColor={primary}
-    //     shadingColor={shading}
-    //   />
-    // ));
 
     const primary = icecreamColors[this.props.currentIndex].primary;
     const shading = icecreamColors[this.props.currentIndex].shading;
