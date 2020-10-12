@@ -34,7 +34,7 @@ export default class Game extends Component {
       characterPosition: { x: 0, y: 0 },
       stageX: 0,
       portalPosition: { x: 0, y: 0 },
-      icecreamPosition: { x: 500, y: 245 },
+      icecreamPosition: { x: 500, y: 320 },
       isPortalOpen: false,
       isIcecreamThere: false,
     };
@@ -255,7 +255,7 @@ export default class Game extends Component {
 
   physicsInit(engine) {
     //adds barriers to our game
-    const ground = Matter.Bodies.rectangle(512 * 3, 448, 1024 * 3, 64, {
+    const ground = Matter.Bodies.rectangle(512 * 3, 520, 1024 * 3, 64, {
       isStatic: true,
     });
 
