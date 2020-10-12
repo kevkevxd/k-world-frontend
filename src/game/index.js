@@ -38,8 +38,25 @@ export default class Game extends Component {
       isPortalOpen: false,
       isIcecreamThere: false,
     };
+  }
 
-    this.handleEnterBuilding = this.handleEnterBuilding.bind(this);
+  physicsInit(engine) {
+    //adds barriers to our game
+    const ground = Matter.Bodies.rectangle(512 * 3, 520, 1024 * 3, 64, {
+      isStatic: true,
+    });
+
+    const leftWall = Matter.Bodies.rectangle(-88, 288, 64, 1000, {
+      isStatic: true,
+    });
+
+    const rightWall = Matter.Bodies.rectangle(3100, 288, 64, 1000, {
+      isStatic: true,
+    });
+
+    Matter.World.addBody(engine.world, ground);
+    Matter.World.addBody(engine.world, leftWall);
+    Matter.World.addBody(engine.world, rightWall);
   }
 
   // Setting state in game store
@@ -88,9 +105,14 @@ export default class Game extends Component {
     console.log("closePortal");
     this.setState({
       isPortalOpen: false,
+      fade: true,
     });
-    this.bgRandomizer();
-    this.icecreamSpawner();
+    setTimeout(() => {
+      this.bgRandomizer();
+    }, 680);
+    setTimeout(() => {
+      this.icecreamSpawner();
+    }, 1970);
   };
 
   checkEnterPortal = () => {
@@ -127,12 +149,6 @@ export default class Game extends Component {
     }
   };
 
-  lootIcecream = () => {
-    console.log("icecream looted");
-    console.log("iceindex:", this.state.icecreamIndex);
-    //make icecream dissappear.
-    //make it appear in bag => send to backend + hold bag state.
-  };
   //////////////////////////////////////////////////////////
   //base music
   componentDidMount() {
@@ -160,7 +176,7 @@ export default class Game extends Component {
     fetch("http://localhost:5000/space_papers")
       .then((res) => res.json())
       .then((data) => {
-        const papers = data.map((paper) => paper.source);
+        const papers = data.map((paper) => paper.raw);
         this.setState({
           papers, // same as papers: papers (only works when its the same name)
           backgroundIndex: Math.round(Math.random() * papers.length),
@@ -189,6 +205,7 @@ export default class Game extends Component {
 
     this.setState({
       backgroundIndex: Math.round(Math.random() * papers.length),
+      fade: false,
     });
   };
 
@@ -232,11 +249,7 @@ export default class Game extends Component {
               store={GameStore}
               currentPaper={this.state.papers[this.state.backgroundIndex]}
             />
-            <Character
-              onEnterBuilding={this.handleEnterBuilding}
-              store={GameStore}
-              keys={this.keyListener}
-            />
+            <Character store={GameStore} keys={this.keyListener} />
             <Portal store={GameStore} />
             <Icecream
               store={GameStore}
@@ -247,37 +260,5 @@ export default class Game extends Component {
         <Fade visible={this.state.fade} />
       </Loop>
     );
-  }
-
-  //onCollision(engine) {
-
-  // }
-
-  physicsInit(engine) {
-    //adds barriers to our game
-    const ground = Matter.Bodies.rectangle(512 * 3, 520, 1024 * 3, 64, {
-      isStatic: true,
-    });
-
-    const leftWall = Matter.Bodies.rectangle(-80, 288, 64, 576, {
-      isStatic: true,
-    });
-
-    const rightWall = Matter.Bodies.rectangle(3008, 288, 64, 576, {
-      isStatic: true,
-    });
-
-    Matter.World.addBody(engine.world, ground);
-    Matter.World.addBody(engine.world, leftWall);
-    Matter.World.addBody(engine.world, rightWall);
-  }
-
-  handleEnterBuilding(index) {
-    this.setState({
-      fade: true,
-    });
-    setTimeout(() => {
-      // this.props.onLeave(index);
-    }, 500);
   }
 }
