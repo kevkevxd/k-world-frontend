@@ -101,16 +101,17 @@ export default class Game extends Component {
     }
   };
   icecreamSpawner = () => {
-    const icecreamIndex = Math.round(Math.random() * 10);
-    if (icecreamIndex >= 1) {
+    const iceCreamColors = ["red", "yellow", "blue", "green", "black"];
+    const icecreamSpawnChance = Math.round(Math.random() * 10);
+    if (icecreamSpawnChance >= 1) {
       this.setState({ isIcecreamThere: true });
     }
   };
 
   checkIcecreamLoot = () => {
     if (
-      this.state.characterPosition.x >= this.state.icecreamPosition.x - 20 &&
-      this.state.characterPosition.x <= this.state.icecreamPosition.x + 20
+      this.state.characterPosition.x >= this.state.icecreamPosition.x - 24 &&
+      this.state.characterPosition.x <= this.state.icecreamPosition.x + 24
     ) {
       this.lootIcecream();
       this.setState({ isIcecreamThere: false });
@@ -119,6 +120,8 @@ export default class Game extends Component {
 
   lootIcecream = () => {
     console.log("icecream looted");
+    this.setState({ icecreamIndex: this.state.icecreamIndex + 1 });
+    console.log("iceindex:", this.state.icecreamIndex);
     //make icecream dissappear.
     //make it appear in bag => send to backend + hold bag state.
   };
