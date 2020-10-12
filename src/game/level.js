@@ -52,7 +52,7 @@ export default class Level extends Component {
     return (
       <div style={this.getWrapperStyles()}>
         <TileMap
-          style={{ top: Math.floor(64 * this.context.scale) }}
+          style={{ top: Math.floor(64 * this.context.scale), opacity: 0.25 }}
           src="assets/Space.png"
           tileSize={76}
           columns={41}
