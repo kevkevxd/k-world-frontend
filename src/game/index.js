@@ -102,7 +102,6 @@ export default class Game extends Component {
   };
 
   closePortal = () => {
-    console.log("closePortal");
     this.setState({
       isPortalOpen: false,
       fade: true,
@@ -125,10 +124,14 @@ export default class Game extends Component {
     }
   };
   icecreamSpawner = () => {
+    const min = 500;
+    const max = 2500;
+    const icecreamSpawnLocation = Math.floor(Math.random() * (max - min) + min);
     const icecreamSpawnChance = Math.round(Math.random() * 10);
-    if (icecreamSpawnChance >= 1) {
+    if (icecreamSpawnChance >= 5) {
       this.setState({
         isIcecreamThere: true,
+        icecreamPosition: { x: icecreamSpawnLocation, y: 320 },
       });
     }
   };
@@ -138,14 +141,9 @@ export default class Game extends Component {
       this.state.characterPosition.x >= this.state.icecreamPosition.x - 24 &&
       this.state.characterPosition.x <= this.state.icecreamPosition.x + 24
     ) {
-      console.log("eat ice cream");
-      // console.log(this.state);
       this.setState({
         isIcecreamThere: false,
-        // icecreamIndex: this.state.icecreamIndex + 1,
       });
-      // this.lootIcecream();
-      // console.log("iceindex:", this.state.icecreamIndex);
     }
   };
 
