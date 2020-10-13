@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Body, Sprite } from "react-game-kit";
 
 class Portal extends React.Component {
   static propTypes = {
@@ -29,20 +28,14 @@ class Portal extends React.Component {
   }
 
   render() {
-    const x = this.props.store.characterPosition.x;
     return (
       this.props.store.isPortalOpen && (
         <div className="portal" style={this.getWrapperStyles()}>
-          <img src="assets/portal.png" style={{ width: "auto", height: 150 }} />
-          {/* <Body
-            label="portal"
-            args={[x, 384, 120, 120]}
-            inertia={Infinity}
-            ref={(b) => {
-              this.body = b;
-            }}
-          >
-          </Body> */}
+          <img
+            src="assets/portal.png"
+            alt=""
+            style={{ width: "auto", height: 150 }}
+          />
         </div>
       )
     );
