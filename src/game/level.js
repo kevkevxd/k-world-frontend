@@ -4,8 +4,6 @@ import { autorun } from "mobx";
 
 import { TileMap } from "react-game-kit";
 
-const apikey = process.env.REACT_APP_ACCESS_APIKEY;
-
 export default class Level extends Component {
   static contextTypes = {
     scale: PropTypes.number,
