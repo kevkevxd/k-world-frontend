@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-// import { Body, Sprite } from "react-game-kit";
 import IcecreamIcon from "../assets/SVG/icecreamIcon";
 class Icecream extends React.Component {
   static propTypes = {
@@ -27,7 +26,6 @@ class Icecream extends React.Component {
     };
   }
   render() {
-    const x = this.props.store.characterPosition.x;
     const icecreamColors = [
       { primary: "#e7886e", shading: "#dc6646" },
       { primary: "#e8f70f", shading: "#d8e60e" },
