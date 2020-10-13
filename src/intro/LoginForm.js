@@ -27,7 +27,7 @@ class LoginForm extends React.Component {
     // ));
     return (
       <div>
-        <SpriteSelect sprites={this.props.characterArray} />;
+        <SpriteSelect sprites={this.props.characterArray} />
         <Form onSubmit={this.characterSubmitHandler}>
           <Form.Control
             size="lg"
@@ -54,8 +54,6 @@ class LoginForm extends React.Component {
           />
           <Button type="submit" name="submit" className="form-button"></Button>
         </Form>
-        {/* <SpriteSelect sprites={} />
-        <SpriteSelect sprites={} /> */}
       </div>
     );
   }

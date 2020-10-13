@@ -8,7 +8,7 @@ class App extends React.Component {
     currentScreenIndex: 0,
     characterArray: [
       {
-        name: "Kevin",
+        name: "Poof",
         src: "assets/leattyspritesheet.png",
       },
     ],
