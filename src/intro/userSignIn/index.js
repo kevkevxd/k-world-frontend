@@ -24,7 +24,7 @@ componentDidMount() {
     <div>
       <h1>Who are you?</h1> 
         <div className="user-select-form">
-          <UserSelectForm users={this.state.allUsers} userSelector={this.props.userSelector}/>
+          <UserSelectForm users={this.state.allUsers} userSelector={this.props.userSelector} />
         </div>
         <div className="user-right-show">
           <UserRightShow gameProfile={this.props.gameProfile}/>

@@ -62,6 +62,7 @@ class App extends React.Component {
       //select user still needs a button to sign in and change gamestate to 4
     console.log("userSelector APP:", user)
   }
+
   render() {
     console.log("signedinas", this.state.gameProfile)
 
