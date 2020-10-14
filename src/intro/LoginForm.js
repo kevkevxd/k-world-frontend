@@ -3,6 +3,8 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import SpriteSelect from "./SpriteSelect";
 
+// todo: change name to SignupForm when creating new user
+
 class LoginForm extends React.Component {
   state = {
     username: "",

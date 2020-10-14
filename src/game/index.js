@@ -136,6 +136,41 @@ export default class Game extends Component {
     }
   };
 
+  patchRequest = (patchIcecreamObj) => {
+    // fetch(url, {
+    //   body: {...patchIcecreamObj,
+    // make sure you pass in the current user data
+    // id: this.state.user.id
+    // username: this.state.user.username},
+    // }).then(
+    // )
+  }
+
+  patchIcecream = () => {
+      // switch statement here. icecream index = what goes inside of post
+      const iceIndex = this.state.icecreamIndex;
+      switch(iceIndex) {
+        // The first ice cream is red
+        case 0:
+          this.patchRequest({ has_red_icecream: true });
+          break;
+        // case 1:
+        //   // code block
+        //   break;
+        // case 2:
+        //     // code block
+        //   break;
+        // case 3:
+        //   // code block
+        //   break;
+        // case 4:
+        //     // code block
+        //   break;
+        // default:
+        //   // code block
+    }
+  };
+
   checkIcecreamLoot = () => {
     if (
       this.state.characterPosition.x >= this.state.icecreamPosition.x - 24 &&
@@ -144,8 +179,9 @@ export default class Game extends Component {
       this.setState({
         isIcecreamThere: false,
       });
+      // this.patchIcecream();
     }
-  };
+  }
 
   //////////////////////////////////////////////////////////
   //base music
@@ -208,8 +244,7 @@ export default class Game extends Component {
   };
 
   render() {
-    // console.log(this.state.characterPosition);
-    // console.log(this.state.icecreamPosition);
+
     const GameStore = {
       portalPosition: this.state.portalPosition,
       stageX: this.state.stageX,

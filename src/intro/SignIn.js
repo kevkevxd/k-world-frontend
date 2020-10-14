@@ -1,8 +1,12 @@
 import React from "react";
-import User from "./User"
+import propTypes from 'prop-types';
+import UserSelectForm from "./UserSelectForm";
 
 class SignIn extends React.Component {
 
+  // propTypes = {
+  //   userSelector: propTypes.func.isRequired,
+  // }
 state = {
     allUsers: [],
 }
@@ -15,10 +19,9 @@ componentDidMount() {
 }
 
   render() {
-    const userPool = this.state.allUsers
-    const userMap = userPool.map((person) => <User user={person} userSelector={this.props.userSelector}/>)
+    const userPool = this.state.allUsers;
     return (
-    <div><h1>Who are you?</h1> <div>{userMap}</div></div>
+    <div><h1>Who are you?</h1> <div><UserSelectForm users={userPool} userSelector={this.props.userSelector}/></div></div>
     );
   }
 }
