@@ -3,6 +3,7 @@ import Game from "./game";
 import Intro from "./intro";
 import LoginForm from "./intro/LoginForm";
 import SignIn from "./intro/SignIn"
+import Choice from "./intro/Choice"
 class App extends React.Component {
   state = {
     currentScreenIndex: 0,
@@ -30,6 +31,14 @@ class App extends React.Component {
       this.setState({ currentScreenIndex: 1 });
     }
   };
+  
+  choiceSelect = (choice) => {
+    if (choice === "Sign In") {
+      this.setState({ currentScreenIndex: 2})
+    } else if ( choice === "Sign Up") {
+      this.setState({ currentScreenIndex: 3})
+    }
+  }
 
   onFormComplete = (characterFormObj) => {
     fetch("http://localhost:5003/users", {
@@ -45,7 +54,7 @@ class App extends React.Component {
       //   this.setState({ gameProfile: [newObj, ...this.state.gameProfile] })
       // );
 
-    this.setState({ currentScreenIndex: 2 });
+    this.setState({ currentScreenIndex: 4 });
   };
 
   userSelector = (user) => {
@@ -53,15 +62,16 @@ class App extends React.Component {
     //maybe make this a form from bottom level 
     console.log("54:", user)
   }
-
   render() {
     console.log("signedin", this.state.signedInProfile)
     const showScreen = () => {
       if (this.state.currentScreenIndex === 0) {
-        return <Intro />;
-      // } else if (this.state.currentScreenIndex === 1) {
-      //   return <SignIn userSelector={this.userSelector}/>
+          return <Intro />;
+      } else if (this.state.currentScreenIndex === 1) {
+          return <Choice choiceSelect={this.choiceSelect}/> 
       } else if (this.state.currentScreenIndex === 2) {
+          return <SignIn userSelector={this.userSelector}/>
+      } else if (this.state.currentScreenIndex === 3) {
           return (
             <LoginForm
               onFormComplete={this.onFormComplete}

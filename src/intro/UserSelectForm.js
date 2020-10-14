@@ -9,15 +9,12 @@ class UserSelectForm extends React.Component {
 
   onSelectChange = (e) => {
       e.preventDefault();
-      // this.props.userSelector(e.currentTarget.getAttribute('data-user'))
-      // console.log("click:", e.currentTarget.getAttribute('data-user'))
-      // console.log("props???", this.props)
-      //currenttarget is giving object object. 
+
       console.log(e.target.value);
       // this.props.userSelector(e.target.value);
   }
   render() {
-
+    const userSelectMap = this.props.users.map( user => <option value={this.props.users}>{this.props.users.username}</option>)
     return (
        
     <select
@@ -25,10 +22,7 @@ class UserSelectForm extends React.Component {
     //   value={this.state.size}
         className="form-control"
       >
-        {users.map(
-          user =>
-            <option value={user.username}>{user.username}</option>
-        )}
+        {userSelectMap}
         {/* <option value="Medium">Medium</option>
         <option value="Large">Large</option> */}
     </select>
