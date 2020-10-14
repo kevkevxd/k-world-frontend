@@ -171,10 +171,10 @@ export default class Game extends Component {
       this.keyListener.CTRL,
     ]);
 
-    fetch("http://localhost:5000/space_papers")
+    fetch("http://localhost:5003/wallpapers")
       .then((res) => res.json())
-      .then((data) => {
-        const papers = data.map((paper) => paper.raw);
+      .then((data) => { 
+        const papers = data.map((paper) => paper.source);
         this.setState({
           papers, // same as papers: papers (only works when its the same name)
           backgroundIndex: Math.round(Math.random() * papers.length),
@@ -233,7 +233,7 @@ export default class Game extends Component {
           style={{
             background: `url(${
               this.state.papers[this.state.backgroundIndex]
-            }) center / cover no-repeat`,
+            }&w=1400&fit=max) center / cover no-repeat`,
           }}
         >
           <World
