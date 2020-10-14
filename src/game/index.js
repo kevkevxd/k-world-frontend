@@ -34,7 +34,7 @@ export default class Game extends Component {
       characterPosition: { x: 0, y: 0 },
       stageX: 0,
       portalPosition: { x: 0, y: 0 },
-      icecreamPosition: { x: 500, y: 320 },
+      icecreamPosition: { x: 500, y: 320 }, //change y to character y
       isPortalOpen: false,
       isIcecreamThere: false,
     };
@@ -136,7 +136,7 @@ export default class Game extends Component {
     }
   };
 
-  patchRequest = (patchIcecreamObj) => {
+  patchRequest = (patchIcecreamObj, id) => {
     // fetch(url, {
     //   body: {...patchIcecreamObj,
     // make sure you pass in the current user data
@@ -155,16 +155,19 @@ export default class Game extends Component {
           this.patchRequest({ has_red_icecream: true });
           break;
         // case 1:
-        //   // code block
+        // this.patchRequest({ has_red_icecream: true })
         //   break;
         // case 2:
-        //     // code block
+        // this.patchRequest({ has_blue_icecream: true })
         //   break;
         // case 3:
-        //   // code block
+        // this.patchRequest({ has_yellow_icecream: true })
         //   break;
         // case 4:
-        //     // code block
+        // this.patchRequest({ has_green_icecream: true })
+        //   break;
+        // case 5:
+        // this.patchRequest({ has_black_icecream: true })
         //   break;
         // default:
         //   // code block
