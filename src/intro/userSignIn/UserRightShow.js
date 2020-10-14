@@ -6,16 +6,14 @@ class UserRightShow extends React.Component {
   // propTypes = {
   //   userSelector: propTypes.func.isRequired,
   // }
-state = {
-    allUsers: [],
-}
-  
-  render() {
 
+  render() {
+      //currently don't have access to the SRC of selected game profile. 
     return (
       <div>
-        {this.props.sprite.name}
-        <div data-sprite-name={this.props.sprite.name} onClick={this.pickCharacter}
+         {this.props.gameProfile.username}
+        {this.props.gameProfile.character}
+        <div data-sprite-name={this.props.gameProfile.character} 
           style={{
             height: "64px",
             width: "64px",
@@ -27,8 +25,8 @@ state = {
             style={{
               position: "absolute",
             }}
-            src={this.props.sprite.src}
-            alt={this.props.sprite.name}
+            src={this.props.gameProfile.character_src}
+            alt={this.props.gameProfile.username}
           />
         </div>
       </div>

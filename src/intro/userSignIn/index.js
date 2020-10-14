@@ -1,6 +1,7 @@
 import React from "react";
 import propTypes from 'prop-types';
 import UserSelectForm from "./UserSelectForm";
+import UserRightShow from "./UserRightShow"
 
 class SignIn extends React.Component {
 
@@ -27,7 +28,7 @@ componentDidMount() {
           <UserSelectForm users={this.state.allUsers} userSelector={this.props.userSelector}/>
         </div>
         <div className="user-right-show">
-          <UserRightShow/>
+          <UserRightShow gameProfile={this.props.gameProfile}/>
         </div>
     </div>
     );
