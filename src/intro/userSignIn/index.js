@@ -20,7 +20,6 @@ componentDidMount() {
 }
 
   render() {
-    console.log("allusersarray:", this.state.allUsers)
     return (
     <div>
       <h1>Who are you?</h1> 
