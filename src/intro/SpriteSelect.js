@@ -19,7 +19,7 @@ class SpriteSelect extends React.Component {
   render() {
     const spriteArray = this.props.sprites;
     const spriteRender = spriteArray.map((sprite) => (
-      <Toon key={sprite} sprite={sprite} />
+      <Toon key={sprite} sprite={sprite} characterHandler={this.props.characterHandler}/>
     ));
     return <div>{spriteRender}</div>;
     // const spriteArray = this.props.sprites;
