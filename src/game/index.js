@@ -217,6 +217,7 @@ export default class Game extends Component {
       isPortalOpen: this.state.isPortalOpen,
       icecreamPosition: this.state.icecreamPosition,
       isIcecreamThere: this.state.isIcecreamThere,
+      icecreamIndex: this.state.icecreamIndex,
 
       setStageX: this.setStageX,
       openPortal: this.openPortal,
@@ -257,6 +258,7 @@ export default class Game extends Component {
         </Stage>
         <Fade visible={this.state.fade} />
       </Loop>
+      
     );
   }
 }

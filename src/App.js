@@ -2,7 +2,7 @@ import React from "react";
 import Game from "./game";
 import Intro from "./intro";
 import LoginForm from "./intro/LoginForm";
-
+import SignIn from "./intro/SignIn"
 class App extends React.Component {
   state = {
     currentScreenIndex: 0,
@@ -14,6 +14,7 @@ class App extends React.Component {
     ],
     companionArray: [],
     gameProfile: [],
+    signedInProfile: [],
   };
 
   //add a section on screenindex 2 for showing already created
@@ -47,19 +48,30 @@ class App extends React.Component {
     this.setState({ currentScreenIndex: 2 });
   };
 
+  userSelector = (user) => {
+    this.setState({signedInProfile: user})
+    //maybe make this a form from bottom level 
+    console.log("54:", user)
+  }
+
   render() {
+    console.log("signedin", this.state.signedInProfile)
     const showScreen = () => {
       if (this.state.currentScreenIndex === 0) {
         return <Intro />;
-      } else if (this.state.currentScreenIndex === 1) {
-        return (
-          <LoginForm
-            onFormComplete={this.onFormComplete}
-            characterArray={this.state.characterArray}
-            // companionArray={this.state.companionArray}
-          />
-        );
+      // } else if (this.state.currentScreenIndex === 1) {
+      //   return <SignIn userSelector={this.userSelector}/>
+      } else if (this.state.currentScreenIndex === 2) {
+          return (
+            <LoginForm
+              onFormComplete={this.onFormComplete}
+              characterArray={this.state.characterArray}
+              // companionArray={this.state.companionArray}
+            />
+          );
       }
+      //loginform
+      //game profile not empty? return game.
       return <Game />;
     };
     return <div className="App">{showScreen()}</div>;

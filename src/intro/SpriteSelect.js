@@ -1,5 +1,5 @@
 import React from "react";
-import ScrollButton from "./button";
+import ScrollButton from "../utils/button";
 import Toon from "./Toon";
 class SpriteSelect extends React.Component {
   // state = {
