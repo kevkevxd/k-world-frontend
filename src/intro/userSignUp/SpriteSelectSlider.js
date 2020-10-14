@@ -1,7 +1,7 @@
 import React from "react";
 import ScrollButton from "../../utils/button";
-import Toon from "../Toon";
-class SpriteSelect extends React.Component {
+import Toon from "./Toon";
+class SpriteSelectSlider extends React.Component {
   // state = {
   //   displayIndex: 0,
   // };
@@ -19,7 +19,7 @@ class SpriteSelect extends React.Component {
   render() {
     const spriteArray = this.props.sprites;
     const spriteRender = spriteArray.map((sprite) => (
-      <Toon key={sprite} sprite={sprite} characterHandler={this.props.characterHandler}/>
+      <Toon key={sprite} sprite={sprite} characterHandler={this.props.characterHandler} setCharacterSrc={this.props.setCharacterSrc}/>
     ));
     return <div>{spriteRender}</div>;
     // const spriteArray = this.props.sprites;
@@ -72,4 +72,4 @@ class SpriteSelect extends React.Component {
   }
 }
 
-export default SpriteSelect;
+export default SpriteSelectSlider;

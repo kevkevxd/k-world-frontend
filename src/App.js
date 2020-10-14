@@ -1,7 +1,7 @@
 import React from "react";
 import Game from "./game";
 import Intro from "./intro";
-import LoginForm from "./intro/userSignUp/LoginForm";
+import LoginForm from "./intro/userSignUp/SignUpForm";
 import SignIn from "./intro/userSignIn"
 import Choice from "./intro/Choice"
 
@@ -63,14 +63,15 @@ class App extends React.Component {
     console.log("54:", user)
   }
   render() {
-    console.log("signedin", this.state.signedInProfile)
+    console.log("signedin", this.state.gameProfile)
+
     const showScreen = () => {
       if (this.state.currentScreenIndex === 0) {
           return <Intro />;
       } else if (this.state.currentScreenIndex === 1) {
           return <Choice choiceSelect={this.choiceSelect}/> 
       } else if (this.state.currentScreenIndex === 2) {
-          return <SignIn userSelector={this.userSelector}/>
+          return <SignIn userSelector={this.userSelector} gameProfile={this.state.gameProfile}/>
       } else if (this.state.currentScreenIndex === 3) {
           return (
             <LoginForm

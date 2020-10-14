@@ -1,18 +1,18 @@
 import React from "react";
 
-//use this in SpriteSelect + UserRightShow ?
 class Toon extends React.Component {
 
   pickCharacter = (e) => {
     e.preventDefault()
     this.props.characterHandler(e.currentTarget.getAttribute('data-sprite-name'))
+    this.props.setCharacterSrc(e.currentTarget.getAttribute('data-sprite-src'))
   }
 
   render() {
     return (
       <div className="sprite">
         {this.props.sprite.name}
-        <div data-sprite-name={this.props.sprite.name} onClick={this.pickCharacter}
+        <div data-sprite-name={this.props.sprite.name} data-sprite-src={this.props.sprite.src} onClick={this.pickCharacter}
           style={{
             height: "64px",
             width: "64px",

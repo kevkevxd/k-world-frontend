@@ -1,15 +1,17 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import SpriteSelect from "./SpriteSelect";
+import SpriteSelect from "./SpriteSelectSlider";
 
 // todo: change name to SignupForm when creating new user
 
-class LoginForm extends React.Component {
+class SignUpForm extends React.Component {
   state = {
     username: "",
     character: "",
+    character_src: "",
     // companion: "",
+    // companionSrc: "",
   };
 
   characterSubmitHandler = (e) => {
@@ -25,6 +27,9 @@ class LoginForm extends React.Component {
   pickCharacter = (char) => {
     this.setState({character: char})
   }
+  setCharacterSrc = (src) => {
+    this.setState({character_src: src})
+  }
   //make submit button only available if they've made a selection in each of the three
   render() {
     // have to pass in rendered jsx components to SpriteSelect
@@ -33,7 +38,7 @@ class LoginForm extends React.Component {
     // ));
     return (
       <div>
-        <SpriteSelect sprites={this.props.characterArray} characterHandler={this.pickCharacter} />
+        <SpriteSelect sprites={this.props.characterArray} characterHandler={this.pickCharacter} setCharacterSrc={this.setCharacterSrc} />
         <Form onSubmit={this.characterSubmitHandler}>
           <Form.Control
             size="lg"
@@ -50,6 +55,12 @@ class LoginForm extends React.Component {
             value={this.state.character} //change this to whatever the user clicks/maybe get rid of this
             className="form-input"
           />
+            <Form.Control
+            type="hidden"
+            name="character_src"
+            value={this.state.character_src} //change this to whatever the user clicks/maybe get rid of this
+            className="form-input"
+          />
           {/* <Form.Control
             type="hidden"
             name="companion"
@@ -64,4 +75,4 @@ class LoginForm extends React.Component {
   }
 }
 
-export default LoginForm;
+export default SignUpForm;
