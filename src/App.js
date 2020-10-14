@@ -59,11 +59,11 @@ class App extends React.Component {
 
   userSelector = (user) => {
     this.setState({gameProfile: user})
-    //maybe make this a form from bottom level 
-    console.log("54:", user)
+      //select user still needs a button to sign in and change gamestate to 4
+    console.log("userSelector APP:", user)
   }
   render() {
-    console.log("signedin", this.state.gameProfile)
+    console.log("signedinas", this.state.gameProfile)
 
     const showScreen = () => {
       if (this.state.currentScreenIndex === 0) {

@@ -9,10 +9,11 @@ class UserRightShow extends React.Component {
 
   render() {
       //currently don't have access to the SRC of selected game profile. 
+      console.log("gameprofile", this.props.gameProfile.username)
     return (
       <div>
-         {this.props.gameProfile.username}
-        {this.props.gameProfile.character}
+         <h1>{this.props.gameProfile.username}</h1>
+         <h1>{this.props.gameProfile.character}</h1>
         <div data-sprite-name={this.props.gameProfile.character} 
           style={{
             height: "64px",
