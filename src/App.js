@@ -1,9 +1,10 @@
 import React from "react";
 import Game from "./game";
 import Intro from "./intro";
-import LoginForm from "./intro/LoginForm";
-import SignIn from "./intro/SignIn"
+import LoginForm from "./intro/userSignUp/LoginForm";
+import SignIn from "./intro/userSignIn"
 import Choice from "./intro/Choice"
+
 class App extends React.Component {
   state = {
     currentScreenIndex: 0,
@@ -15,7 +16,6 @@ class App extends React.Component {
     ],
     companionArray: [],
     gameProfile: [],
-    signedInProfile: [],
   };
 
   //add a section on screenindex 2 for showing already created
@@ -50,15 +50,15 @@ class App extends React.Component {
       body: JSON.stringify(characterFormObj),
     })
       .then((res) => res.json())
-      .then((newObj) => console.log("post form:", newObj))
-      //   this.setState({ gameProfile: [newObj, ...this.state.gameProfile] })
-      // );
+      .then((newObj) => 
+        this.setState({ gameProfile: [newObj] })
+      );
 
     this.setState({ currentScreenIndex: 4 });
   };
 
   userSelector = (user) => {
-    this.setState({signedInProfile: user})
+    this.setState({gameProfile: user})
     //maybe make this a form from bottom level 
     console.log("54:", user)
   }
@@ -81,7 +81,7 @@ class App extends React.Component {
           );
       }
       //loginform
-      //game profile not empty? return game.
+      //check if game profile is empty or not
       return <Game />;
     };
     return <div className="App">{showScreen()}</div>;

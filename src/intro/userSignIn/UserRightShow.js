@@ -1,16 +1,19 @@
 import React from "react";
+import propTypes from 'prop-types';
 
-//use this in SpriteSelect + UserRightShow ?
-class Toon extends React.Component {
 
-  pickCharacter = (e) => {
-    e.preventDefault()
-    this.props.characterHandler(e.currentTarget.getAttribute('data-sprite-name'))
-  }
-
+class UserRightShow extends React.Component {
+  // propTypes = {
+  //   userSelector: propTypes.func.isRequired,
+  // }
+state = {
+    allUsers: [],
+}
+  
   render() {
+
     return (
-      <div className="sprite">
+      <div>
         {this.props.sprite.name}
         <div data-sprite-name={this.props.sprite.name} onClick={this.pickCharacter}
           style={{
@@ -29,8 +32,9 @@ class Toon extends React.Component {
           />
         </div>
       </div>
+
     );
   }
 }
 
-export default Toon;
+export default UserRightShow;
