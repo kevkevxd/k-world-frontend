@@ -19,9 +19,17 @@ componentDidMount() {
 }
 
   render() {
-    const userPool = this.state.allUsers;
+    console.log("allusersarray:", this.state.allUsers)
     return (
-    <div><h1>Who are you?</h1> <div><UserSelectForm users={userPool} userSelector={this.props.userSelector}/></div></div>
+    <div>
+      <h1>Who are you?</h1> 
+        <div className="user-select-form">
+          <UserSelectForm users={this.state.allUsers} userSelector={this.props.userSelector}/>
+        </div>
+        <div className="user-right-show">
+          <UserRightShow/>
+        </div>
+    </div>
     );
   }
 }
