@@ -19,12 +19,12 @@ export default class Level extends Component {
 
   componentDidMount() {
     //character will get stuck at the first building w/o this
-    this.cameraWatcher = () => {
+    this.cameraWatcher = autorun(() => {
       const targetX = Math.round(this.props.store.stageX * this.context.scale);
       this.setState({
         stageX: targetX,
       });
-    };
+    });
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
