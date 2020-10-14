@@ -15,7 +15,7 @@ class App extends React.Component {
       },
     ],
     companionArray: [],
-    gameProfile: [],
+    gameProfile: {},
   };
 
   //add a section on screenindex 2 for showing already created
@@ -83,7 +83,7 @@ class App extends React.Component {
       }
       //loginform
       //check if game profile is empty or not
-      return <Game />;
+      return <Game user={this.state.gameProfile} />;
     };
     return <div className="App">{showScreen()}</div>;
   }
