@@ -7,18 +7,22 @@ class LoginForm extends React.Component {
   state = {
     username: "",
     character: "",
-    companion: "",
+    // companion: "",
   };
 
   characterSubmitHandler = (e) => {
     e.preventDefault();
     this.props.onFormComplete(this.state);
+    console.log("formpage:", this.state)
   };
 
   formHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  pickCharacter = (char) => {
+    this.setState({character: char})
+  }
   //make submit button only available if they've made a selection in each of the three
   render() {
     // have to pass in rendered jsx components to SpriteSelect
@@ -27,7 +31,7 @@ class LoginForm extends React.Component {
     // ));
     return (
       <div>
-        <SpriteSelect sprites={this.props.characterArray} />
+        <SpriteSelect sprites={this.props.characterArray} characterHandler={this.pickCharacter} />
         <Form onSubmit={this.characterSubmitHandler}>
           <Form.Control
             size="lg"
@@ -42,16 +46,15 @@ class LoginForm extends React.Component {
             type="hidden"
             name="character"
             value={this.state.character} //change this to whatever the user clicks/maybe get rid of this
-            onChange={this.formHandler}
             className="form-input"
           />
-          <Form.Control
+          {/* <Form.Control
             type="hidden"
             name="companion"
             value={this.state.companion} //change this to whatever the user clicks/maybe get rid of this
             onChange={this.formHandler}
             className="form-input"
-          />
+          /> */}
           <Button type="submit" name="submit" className="form-button"></Button>
         </Form>
       </div>

@@ -13,6 +13,7 @@ class App extends React.Component {
       },
     ],
     companionArray: [],
+    gameProfile: [],
   };
 
   //add a section on screenindex 2 for showing already created
@@ -30,13 +31,19 @@ class App extends React.Component {
   };
 
   onFormComplete = (characterFormObj) => {
-    console.log(characterFormObj);
-    // send post request to /users
+    fetch("http://localhost:5003/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        accepts: "application/json",
+      },
+      body: JSON.stringify(characterFormObj),
+    })
+      .then((res) => res.json())
+      .then((newObj) => console.log("post form:", newObj))
+      //   this.setState({ gameProfile: [newObj, ...this.state.gameProfile] })
+      // );
 
-    // load the game w/ sprite and companion selections.
-
-    // Start the game
-    //possibily add a fade component here or a delay timer
     this.setState({ currentScreenIndex: 2 });
   };
 
@@ -49,7 +56,7 @@ class App extends React.Component {
           <LoginForm
             onFormComplete={this.onFormComplete}
             characterArray={this.state.characterArray}
-            companionArray={this.state.companionArray}
+            // companionArray={this.state.companionArray}
           />
         );
       }

@@ -1,11 +1,17 @@
 import React from "react";
 
 class Toon extends React.Component {
+
+  pickCharacter = (e) => {
+    e.preventDefault()
+    this.props.characterHandler(e.currentTarget.getAttribute('data-sprite-name'))
+  }
+
   render() {
     return (
       <div className="sprite">
         {this.props.sprite.name}
-        <div
+        <div data-sprite-name={this.props.sprite.name} onClick={this.pickCharacter}
           style={{
             height: "64px",
             width: "64px",
