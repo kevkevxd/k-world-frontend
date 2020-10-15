@@ -30,15 +30,32 @@ class Pet extends React.Component {
   render() {
     return (
       <div className="pet" style={this.getWrapperStyles()}>
-        <Body
+        {/* <img src="assets/leattyspritesheet.png" style={{ width: "auto", height: 150 }} /> */}
+        {/* <Body
           args={[300, 384, 64, 64]}
           inertia={Infinity}
           ref={(b) => {
             this.body = b;
           }}
         >
-          <img src="assets/portal.png" style={{ width: "auto", height: 150 }} />
-        </Body>
+        </Body> */}
+           <div 
+          style={{
+            height: "64px",
+            width: "64px",
+            overflow: "hidden",
+            position: "relative",
+          }}
+        >
+          <img
+            style={{
+              position: "absolute",
+            }}
+            src="assets/leattyspritesheet.png"
+            alt="companion"
+          />
+        </div>
+
       </div>
     );
   }

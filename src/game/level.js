@@ -27,7 +27,7 @@ export default class Level extends Component {
     });
   }
 
-  componentWillReceiveProps(nextProps, nextContext) {
+  UNSAFE_componentWillReceiveProps(nextProps, nextContext) {
     const targetX = Math.round(this.props.store.stageX * nextContext.scale);
     this.setState({
       stageX: targetX,
