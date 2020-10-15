@@ -149,7 +149,7 @@ export default class Game extends Component {
   patchIcecream = () => {
       // switch statement here. icecream index = what goes inside of post
       const iceIndex = this.state.icecreamIndex;
-      switch(iceIndex) {
+      switch(iceIndex) {j
         // The first ice cream is red
         case 0:
           this.patchRequest({ has_red_icecream: true });

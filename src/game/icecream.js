@@ -42,8 +42,8 @@ class Icecream extends React.Component {
         <div className="icecream" style={this.getWrapperStyles()}>
           <IcecreamIcon
             style={{ width: 75 }}
-            primaryColor={primary}
-            shadingColor={shading}
+            primarycolor={primary}
+            shadingcolor={shading}
           />
         </div>
       )
