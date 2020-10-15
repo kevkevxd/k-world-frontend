@@ -59,12 +59,11 @@ class App extends React.Component {
 
   userSelector = (user) => {
     this.setState({gameProfile: user})
-      //select user still needs a button to sign in and change gamestate to 4
-    console.log("userSelector APP:", user)
+        // make user actually represent gameprofile selection (sprites/icecreams)
+    this.setState({ currentScreenIndex: 4 });
   }
 
   render() {
-    console.log("signedinas", this.state.gameProfile)
 
     const showScreen = () => {
       if (this.state.currentScreenIndex === 0) {
@@ -84,7 +83,7 @@ class App extends React.Component {
       }
       //loginform
       //check if game profile is empty or not
-      return <Game user={this.state.gameProfile} />;
+      return <Game gameProfile={this.state.gameProfile} />;
     };
     return <div className="App">{showScreen()}</div>;
   }

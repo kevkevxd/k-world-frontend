@@ -8,8 +8,6 @@ class UserRightShow extends React.Component {
   // }
 
   render() {
-      //currently don't have access to the SRC of selected game profile. 
-      console.log("gameprofile", this.props.gameProfile.username)
     return (
       <div>
          <h1>{this.props.gameProfile.username}</h1>
