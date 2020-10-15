@@ -26,13 +26,13 @@ const icecreamIcon = (props) => (
       <g>
         <path
           d="m296 407.5h-80c-55.228 0-100-44.772-100-100v-160c0-77.32 62.68-140 140-140 77.32 0 140 62.68 140 140v160c0 55.228-44.772 100-100 100z"
-          fill={props.primaryColor} //front right color
+          fill={props.primarycolor} //front right color
         />
       </g>
       <g>
         <path
           d="m196 307.5v-160c0-63.419 42.172-116.979 100-134.191-12.675-3.773-26.099-5.809-40-5.809-77.32 0-140 62.68-140 140v160c0 55.229 44.772 100 100 100h80c-55.228 0-100-44.771-100-100z"
-          fill={props.shadingColor} //back left color
+          fill={props.shadingcolor} //back left color
         />
       </g>
       <g>
