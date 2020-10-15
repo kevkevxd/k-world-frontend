@@ -7,6 +7,7 @@ import Portal from "./Portal";
 import Character from "./character";
 import Level from "./level";
 import Fade from "./fade";
+import Pet from "./Pet"
 
 import KeyListener from "../utils/key-listener";
 
@@ -314,6 +315,7 @@ export default class Game extends Component {
               currentPaper={this.state.papers[this.state.backgroundIndex]}
             />
             <Character store={GameStore} keys={this.keyListener} />
+            <Pet store={GameStore}/>
             <Portal store={GameStore} />
             <Icecream
               store={GameStore}
