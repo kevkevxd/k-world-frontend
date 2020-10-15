@@ -23,12 +23,33 @@ componentDidMount() {
 moveTempState = (obj) => {
   this.setState({rightDisplay: obj })
 }
+
+deleteUser = (user) => {
+  fetch(`http://localhost:5003/users/${user.id}`, {
+    method: "DELETE",
+    headers: {
+      "content-type": "application/json",
+      accepts: "application/json",
+    },
+    body: JSON.stringify(user),
+  })
+  .then((res) => res.json())
+  .then((currentObj) => {
+    const updatedArray = this.state.allUsers.filter(
+       currentObj => user.id !== currentObj.id
+    );
+    
+    this.setState({
+        allUsers: updatedArray,
+    });
+  });
+}
   render() {
     return (
     <div>
       <h1>Who are you?</h1> 
         <div className="user-select-form">
-          <UserSelectForm users={this.state.allUsers} userSelector={this.props.userSelector} moveTempState={this.moveTempState}/>
+          <UserSelectForm users={this.state.allUsers} userSelector={this.props.userSelector} moveTempState={this.moveTempState} deleteUser={this.deleteUser}/>
         </div>
         <div className="user-right-show">
           <UserRightShow gameProfile={this.state.rightDisplay}/>

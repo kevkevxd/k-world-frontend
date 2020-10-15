@@ -1,5 +1,4 @@
 import React from "react";
-import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import SpriteSelect from "./SpriteSelectSlider";
 
@@ -8,8 +7,9 @@ import SpriteSelect from "./SpriteSelectSlider";
 class SignUpForm extends React.Component {
   state = {
     username: "",
-    character: "",
-    character_src: "",
+    character: "Poof",
+    character_src: "assets/leattyspritesheet.png",
+    
     // companion: "",
     // companionSrc: "",
   };
@@ -38,6 +38,7 @@ class SignUpForm extends React.Component {
     // ));
     return (
       <div>
+        <h1> Create your character</h1>
         <SpriteSelect sprites={this.props.characterArray} characterHandler={this.pickCharacter} setCharacterSrc={this.setCharacterSrc} />
         <Form onSubmit={this.characterSubmitHandler}>
           <Form.Control
@@ -68,7 +69,7 @@ class SignUpForm extends React.Component {
             onChange={this.formHandler}
             className="form-input"
           /> */}
-          <Button type="submit" name="submit" className="form-button"></Button>
+          <button type="submit" name="submit" className="form-button"></button>
         </Form>
       </div>
     );
