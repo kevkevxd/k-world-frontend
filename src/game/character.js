@@ -63,7 +63,7 @@ export default class Character extends Component {
     // this is accessing character position from gamestore through regular props
     // that are imported from gameIndex
     const x = this.props.store.characterPosition.x;
-
+ 
     return (
       <div style={this.getWrapperStyles()}>
         <Body
@@ -77,7 +77,7 @@ export default class Character extends Component {
           <Sprite //current character selected
             repeat={this.state.repeat}
             onPlayStateChanged={this.handlePlayStateChanged}
-            src="assets/leattyspritesheet.png"
+            src={this.props.store.gameProfile.character_src || "assets/leattyspritesheet.png"}
             scale={this.context.scale * 1}
             state={this.state.characterState}
             steps={[10, 10, 0, 5, 6]}

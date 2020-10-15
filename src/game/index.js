@@ -256,7 +256,7 @@ export default class Game extends Component {
       icecreamPosition: this.state.icecreamPosition,
       isIcecreamThere: this.state.isIcecreamThere,
       icecreamIndex: this.state.icecreamIndex,
-
+      
       setStageX: this.setStageX,
       openPortal: this.openPortal,
       closePortal: this.closePortal,
@@ -264,8 +264,9 @@ export default class Game extends Component {
       checkEnterPortal: this.checkEnterPortal,
       checkIcecreamLoot: this.checkIcecreamLoot,
       lootIcecream: this.lootIcecream,
+      gameProfile: this.props.gameProfile,
     };
-
+ 
     return (
       <Loop>
         <Stage
@@ -277,10 +278,9 @@ export default class Game extends Component {
         >
           <World
             onInit={this.physicsInit}
-            onCollision={(param) => {
-              console.log("onCollision");
-              console.log(param);
-            }}
+            // onCollision={(param) => {
+            
+            // }}
           >
             <Level
               store={GameStore}

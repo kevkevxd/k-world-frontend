@@ -15,6 +15,7 @@ class UserSelectForm extends React.Component {
     const tempUserMap = this.props.users.map( user => newArray.push(user) )
     const currentUserObj = newArray.find((currentObj) => currentObj.id === Number(e.target.value))
     this.setState({tempState: currentUserObj})
+    this.props.moveTempState(currentUserObj)
   }
   login = () => {
     this.props.userSelector(this.state.tempState)
