@@ -34,7 +34,7 @@ export default class Game extends Component {
       characterPosition: { x: 0, y: 0 },
       stageX: 0,
       portalPosition: { x: 0, y: 0 },
-      icecreamPosition: { x: 500, y: 320 }, //change y to character y
+      icecreamPosition: { x: 500, y: 320 }, //change y to character y in icecreamspawner()
       isPortalOpen: false,
       isIcecreamThere: false,
     };
@@ -136,44 +136,69 @@ export default class Game extends Component {
     }
   };
 
-  patchRequest = (patchIcecreamObj, id) => {
-    // fetch(url, {
-    //   body: {...patchIcecreamObj,
-    // make sure you pass in the current user data
-    // id: this.state.user.id
-    // username: this.state.user.username},
-    // }).then(
-    // )
+  patchRequest = (icecream) => {
+    fetch(`http://localhost:5003/users/${this.props.gameProfile.id}`, {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+          accepts: "application/json",
+        },
+        body: JSON.stringify(icecream),
+      })
+      .then((res) => res.json())
+      .then(data => console.log(data))
   }
 
   patchIcecream = () => {
       // switch statement here. icecream index = what goes inside of post
       const iceIndex = this.state.icecreamIndex;
-      switch(iceIndex) {j
+
+      switch(iceIndex) {
         // The first ice cream is red
         case 0:
-          this.patchRequest({ has_red_icecream: true });
+          this.patchRequest({ has_red_icecream: true});
           break;
-        // case 1:
-        // this.patchRequest({ has_red_icecream: true })
-        //   break;
-        // case 2:
-        // this.patchRequest({ has_blue_icecream: true })
-        //   break;
-        // case 3:
-        // this.patchRequest({ has_yellow_icecream: true })
-        //   break;
-        // case 4:
-        // this.patchRequest({ has_green_icecream: true })
-        //   break;
-        // case 5:
-        // this.patchRequest({ has_black_icecream: true })
-        //   break;
-        // default:
-        //   // code block
+        case 1:
+          this.patchRequest({ has_yellow_icecream: true })
+          break;
+        case 2:
+          this.patchRequest({ has_blue_icecream: true })
+          break;
+        case 3:
+          this.patchRequest({ has_green_icecream: true })
+          break;
+        case 4:
+          this.patchRequest({ has_black_icecream: true })
+          break;
+        default:
+              // code block
+      }
+  };
+          
+  icecreamSpawnIndex = () => {
+              // switch statement here. icecream index = what goes inside of post
+    const user = this.props.gameProfile;
+        
+      switch(true) {           
+        case user.has_red_icecream:
+          this.setState({iceCreamIndex: 1})
+          break;
+        case user.has_yellow_icecream:
+          this.setState({iceCreamIndex: 2})
+          break;
+        case user.has_blue_icecream: 
+          this.setState({iceCreamIndex: 3})
+          break;
+        case user.has_green_icecream:
+          this.setState({iceCreamIndex: 4})
+          break;
+        case user.has_black_icecream: 
+          this.setState({iceCreamIndex: 4})
+          break;
+      default:
+                  // code block
     }
   };
-
   checkIcecreamLoot = () => {
     if (
       this.state.characterPosition.x >= this.state.icecreamPosition.x - 24 &&
@@ -182,7 +207,6 @@ export default class Game extends Component {
       this.setState({
         isIcecreamThere: false,
       });
-      // this.patchIcecream();
     }
   }
 
@@ -201,6 +225,8 @@ export default class Game extends Component {
       fade: false,
     });
 
+    this.icecreamSpawnIndex()    
+    
     this.keyListener.subscribe([
       this.keyListener.LEFT,
       this.keyListener.RIGHT,
@@ -220,15 +246,16 @@ export default class Game extends Component {
         });
       });
   }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (
-      prevState.isIcecreamThere === true &&
-      this.state.isIcecreamThere === false &&
-      // the next one will be 4 which is the last index
+    
+    componentDidUpdate(prevProps, prevState) {
+      if (
+        prevState.isIcecreamThere === true &&
+        this.state.isIcecreamThere === false &&
+        // the next one will be 4 which is the last index
       this.state.icecreamIndex <= 3
-    ) {
+      ) {
       this.setState({ icecreamIndex: this.state.icecreamIndex + 1 });
+      this.patchIcecream();
     }
   }
 
@@ -266,7 +293,7 @@ export default class Game extends Component {
       lootIcecream: this.lootIcecream,
       gameProfile: this.props.gameProfile,
     };
- 
+    
     return (
       <Loop>
         <Stage
@@ -275,7 +302,7 @@ export default class Game extends Component {
               this.state.papers[this.state.backgroundIndex]
             }&w=1400&fit=max) center / cover no-repeat`,
           }}
-        >
+          >
           <World
             onInit={this.physicsInit}
             // onCollision={(param) => {

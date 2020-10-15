@@ -7,7 +7,7 @@ class UserSelectForm extends React.Component {
     // users: PropTypes.array.isRequired,
   };
   state = {
-    tempState : {}
+    tempState : null
   } 
   onSelectChange = (e) => {
     e.preventDefault() 
@@ -20,13 +20,25 @@ class UserSelectForm extends React.Component {
   login = () => {
     this.props.userSelector(this.state.tempState)
   }
+  loginWithFirst = () => {
+    this.props.userSelector(this.props.users[0])
+  }
+  delete = () => {
+    this.props.deleteUser(this.state.tempState)
+  }
+
+  deleteFirst = () => {
+    this.props.deleteUser(this.props.users[0])
+  }
+  
   render() {
     const userSelectMap = this.props.users.map( user => <option value={user.id}>{user.username}</option>)
     return (  
      <div> <select onChange={this.onSelectChange} className="character-select">
         {userSelectMap}
       </select>
-      <button onClick={this.login}> Sign in !</button>
+      <button onClick={this.state.tempState === null ? this.loginWithFirst : this.login}> Sign in !</button>
+      <button onClick={this.state.tempState === null ? this.deleteFirst : this.delete}>Delete User</button>
       </div>
     );
   }
