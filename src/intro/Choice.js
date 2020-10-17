@@ -10,6 +10,8 @@ signinListener = (event) => {
       <div className="intro">
         <button onClick={this.signinListener}>Sign In</button>  <button onClick={this.signinListener}>Sign Up</button>
       </div>
+
+      
     );
   }
 }
