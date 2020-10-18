@@ -1,27 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200&display=swap');
+
 @font-face {
-    font-family: "8BIT WONDER";
-    src: url("/assets/8BITWONDERNominal.eot");
-    src: url("/assets/8BITWONDERNominal.eot?#iefix") format("embedded-opentype"),
-      url("/assets/8BITWONDERNominal.woff") format("woff"),
-      url("/assets/8BITWONDERNominal.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
-  }
+  font-family: "8BIT WONDER";
+  src: url("/assets/8BITWONDERNominal.eot");
+  src: url("/assets/8BITWONDERNominal.eot?#iefix") format("embedded-opentype"),
+    url("/assets/8BITWONDERNominal.woff") format("woff"),
+    url("/assets/8BITWONDERNominal.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+html,
+body,
+#root,
+.App {
+  background: black;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  color: white;
+  font-family: "Helvetica Neue";
+  font-size: 3vw;
   
-  html,
-  body,
-  #root,
-  .App {
-    background: black;
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    color: white;
-    font-family: "Helvetica Neue";
-    font-size: 3vw;
-   
-  }
+}
   
   .yellow {
     color: #f1c40f;
@@ -47,11 +50,37 @@
     overflow: hidden;
   }
   
-  .intro {
+
+  .intro-container {
     margin: auto;
     width: 100%;
     max-width: 1024px;
-    display: block;
+    padding: 15% 0px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Dosis', sans-serif;
+    text-align: center;
+    justify-content: center; 
+  }
+
+  .intro {
+    font-weight: 400;
+    font-size: 70px;
+    width: 100%;
+    margin-right: 25%;
+    margin-bottom: 10%;
+  }
+
+  .intro-text {
+    width: 100%;
+    margin-left: 25%;
+    font-weight: 400;
+    font-size: 16px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #777;
   }
   
   .start {

@@ -47,13 +47,6 @@ pre {
   overflow: hidden;
 }
 
-.intro {
-  margin: auto;
-  width: 100%;
-  max-width: 1024px;
-  display: block;
-}
-
 .start {
   font-family: "8BIT WONDER";
   display: block;
