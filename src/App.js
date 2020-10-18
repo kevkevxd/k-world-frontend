@@ -112,6 +112,28 @@ class App extends React.Component {
     });
   }
 
+  playNext = async  () => {
+    console.log('play next');
+    fetch('https://api.spotify.com/v1/me/player/next', {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        accepts: "application/json",
+        "Authorization": "Bearer " + this.state.token,
+        'access-control-allow-credentials': true,
+        'access-control-allow-headers': 'Accept, App-Platform, Authorization, Content-Type, Origin, Retry-After, Spotify-App-Version, X-Cloud-Trace-Context, client-token',
+        'access-control-allow-methods': 'GET, POST, OPTIONS, PUT, DELETE, PATCH',
+        'access-control-allow-origin': '*',
+        'access-control-max-age': 604800,
+      },
+    })
+    .then((res) => { console.log(res); return res.json() })
+    .then(data => {
+      console.log(data);
+      // data.playNext(token);
+    })
+  }
+
   onEnterIntroScreen = (event) => {
     if (event.key === "Enter" && this.state.currentScreenIndex === 0) {
       this.setState({ currentScreenIndex: 1 });
@@ -173,38 +195,37 @@ class App extends React.Component {
       //check if game profile is empty or not
       return <Game gameProfile={this.state.gameProfile} />;
     };
-    return <div className="App">{showScreen()}</div>;
-  // }
-  // return (
-  //   <div className="App">
-  //     <header className="App-header">
-      
-  //       {!this.state.token && (
-  //         <a
-  //           className="btn btn--loginApp-link"
-  //           href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
-  //             "%20"
-  //           )}&response_type=token&show_dialog=true`}
-  //         >
-  //           Login to Spotify
-  //         </a>
-  //       )}
-  //       {this.state.token && !this.state.no_data && (
-  //         <Player
-  //           item={this.state.item}
-  //           is_playing={this.state.is_playing}
-  //           progress_ms={this.state.progress_ms}
-  //         />
+    return <div className="App">
+      {showScreen()}
+
+
+      <div className="spotify-app">
+        {!this.state.token && (
+          <a
+            className="btn btn--loginApp-link"
+            href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
+              "%20"
+            )}&response_type=token&show_dialog=true`}
+          >
+            Login to Spotify
+          </a>
+        )}
+        {this.state.token && !this.state.no_data && (
+          <Player
+            item={this.state.item}
+            is_playing={this.state.is_playing}
+            progress_ms={this.state.progress_ms}
+            playNext={this.playNext}
+          />
           
-  //       )}
-  //       {this.state.no_data && (
-  //         <p>
-  //           You need to be playing a song on Spotify, for something to appear here.
-  //         </p>
-  //       )}
-  //     </header>
-  //   </div>
-  // );
-}
+        )}
+        {this.state.no_data && (
+          <p>
+            You need to be playing a song on Spotify, for something to appear here.
+          </p>
+        )}
+      </div>
+    </div>;
+  }
 }
 export default App;

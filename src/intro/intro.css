@@ -4,9 +4,7 @@
 body {
 	margin: 0;
 	font-family: Montserrat;
-	font-size: 40px;
 	color: var(--white);
-	letter-spacing: 0.7em;
 	background-color: black;
 	display: flex;
 	justify-content: center;
