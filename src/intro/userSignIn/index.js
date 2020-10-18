@@ -21,6 +21,7 @@ componentDidMount() {
 }
 
 moveTempState = (obj) => {
+  console.log(obj);
   this.setState({rightDisplay: obj })
 }
 

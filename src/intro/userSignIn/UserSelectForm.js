@@ -9,13 +9,10 @@ class UserSelectForm extends React.Component {
   state = {
     tempState : null
   } 
-  onSelectChange = (e) => {
-    e.preventDefault() 
-    const newArray = []
-    const tempUserMap = this.props.users.map( user => newArray.push(user) )
-    const currentUserObj = newArray.find((currentObj) => currentObj.id === Number(e.target.value))
-    this.setState({tempState: currentUserObj})
-    this.props.moveTempState(currentUserObj)
+  onSelectChange = (newValue) => {
+    const currentUserObj = this.props.users.find((currentObj) => currentObj.id === Number(newValue));
+    this.setState({tempState: currentUserObj});
+    this.props.moveTempState(currentUserObj);
   }
   login = () => {
     this.props.userSelector(this.state.tempState)
@@ -32,13 +29,16 @@ class UserSelectForm extends React.Component {
   }
   
   render() {
-    const userSelectMap = this.props.users.map( user => <option value={user.id}>{user.username}</option>)
+    const userSelectMap = this.props.users.map( user => <div className="character-option" onClick={() => this.onSelectChange(user.id)} value={user.id}>{user.username}</div>)
     return (  
-     <div> <select onChange={this.onSelectChange} className="character-select">
+     <div>
+       <div className="character-select">
         {userSelectMap}
-      </select>
-      <button onClick={this.state.tempState === null ? this.loginWithFirst : this.login}> Sign in !</button>
-      <button onClick={this.state.tempState === null ? this.deleteFirst : this.delete}>Delete User</button>
+      </div>
+  
+      
+      {this.state.tempState === null && <button onClick={this.state.tempState === null ? this.loginWithFirst : this.login}>Sign in !</button>}
+      {this.state.tempState === null && <button onClick={this.state.tempState === null ? this.deleteFirst : this.delete}>Delete User</button>}
       </div>
     );
   }

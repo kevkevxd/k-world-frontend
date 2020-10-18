@@ -7,8 +7,9 @@ signinListener = (event) => {
 }
   render() {
     return (
-      <div className="intro">
-        <button onClick={this.signinListener}>Sign In</button>  <button onClick={this.signinListener}>Sign Up</button>
+      <div className="signin-signup">
+        <button onClick={this.signinListener}>Sign In</button>
+        <button onClick={this.signinListener}>Sign Up</button>
       </div>
 
       
