@@ -18,8 +18,15 @@ class SpriteSelectSlider extends React.Component {
 
   render() {
     const spriteArray = this.props.sprites;
-    const spriteRender = spriteArray.map((sprite) => (
-      <Toon key={sprite} sprite={sprite} characterHandler={this.props.characterHandler} setCharacterSrc={this.props.setCharacterSrc}/>
+    const spriteRender = spriteArray.map((sprite, spriteIndex) => (
+      <Toon 
+        key={sprite} 
+        sprite={sprite} 
+        characterHandler={this.props.characterHandler}
+        spriteIndex={spriteIndex}
+        // setCharacterSrc={this.props.setCharacterSrc} 
+        // setCharacterSteps={this.props.setCharacterSteps}
+      />
     ));
     return <div>{spriteRender}</div>;
     // const spriteArray = this.props.sprites;

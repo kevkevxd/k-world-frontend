@@ -7,9 +7,9 @@ import SpriteSelect from "./SpriteSelectSlider";
 class SignUpForm extends React.Component {
   state = {
     username: "",
-    character: "Poof",
+    character:  "Poof",
     character_src: "assets/leattyspritesheet.png",
-    
+    character_steps: [],
     // companion: "",
     // companionSrc: "",
   };
@@ -17,6 +17,7 @@ class SignUpForm extends React.Component {
   characterSubmitHandler = (e) => {
     e.preventDefault();
     this.props.onFormComplete(this.state);
+
     console.log("formpage:", this.state)
   };
 
@@ -24,12 +25,17 @@ class SignUpForm extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  pickCharacter = (char) => {
-    this.setState({character: char})
+  pickCharacter = (spriteIndex) => {
+    // this.setState({character: char})
+    this.setState({ ...this.props.characterArray[spriteIndex] });
   }
-  setCharacterSrc = (src) => {
-    this.setState({character_src: src})
-  }
+  // setCharacterSrc = (src) => {
+  //   this.setState({character_src: src})
+  // }
+
+  // setCharacterSteps = (steps) => {
+  //   this.setState({chararacter_steps: steps})
+  // }
   //make submit button only available if they've made a selection in each of the three
   render() {
     // have to pass in rendered jsx components to SpriteSelect
@@ -39,7 +45,12 @@ class SignUpForm extends React.Component {
     return (
       <div>
         <h1> Create your character</h1>
-        <SpriteSelect sprites={this.props.characterArray} characterHandler={this.pickCharacter} setCharacterSrc={this.setCharacterSrc} />
+        <SpriteSelect 
+          sprites={this.props.characterArray} 
+          characterHandler={this.pickCharacter} 
+          // setCharacterSrc={this.setCharacterSrc} 
+          // setCharacterSteps={this.setCharacterSteps}
+        />
         <Form onSubmit={this.characterSubmitHandler}>
           <Form.Control
             size="lg"
@@ -53,14 +64,19 @@ class SignUpForm extends React.Component {
           <Form.Control
             type="hidden"
             name="character"
-            value={this.state.character} //change this to whatever the user clicks/maybe get rid of this
+            value={this.state.character}
             className="form-input"
           />
             <Form.Control
             type="hidden"
             name="character_src"
-            value={this.state.character_src} //change this to whatever the user clicks/maybe get rid of this
+            value={this.state.character_src} 
             className="form-input"
+          />
+            <Form.Control
+            type="hidden"
+            name="character_src"
+            value={this.state.character_steps} 
           />
           {/* <Form.Control
             type="hidden"

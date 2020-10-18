@@ -9,6 +9,7 @@ import { authEndpoint, clientId, redirectUri, scopes } from "./music/config";
 import hash from "./music/hash";
 import Player from "./music/player";
 import "./App.css";
+import { SpriteSheets } from "./game/spritesheet"
 class App extends React.Component {
   constructor() {
     super();
@@ -16,8 +17,9 @@ class App extends React.Component {
       currentScreenIndex: 0,
       characterArray: [
         {
-          name: "Poof",
-          src: "assets/leattyspritesheet.png",
+          character: "Sus-Spaceman",
+          character_src: "assets/sus.png",
+          character_steps: [5,5,1]
         },
       ],
       companionArray: [],
@@ -39,20 +41,6 @@ class App extends React.Component {
     this.getCurrentlyPlaying = this.getCurrentlyPlaying.bind(this);
     this.tick = this.tick.bind(this);
   }
-  // state = {
-  //   currentScreenIndex: 0,
-  //   characterArray: [
-  //     {
-  //       name: "Poof",
-  //       src: "assets/leattyspritesheet.png",
-  //     },
-  //   ],
-  //   companionArray: [],
-  //   gameProfile: {},
-  // };
-
-  //add a section on screenindex 2 for showing already created
-  //users and then add a button to redirect to "create a new user"
 
   componentDidMount() {
       // Set token
@@ -70,6 +58,9 @@ class App extends React.Component {
      this.interval = setInterval(() => this.tick(), 5000);
     // Listens for keyboard events
      document.addEventListener("keydown", this.onEnterIntroScreen);
+
+     this.setState({characterArray: SpriteSheets})
+     
   }
 
   componentWillUnmount() {
@@ -117,22 +108,18 @@ class App extends React.Component {
     fetch('https://api.spotify.com/v1/me/player/next', {
       method: "POST",
       headers: {
-        "content-type": "application/json",
-        accepts: "application/json",
-        "Authorization": "Bearer " + this.state.token,
-        'access-control-allow-credentials': true,
-        'access-control-allow-headers': 'Accept, App-Platform, Authorization, Content-Type, Origin, Retry-After, Spotify-App-Version, X-Cloud-Trace-Context, client-token',
-        'access-control-allow-methods': 'GET, POST, OPTIONS, PUT, DELETE, PATCH',
-        'access-control-allow-origin': '*',
-        'access-control-max-age': 604800,
+        Authorization: `Bearer ${this.state.token}`,
+        'Content-Type': "application/json",
       },
-    })
-    .then((res) => { console.log(res); return res.json() })
-    .then(data => {
-      console.log(data);
-      // data.playNext(token);
-    })
+      method: 'POST',
+    });
   }
+    // .then((res) => { console.log(res); return res.json() })
+    // .then(data => {
+    //   console.log(data);
+    //   // data.playNext(token);
+    // })
+  
 
   onEnterIntroScreen = (event) => {
     if (event.key === "Enter" && this.state.currentScreenIndex === 0) {
@@ -174,6 +161,7 @@ class App extends React.Component {
   }
 
   render() {
+    console.log("character array", this.state.characterArray)
     console.log("currentgameprofile", this.state.gameProfile)
     const showScreen = () => {
       if (this.state.currentScreenIndex === 0) {

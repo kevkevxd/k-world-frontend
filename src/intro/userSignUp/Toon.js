@@ -4,15 +4,22 @@ class Toon extends React.Component {
 
   pickCharacter = (e) => {
     e.preventDefault()
-    this.props.characterHandler(e.currentTarget.getAttribute('data-sprite-name'))
-    this.props.setCharacterSrc(e.currentTarget.getAttribute('data-sprite-src'))
+    this.props.characterHandler(Number(e.currentTarget.getAttribute('data-index')))
+    // this.props.setCharacterSrc(e.currentTarget.getAttribute('data-sprite-src'))
+    // this.props.setCharacterSteps(e.currentTarget.getAttribute('data-sprite-steps'))
+    // console.log(e.currentTarget.getAttribute('data-sprite-steps'))
+    // console.log("clicked")
   }
 
   render() {
     return (
       <div className="sprite">
         {this.props.sprite.name}
-        <div data-sprite-name={this.props.sprite.name} data-sprite-src={this.props.sprite.src} onClick={this.pickCharacter}
+        <div
+          data-index={this.props.spriteIndex}
+          // data-sprite-src={this.props.sprite.character_src}
+          // data-sprite-steps={this.props.sprite.character_steps}
+          onClick={this.pickCharacter}
           style={{
             height: "64px",
             width: "64px",
@@ -24,7 +31,7 @@ class Toon extends React.Component {
             style={{
               position: "absolute",
             }}
-            src={this.props.sprite.src}
+            src={this.props.sprite.character_src}
             alt={this.props.sprite.name}
           />
         </div>
