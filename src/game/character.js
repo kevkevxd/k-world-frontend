@@ -77,10 +77,10 @@ export default class Character extends Component {
           <Sprite //current character selected
             repeat={this.state.repeat}
             onPlayStateChanged={this.handlePlayStateChanged}
-            src={this.props.store.gameProfile.character_src || "assets/leattyspritesheet.png"}
             scale={this.context.scale * 1}
             state={this.state.characterState}
-            steps={[10, 10, 1, 5, 6]}
+            steps={this.props.store.gameProfile.character_steps || [5, 5, 1, 0, 0]}
+            src={this.props.store.gameProfile.character_src || "assets/leattyspritesheet.png"}
           />
         </Body>
       </div>

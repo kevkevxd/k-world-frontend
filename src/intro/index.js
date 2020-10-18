@@ -7,14 +7,14 @@ class Intro extends React.Component {
     return (
       <div className="intro-container">
         <div className="intro">
-          <span id="G">G</span>
-          <span id="G">A</span>
-          <span id="G">L</span>
-          <span id="G">A</span>
-          <span id="G">X</span>
-          <span id="G">Y</span>
-          <span id="G">-</span>
           <span id="I">K</span>
+          {/* <br></br> */}
+          <span id="G">-</span>
+          <span id="G">W</span>
+          <span id="G">O</span>
+          <span id="G">R</span>
+          <span id="G">L</span>
+          <span id="G">D</span>
       </div>
       <div className="intro-text">
         Press Enter to start

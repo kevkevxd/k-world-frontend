@@ -14,7 +14,7 @@ const Player = props => {
 
   return (
     <div className="spotify">
-      {/* <div  onClick={() => { props.playNext() }}>Next Song</div> */}
+      <div  onClick={() => { props.playNext() }}>Next Song</div>
 
       <div className="main-wrapper">
         <div className="now-playing__img">
