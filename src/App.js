@@ -1,35 +1,15 @@
-import React, { Component } from "react";
+import React from "react";
 import Game from "./game";
 import Intro from "./intro";
 import LoginForm from "./intro/userSignUp/SignUpForm";
 import SignIn from "./intro/userSignIn"
 import Choice from "./intro/Choice"
-// import hash from "./hash";
-import "./App.css";
 import * as $ from "jquery";
+import { authEndpoint, clientId, redirectUri, scopes } from "./music/config";
+import hash from "./music/hash";
 import Player from "./music/player";
-export const authEndpoint = 'https://accounts.spotify.com/authorize';
-// Replace with your app's client ID, redirect URI and desired scopes
-const clientId = "74b733b7e89f4c7bb98b3986710f9ad7";
-const redirectUri = "http://localhost:6969/redirect";
-const scopes = [
-  "user-read-currently-playing",
-  "user-read-playback-state",
-];
-// Get the hash of the url
-const hash = window.location.hash
-  .substring(1)
-  .split("&")
-  .reduce(function(initial, item) {
-    if (item) {
-      var parts = item.split("=");
-      initial[parts[0]] = decodeURIComponent(parts[1]);
-    }
-    return initial;
-  }, {});
-window.location.hash = "";
-
-class App extends Component {
+import "./App.css";
+class App extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -43,55 +23,94 @@ class App extends Component {
       companionArray: [],
       gameProfile: {},
       token: null,
-    item: {
-      album: {
-        images: [{ url: "" }]
+      item: {
+        album: {
+          images: [{ url: "" }]
+        },
+        name: "",
+        artists: [{ name: "" }],
+        duration_ms: 0
       },
-      name: "",
-      artists: [{ name: "" }],
-      duration_ms:0,
-    },
-    is_playing: "Paused",
-    progress_ms: 0
-  };
-  this.getCurrentlyPlaying = this.getCurrentlyPlaying.bind(this);
-  }
-  getCurrentlyPlaying(token) {
-    // Make a call using the token
-    $.ajax({
-      url: "https://api.spotify.com/v1/me/player",
-      type: "GET",
-      beforeSend: (xhr) => {
-        xhr.setRequestHeader("Authorization", "Bearer " + token);
-      },
-      success: (data) => {
-        this.setState({
-          item: data.item,
-          is_playing: data.is_playing,
-          progress_ms: data.progress_ms,
-        });
-      }
-    });
+      is_playing: "Paused",
+      progress_ms: 0,
+      no_data: false,
+    };
+
+    this.getCurrentlyPlaying = this.getCurrentlyPlaying.bind(this);
+    this.tick = this.tick.bind(this);
   }
   // state = {
+  //   currentScreenIndex: 0,
+  //   characterArray: [
+  //     {
+  //       name: "Poof",
+  //       src: "assets/leattyspritesheet.png",
+  //     },
+  //   ],
+  //   companionArray: [],
+  //   gameProfile: {},
   // };
 
   //add a section on screenindex 2 for showing already created
   //users and then add a button to redirect to "create a new user"
 
   componentDidMount() {
-    // Listens for keyboard events
-    document.addEventListener("keydown", this.onEnterIntroScreen);
+      // Set token
+    let _token = hash.access_token;
+
+    if (_token) {
         // Set token
-      let _token = hash.access_token;
-      if (_token) {
-          // Set token
-       this.setState({
-           token: _token
-       });
+      this.setState({
+          token: _token
+    });
+      this.getCurrentlyPlaying(_token);
+    }
+  
+      // set interval for polling every 5 seconds
+     this.interval = setInterval(() => this.tick(), 5000);
+    // Listens for keyboard events
+     document.addEventListener("keydown", this.onEnterIntroScreen);
+  }
+
+  componentWillUnmount() {
+    // clear the interval to save resources
+    clearInterval(this.interval);
+  }
+
+  tick() {
+    if(this.state.token) {
+      this.getCurrentlyPlaying(this.state.token);
     }
   }
+
   
+  getCurrentlyPlaying(token) {
+    // Make a call using the token
+    $.ajax({
+      url: "https://api.spotify.com/v1/me/player",
+      type: "GET",
+      beforeSend: xhr => {
+        xhr.setRequestHeader("Authorization", "Bearer " + token);
+      },
+      success: data => {
+        // Checks if the data is not empty
+        if(!data) {
+          this.setState({
+            no_data: true,
+          });
+          return;
+        }
+
+        this.setState({
+          item: data.item,
+          is_playing: data.is_playing,
+          progress_ms: data.progress_ms,
+          no_data: false /* We need to "reset" the boolean, in case the
+                            user does not give F5 and has opened his Spotify. */
+        });
+      }
+    });
+  }
 
   onEnterIntroScreen = (event) => {
     if (event.key === "Enter" && this.state.currentScreenIndex === 0) {
@@ -154,29 +173,35 @@ class App extends Component {
     };
   //   return <div className="App">{showScreen()}</div>;
   // }
-// }
-return (
-  <div className="App">
-    <header className="App-header">
- 
-    {!this.state.token && (
-      <a
-        className="btn btn--loginApp-link"
-        href={`${authEndpoint}client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join("%20")}&response_type=token&show_dialog=true`}
-      >
-        Login to Spotify
-      </a>
-    )}
-    {this.state.token && (
-    <Player
-    item={this.state.item}
-    is_playing={this.state.is_playing}
-    progress_ms={this.progress_ms}
-  />
-)}
-    </header>
-  </div>
-);
+  return (
+    <div className="App">
+      <header className="App-header">
+      
+        {!this.state.token && (
+          <a
+            className="btn btn--loginApp-link"
+            href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
+              "%20"
+            )}&response_type=token&show_dialog=true`}
+          >
+            Login to Spotify
+          </a>
+        )}
+        {this.state.token && !this.state.no_data && (
+          <Player
+            item={this.state.item}
+            is_playing={this.state.is_playing}
+            progress_ms={this.state.progress_ms}
+          />
+        )}
+        {this.state.no_data && (
+          <p>
+            You need to be playing a song on Spotify, for something to appear here.
+          </p>
+        )}
+      </header>
+    </div>
+  );
 }
 }
 export default App;

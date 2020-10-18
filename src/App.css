@@ -1,81 +1,112 @@
-/* @font-face {
-  font-family: '8BIT WONDER';
-  src: url('assets/8BITWONDERNominal.eot');
-  src: url('assets/8BITWONDERNominal.eot?#iefix') format('embedded-opentype'),
-    url('assets/8BITWONDERNominal.woff') format('woff'),
-    url('assets/8BITWONDERNominal.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-html, body, #root {
-  background: black;
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  color: white;
-  font-family: 'Helvetica Neue';
-  font-size: 3vw;
-}
-
-.yellow {
-  color: #f1c40f;
-}
-
-del {
-  color: #e74c3c;
-}
-
-p {
-  font-size: 1.2em;
-  line-height: 1.5;
-}
-
-li {
-  font-size: 1.3em;
-  line-height: 1.5;
-}
-
-pre {
-  font-size: 1.5vw;
-  max-height: 100%;
-  overflow: hidden;
-}
-
-.intro {
-  margin: auto;
-  width: 100%;
-  max-width: 1024px;
-  display: block;
-}
-
-.start {
-  font-family: '8BIT WONDER';
-  display: block;
-  width: 400px;
-  font-size: 24px;
-  margin: -1% auto 0px;
+.App {
   text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
   color: white;
 }
 
-.fade {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background: black;
-  -webkit-transition: 500ms opacity linear;
-  transition: 1s opacity linear;
-  opacity: 0;
+.App-link {
+  color: #61dafb;
 }
 
-.fade.active {
- opacity: 1;
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 * {
   box-sizing: border-box;
-} */
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: #333;
+  color: #eee;
+  font-family: Helvetica, Arial;
+  font-size: 3vmin;
+}
+
+.hidden {
+  display: none;
+}
+
+/** Buttons **/
+
+.btn {
+  background-color: transparent;
+  border-radius: 2em;
+  border: 0.2em solid #1ecd97;
+  color: #1ecd97;
+  cursor: pointer;
+  font-size: 3vmin;
+  padding: 0.7em 1.5em;
+  text-transform: uppercase;
+  transition: all 0.25s ease;
+}
+
+.btn:hover {
+  background: #1ecd97;
+  color: #333;
+}
+
+.btn--login {
+  margin: 0 auto;
+}
+
+/** Background **/
+
+.background {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center center;
+  filter: blur(8em) opacity(0.6);
+  position: absolute;
+}
+
+.main-wrapper {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  margin: 0 auto;
+  justify-content: center;
+  position: relative;
+  width: 80%;
+  z-index: 1;
+}
+
+.container {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+
+.main-container {
+  flex: 1;
+}
