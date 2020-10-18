@@ -6,8 +6,6 @@ import SignIn from "./intro/userSignIn"
 import Choice from "./intro/Choice"
 // import hash from "./hash";
 import "./App.css";
-import * as $ from "jquery";
-import Player from "./music/player";
 export const authEndpoint = 'https://accounts.spotify.com/authorize';
 // Replace with your app's client ID, redirect URI and desired scopes
 const clientId = "74b733b7e89f4c7bb98b3986710f9ad7";
@@ -30,51 +28,18 @@ const hash = window.location.hash
 window.location.hash = "";
 
 class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      currentScreenIndex: 0,
-      characterArray: [
-        {
-          name: "Poof",
-          src: "assets/leattyspritesheet.png",
-        },
-      ],
-      companionArray: [],
-      gameProfile: {},
-      token: null,
-    item: {
-      album: {
-        images: [{ url: "" }]
-      },
-      name: "",
-      artists: [{ name: "" }],
-      duration_ms:0,
+
+state = {
+  currentScreenIndex: 0,
+  characterArray: [
+    {
+      name: "Poof",
+      src: "assets/leattyspritesheet.png",
     },
-    is_playing: "Paused",
-    progress_ms: 0
+  ],
+  companionArray: [],
+  gameProfile: {},
   };
-  this.getCurrentlyPlaying = this.getCurrentlyPlaying.bind(this);
-  }
-  getCurrentlyPlaying(token) {
-    // Make a call using the token
-    $.ajax({
-      url: "https://api.spotify.com/v1/me/player",
-      type: "GET",
-      beforeSend: (xhr) => {
-        xhr.setRequestHeader("Authorization", "Bearer " + token);
-      },
-      success: (data) => {
-        this.setState({
-          item: data.item,
-          is_playing: data.is_playing,
-          progress_ms: data.progress_ms,
-        });
-      }
-    });
-  }
-  // state = {
-  // };
 
   //add a section on screenindex 2 for showing already created
   //users and then add a button to redirect to "create a new user"
@@ -83,13 +48,7 @@ class App extends Component {
     // Listens for keyboard events
     document.addEventListener("keydown", this.onEnterIntroScreen);
         // Set token
-      let _token = hash.access_token;
-      if (_token) {
-          // Set token
-       this.setState({
-           token: _token
-       });
-    }
+    
   }
   
 
@@ -152,31 +111,8 @@ class App extends Component {
       //check if game profile is empty or not
       return <Game gameProfile={this.state.gameProfile} />;
     };
-  //   return <div className="App">{showScreen()}</div>;
-  // }
-// }
-return (
-  <div className="App">
-    <header className="App-header">
- 
-    {!this.state.token && (
-      <a
-        className="btn btn--loginApp-link"
-        href={`${authEndpoint}client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join("%20")}&response_type=token&show_dialog=true`}
-      >
-        Login to Spotify
-      </a>
-    )}
-    {this.state.token && (
-    <Player
-    item={this.state.item}
-    is_playing={this.state.is_playing}
-    progress_ms={this.progress_ms}
-  />
-)}
-    </header>
-  </div>
-);
+    return <div className="App">{showScreen()}</div>;
+  }
 }
-}
+
 export default App;
