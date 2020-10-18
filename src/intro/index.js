@@ -1,5 +1,7 @@
 import React from "react";
 import "./intro.css"
+
+
 class Intro extends React.Component {
   render() {
     return (
@@ -12,9 +14,14 @@ class Intro extends React.Component {
             <span id="G">Y</span>
             <span id="G">-</span>
             <span id="I">K</span>
+            
     </div>
     );
   }
 }
 
 export default Intro;
+
+
+
+ 
