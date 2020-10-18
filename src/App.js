@@ -171,37 +171,38 @@ class App extends React.Component {
       //check if game profile is empty or not
       return <Game gameProfile={this.state.gameProfile} />;
     };
-  //   return <div className="App">{showScreen()}</div>;
+    return <div className="App">{showScreen()}</div>;
   // }
-  return (
-    <div className="App">
-      <header className="App-header">
+  // return (
+  //   <div className="App">
+  //     <header className="App-header">
       
-        {!this.state.token && (
-          <a
-            className="btn btn--loginApp-link"
-            href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
-              "%20"
-            )}&response_type=token&show_dialog=true`}
-          >
-            Login to Spotify
-          </a>
-        )}
-        {this.state.token && !this.state.no_data && (
-          <Player
-            item={this.state.item}
-            is_playing={this.state.is_playing}
-            progress_ms={this.state.progress_ms}
-          />
-        )}
-        {this.state.no_data && (
-          <p>
-            You need to be playing a song on Spotify, for something to appear here.
-          </p>
-        )}
-      </header>
-    </div>
-  );
+  //       {!this.state.token && (
+  //         <a
+  //           className="btn btn--loginApp-link"
+  //           href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
+  //             "%20"
+  //           )}&response_type=token&show_dialog=true`}
+  //         >
+  //           Login to Spotify
+  //         </a>
+  //       )}
+  //       {this.state.token && !this.state.no_data && (
+  //         <Player
+  //           item={this.state.item}
+  //           is_playing={this.state.is_playing}
+  //           progress_ms={this.state.progress_ms}
+  //         />
+          
+  //       )}
+  //       {this.state.no_data && (
+  //         <p>
+  //           You need to be playing a song on Spotify, for something to appear here.
+  //         </p>
+  //       )}
+  //     </header>
+  //   </div>
+  // );
 }
 }
 export default App;
