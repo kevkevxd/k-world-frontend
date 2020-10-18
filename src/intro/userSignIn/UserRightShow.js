@@ -8,6 +8,7 @@ class UserRightShow extends React.Component {
   // }
 
   render() {
+    console.log(this.props.gameProfile);
     return (
       <div>
          <h1>{this.props.gameProfile.username}</h1>
