@@ -82,7 +82,60 @@ body,
     text-transform: uppercase;
     color: #777;
   }
+
+  .signin-signup { 
+    margin: auto;
+    width: 100%;
+    max-width: 1024px;
+    padding: 15% 0px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center; 
+  }
   
+button {
+  font-family: 'Dosis', sans-serif;
+  font-size: 40px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  border: 1px solid #fff;
+  background: transparent;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin: 0px 15px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #2a82a8;
+  border-color: transparent;
+}
+
+.character-select {
+  font-family: 'Dosis', sans-serif;
+  font-size: 40px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  border: 1px solid #fff;
+  background: transparent;
+  color: #fff;
+  /* padding: 10px 20px; */
+  border-radius: 5px;
+  margin: 0px 15px;
+  cursor: pointer;
+}
+
+.character-option {
+  border-top: 1px solid #fff;
+}
+
+.character-option:hover {
+  background: #2a82a8;
+}
+
   .start {
     font-family: "8BIT WONDER";
     display: block;
