@@ -127,6 +127,7 @@ class App extends React.Component {
   }
 
   onFormComplete = (characterFormObj) => {
+    console.log("formobj:", characterFormObj)
     fetch("http://localhost:5003/users", {
       method: "POST",
       headers: {
@@ -136,9 +137,10 @@ class App extends React.Component {
       body: JSON.stringify(characterFormObj),
     })
       .then((res) => res.json())
-      .then((newObj) => 
+      .then((newObj) => {
+        console.log("newobj:", newObj)
         this.setState({ gameProfile: [newObj] })
-      );
+      })
 
     this.setState({ currentScreenIndex: 4 });
   };

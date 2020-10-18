@@ -47,8 +47,7 @@ deleteUser = (user) => {
 }
   render() {
     return (
-    <div>
-      <h1>Who are you?</h1> 
+    <div className="user-sign-in-container">
         <div className="user-select-form">
           <UserSelectForm users={this.state.allUsers} userSelector={this.props.userSelector} moveTempState={this.moveTempState} deleteUser={this.deleteUser}/>
         </div>
