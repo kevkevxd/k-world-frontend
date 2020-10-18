@@ -6,26 +6,7 @@ import SignIn from "./intro/userSignIn"
 import Choice from "./intro/Choice"
 // import hash from "./hash";
 import "./App.css";
-export const authEndpoint = 'https://accounts.spotify.com/authorize';
-// Replace with your app's client ID, redirect URI and desired scopes
-const clientId = "74b733b7e89f4c7bb98b3986710f9ad7";
-const redirectUri = "http://localhost:6969/redirect";
-const scopes = [
-  "user-read-currently-playing",
-  "user-read-playback-state",
-];
-// Get the hash of the url
-const hash = window.location.hash
-  .substring(1)
-  .split("&")
-  .reduce(function(initial, item) {
-    if (item) {
-      var parts = item.split("=");
-      initial[parts[0]] = decodeURIComponent(parts[1]);
-    }
-    return initial;
-  }, {});
-window.location.hash = "";
+import SpotifyPlayer from 'react-spotify-web-playback';
 
 class App extends Component {
 
@@ -111,7 +92,10 @@ state = {
       //check if game profile is empty or not
       return <Game gameProfile={this.state.gameProfile} />;
     };
-    return <div className="App">{showScreen()}</div>;
+    // return <div className="App">{showScreen()}</div>;
+    return <SpotifyPlayer
+  token="BQAI_7RWPJuqdZxS-I8XzhkUi9RKr8Q8UUNaJAHwWlpIq6..."
+  uris={['spotify:artist:6HQYnRM4OzToCYPpVBInuU']}/>
   }
 }
 
