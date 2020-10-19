@@ -2,18 +2,22 @@ import React from "react";
 
 class Friend extends React.Component {
 
-  pickCharacter = (e) => {
+  pickCompanion = (e) => {
     e.preventDefault()
-    this.props.characterHandler(Number(e.currentTarget.getAttribute('data-index')))
+    this.props.companionHandler(Number(e.currentTarget.getAttribute('data-index')))
   }
 
   render() {
     return (
-      <div className="companion">
+      <div 
+        className="sprite"
+        onClick={this.pickCompanion}
+        data-index={this.props.companionIndex}
+      >
+        
         {this.props.companion.companion}
         <div
           data-index={this.props.companionIndex}
-          onClick={this.pickCharacter}
           style={{
             height: "64px",
             width: "64px",
