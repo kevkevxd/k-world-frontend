@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200;400;800&display=swap');
 
 @font-face {
   font-family: "8BIT WONDER";
@@ -66,7 +66,7 @@ body,
 }
 
 .intro {
-  font-weight: 400;
+  font-weight: 200;
   font-size: 70px;
   width: 100%;
   margin-right: 25%;
@@ -102,6 +102,7 @@ body,
 button {
   font-family: 'Dosis', sans-serif;
   font-size: 40px;
+  font-weight: 200;
   letter-spacing: 5px;
   text-transform: uppercase;
   border: 1px solid #fff;
@@ -129,7 +130,7 @@ button:hover {
   border-radius: 5px;
   cursor: pointer;
   width: 100%;
-  margin: 10px 15px 100px;
+  font-weight: 400;
 }
 
 .character-option {
@@ -137,9 +138,45 @@ button:hover {
   border-top: 1px solid #fff;
 }
 
+.character-option.selected {
+  background: #eee;
+  color: #000;
+  position: relative;
+}
+
+.character-option.selected::after {
+  content: 'Selected';
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  font-size: 20px;
+  letter-spacing: 3px;
+}
+
 .character-option:hover {
   background: #2a82a8;
+  color: #fff;
 }
+
+.sign-up-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 30px;
+  margin: 10px 30px 0px;
+}
+
+.sign-up-form h1 {
+  font-family: 'Dosis', sans-serif;
+  font-size: 45px;
+  margin-bottom: 20px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+}
+
+/* .character-container {
+  width: 50%;
+} */
+
 
 .user-sign-in-container {
   display: grid;
