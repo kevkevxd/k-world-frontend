@@ -14,25 +14,25 @@ const icecreamIcon = (props) => (
       <g>
         <path
           d="m256 504.5c-22.091 0-40-17.909-40-40v-120h80v120c0 22.091-17.909 40-40 40z"
-          fill="#ffd3a3"
+          fill={props.isTransparent ? "transparent" : "#ffd3a3"}
         />
       </g>
       <g>
         <path
           d="m256 464.5v-27h40v-93h-80v120c0 22.091 17.909 40 40 40 7.288 0 14.115-1.959 20-5.365-11.953-6.917-20-19.832-20-34.635z"
-          fill="#ffbe74"
+          fill={props.isTransparent ? "transparent" : "#ffbe74"}
         />
       </g>
       <g>
         <path
           d="m296 407.5h-80c-55.228 0-100-44.772-100-100v-160c0-77.32 62.68-140 140-140 77.32 0 140 62.68 140 140v160c0 55.228-44.772 100-100 100z"
-          fill={props.primarycolor} //front right color
+          fill={props.isTransparent ? "transparent" : props.primarycolor} //front right color
         />
       </g>
       <g>
         <path
           d="m196 307.5v-160c0-63.419 42.172-116.979 100-134.191-12.675-3.773-26.099-5.809-40-5.809-77.32 0-140 62.68-140 140v160c0 55.229 44.772 100 100 100h80c-55.228 0-100-44.771-100-100z"
-          fill={props.shadingcolor} //back left color
+          fill={props.isTransparent ? "transparent" : props.shadingcolor} //back left color
         />
       </g>
       <g>

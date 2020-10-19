@@ -8,7 +8,7 @@ import Character from "./character";
 import Level from "./level";
 import Fade from "./fade";
 import Pet from "./Pet"
-
+import IcecreamUI from "./icecreamUI"
 import KeyListener from "../utils/key-listener";
 
 export default class Game extends Component {
@@ -321,6 +321,7 @@ export default class Game extends Component {
               store={GameStore}
               currentIndex={this.state.icecreamIndex}
             />
+            <IcecreamUI store={GameStore} />
           </World>
         </Stage>
         <Fade visible={this.state.fade} />
