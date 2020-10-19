@@ -147,7 +147,9 @@ export default class Game extends Component {
         body: JSON.stringify(icecream),
       })
       .then((res) => res.json())
-      .then(data => console.log(data))
+      .then((newobj => {
+        this.props.newCreamState(newobj)
+      }))
   }
 
   patchIcecream = () => {

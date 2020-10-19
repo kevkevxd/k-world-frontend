@@ -15,8 +15,6 @@ class IcecreamUI extends React.Component {
   getIcecreamProps= () => {
           // switch statement here. icecream index = what goes inside of post
   const user = this.props.store.gameProfile;
-
-  
   const icecreamColors = [
     { primarycolor: "#e7886e", shadingcolor: "#dc6646", isTransparent: !user.has_red_icecream },
     { primarycolor: "#e8f70f", shadingcolor: "#d8e60e", isTransparent: !user.has_yellow_icecream  },
@@ -36,7 +34,7 @@ class IcecreamUI extends React.Component {
     const uiMap = this.getIcecreamProps().map((props) => <IcecreamIcon {...props} style={{width: 50}}/>)
     return (
       (
-        <div className="icecreamUI">
+        <div className="icecreamUI" style={{position: "absolute", bottom: "0", right: "0"}}>
          {uiMap}
         </div>
       )

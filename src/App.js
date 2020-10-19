@@ -19,14 +19,14 @@ class App extends React.Component {
       characterArray: [
         {
           character: "Sus-Spaceman",
-          character_src: "assets/suspect.png",
+          character_src: "assets/sus.png",
          
         },
       ],
       companionArray: [
         {
           character: "Sus-Spaceman",
-          character_src: "assets/suspect.png",
+          character_src: "assets/sus.png",
          
         },
       ],
@@ -168,7 +168,7 @@ class App extends React.Component {
       .then((res) => res.json())
       .then((newObj) => {
         console.log("newobj:", newObj)
-        this.setState({ gameProfile: [newObj] })
+        this.setState({ gameProfile: newObj })
       })
 
     this.setState({ currentScreenIndex: 4 });
@@ -180,8 +180,11 @@ class App extends React.Component {
     this.setState({ currentScreenIndex: 4 });
   }
 
+  newCreamState = (updatedGameProfile) => {
+    this.setState({gameProfile: updatedGameProfile})
+  }
   render() {
-    console.log("character array", this.state.characterArray)
+    // console.log("character array", this.state.characterArray)
     console.log("currentgameprofile", this.state.gameProfile)
     const showScreen = () => {
       if (this.state.currentScreenIndex === 0) {
@@ -201,7 +204,7 @@ class App extends React.Component {
       }
       //loginform
       //check if game profile is empty or not
-      return <Game gameProfile={this.state.gameProfile} />;
+      return <Game gameProfile={this.state.gameProfile} newCreamState={this.newCreamState}/>;
     };
     return <div className="App">
       {showScreen()}

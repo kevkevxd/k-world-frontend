@@ -13,8 +13,6 @@ class SpriteSelectSlider extends React.Component {
           sprite={sprite} 
           characterHandler={this.props.characterHandler}
           spriteIndex={spriteIndex}
-          // setCharacterSrc={this.props.setCharacterSrc} 
-          // setCharacterSteps={this.props.setCharacterSteps}
         />
       </div>
     ));
