@@ -80,8 +80,8 @@ export default class Character extends Component {
             scale={this.context.scale * 1}
             state={this.state.characterState}
             steps={[5, 5, 1, 0, 0]}
-            src={this.props.store.gameProfile.character_src || "assets/leattyspritesheet.png"}
-          />
+            src={this.props.store.gameProfile.character_src}
+            />
         </Body>
       </div>
     );

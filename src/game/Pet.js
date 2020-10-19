@@ -51,7 +51,7 @@ class Pet extends React.Component {
             style={{
               position: "absolute",
             }}
-            src="assets/leattyspritesheet.png"
+            src={this.props.store.gameProfile.companion_src}
             alt="companion"
           />
         </div>
