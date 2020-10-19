@@ -14,7 +14,7 @@ class Toon extends React.Component {
   render() {
     return (
       <div className="sprite">
-        {this.props.sprite.name}
+        {this.props.sprite.character}
         <div
           data-index={this.props.spriteIndex}
           // data-sprite-src={this.props.sprite.character_src}
@@ -32,7 +32,7 @@ class Toon extends React.Component {
               position: "absolute",
             }}
             src={this.props.sprite.character_src}
-            alt={this.props.sprite.name}
+            alt={this.props.sprite.character}
           />
         </div>
       </div>

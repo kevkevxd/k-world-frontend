@@ -9,7 +9,8 @@ import { authEndpoint, clientId, redirectUri, scopes } from "./music/config";
 import hash from "./music/hash";
 import Player from "./music/player";
 import "./App.css";
-import { SpriteSheets } from "./game/spritesheet"
+import { SpriteSheets } from "./assets/spritesheets/spritesheet"
+import { Companions } from "./assets/spritesheets/companion"
 class App extends React.Component {
   constructor() {
     super();
@@ -22,7 +23,13 @@ class App extends React.Component {
           character_steps: [5,5,1]
         },
       ],
-      companionArray: [],
+      companionArray: [
+        {
+          character: "Sus-Spaceman",
+          character_src: "assets/sus.png",
+          character_steps: [5,5,1]
+        },
+      ],
       gameProfile: {},
       token: null,
       item: {
@@ -60,6 +67,7 @@ class App extends React.Component {
      document.addEventListener("keydown", this.onEnterIntroScreen);
 
      this.setState({characterArray: SpriteSheets})
+     this.setState({companionArray: Companions})
      
   }
 
@@ -103,7 +111,7 @@ class App extends React.Component {
     });
   }
 
-  playNext = async  () => {
+  playNext = async () => {
     console.log('play next');
     fetch('https://api.spotify.com/v1/me/player/next', {
       method: "POST",
@@ -119,6 +127,18 @@ class App extends React.Component {
     //   console.log(data);
     //   // data.playNext(token);
     // })
+
+    
+    // setVolume = async () => { 
+    //   return fetch(`https://api.spotify.com/v1/me/player/volume?volume_percent=${volume}`, {
+    //     headers: {
+    //       Authorization: `Bearer ${this.state.token}`,
+    //       'Content-Type': 'application/json',
+    //     },
+    //     method: 'PUT',
+    //   });
+    // }
+    
   
 
   onEnterIntroScreen = (event) => {
@@ -175,7 +195,7 @@ class App extends React.Component {
             <LoginForm
               onFormComplete={this.onFormComplete}
               characterArray={this.state.characterArray}
-              // companionArray={this.state.companionArray}
+              companionArray={this.state.companionArray}
             />
           );
       }

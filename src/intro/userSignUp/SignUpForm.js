@@ -17,8 +17,8 @@ class SignUpForm extends React.Component {
   characterSubmitHandler = (e) => {
     e.preventDefault();
     this.props.onFormComplete(this.state);
-
-    console.log("formpage:", this.state)
+    // console.log("formpage:", this.state)
+    
   };
 
   formHandler = (e) => {
@@ -44,10 +44,10 @@ class SignUpForm extends React.Component {
     // ));
     return (
       <div>
-        <h1> Create your character</h1>
         <SpriteSelect 
           sprites={this.props.characterArray} 
-          characterHandler={this.pickCharacter} 
+          characterHandler={this.pickCharacter}
+          companionArray={this.props.companionArray}
           // setCharacterSrc={this.setCharacterSrc} 
           // setCharacterSteps={this.setCharacterSteps}
         />
