@@ -19,14 +19,14 @@ class App extends React.Component {
       characterArray: [
         {
           character: "Sus-Spaceman",
-          character_src: "assets/sus.png",
+          character_src: "assets/suspect.png",
           character_steps: [5,5,1]
         },
       ],
       companionArray: [
         {
           character: "Sus-Spaceman",
-          character_src: "assets/sus.png",
+          character_src: "assets/suspect.png",
           character_steps: [5,5,1]
         },
       ],
