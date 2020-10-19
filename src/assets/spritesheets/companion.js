@@ -7,7 +7,7 @@ export const Companions = [
     },
     {
         companion: "Sus-Spaceman",
-        companion_src: "assets/sus.png",
+        companion_src: "assets/suspect.png",
         companion_steps: [5,5,1]
     },
     
