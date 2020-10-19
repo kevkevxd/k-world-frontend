@@ -19,17 +19,17 @@ class SpriteSelectSlider extends React.Component {
       </div>
     ));
     const companionArray = this.props.companionArray
-    const companionRender = companionArray.map((companion, companionIndex) => (
-      <div className="character-option">
+    const companionRender = companionArray.map((companion, companionIndex) => ( 
+      <div className={`character-option ${this.props.companionIndex === companionIndex ? 'selected' : ''}`}>
         <Friend key={companion} 
           companion={companion} 
-          characterHandler={this.props.companionHandler} 
+          companionHandler={this.props.companionHandler} 
           companionIndex={companionIndex}
         />
       </div>
     ))
     return (
-      <div className="sign-up-form">
+      <div className="sprite-select">
         
         <div className="character-container">
         <h1>Choose a character</h1>

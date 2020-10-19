@@ -98,8 +98,12 @@ body,
     text-align: center;
     justify-content: center; 
   }
+
+  .signin-signup button {
+    margin: 0 15px;
+  }
   
-button {
+button, input {
   font-family: 'Dosis', sans-serif;
   font-size: 40px;
   font-weight: 200;
@@ -110,7 +114,6 @@ button {
   color: #fff;
   padding: 10px 20px;
   border-radius: 5px;
-  margin: 0px 15px;
   cursor: pointer;
 }
 
@@ -158,19 +161,32 @@ button:hover {
   color: #fff;
 }
 
-.sign-up-form {
+.sprite-select  {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 30px;
-  margin: 10px 30px 0px;
 }
 
-.sign-up-form h1 {
+.sprite-select h1 {
   font-family: 'Dosis', sans-serif;
   font-size: 45px;
   margin-bottom: 20px;
   font-weight: 800;
   letter-spacing: 2.5px;
+}
+
+.sign-up {
+  margin: 10px 30px;
+}
+
+.row {
+  display: flex;
+  margin-top: 20px;
+}
+
+.input-username {
+  width: 500px;
+  margin-right: 20px;
 }
 
 /* .character-container {
