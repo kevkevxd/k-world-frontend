@@ -79,7 +79,7 @@ export default class Character extends Component {
             onPlayStateChanged={this.handlePlayStateChanged}
             scale={this.context.scale * 1}
             state={this.state.characterState}
-            steps={this.props.store.gameProfile.character_steps || [5, 5, 1, 0, 0]}
+            steps={[5, 5, 1, 0, 0]}
             src={this.props.store.gameProfile.character_src || "assets/leattyspritesheet.png"}
           />
         </Body>
