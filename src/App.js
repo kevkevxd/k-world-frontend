@@ -11,9 +11,6 @@ import Player from "./music/player";
 import "./App.css";
 import { SpriteSheets } from "./assets/spritesheets/spritesheet"
 import { Companions } from "./assets/spritesheets/companion"
-import * as PIXI from 'pixi.js'
-import Space from "./assets/Space.png"
-import { RGBSplitFilter } from "pixi-filters";
 
 
 class App extends React.Component {

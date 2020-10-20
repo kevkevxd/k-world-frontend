@@ -17,8 +17,6 @@ export default class Game extends Component {
     onLeave: PropTypes.func,
   };
 
-  // static iceCreamColors = ["red", "yellow", "blue", "green", "black"];
-
   constructor() {
     super();
     this.keyListener = new KeyListener();
@@ -32,6 +30,7 @@ export default class Game extends Component {
       icecreamIndex: 0,
       currentPaper: "url",
       fullPaper: {},
+      shouldAnimateBackground: false,
 
       // game store
       characterPosition: { x: 0, y: 0 },
@@ -260,17 +259,17 @@ export default class Game extends Component {
     const index = this.state.backgroundIndex
     switch (event.key) {
       // The first ice cream is red
-      case 1:
-
+      case "1":
+        this.state.icecreamIndex >= 1 && this.setState({ shouldAnimateBackground: !this.state.shouldAnimateBackground })
         break;
-      case 2:
-
+      case "2":
+        // this.state.icecreamIndex >= 2 &&
         break;
-      case 3:
-
+      case "3":
+        // this.state.icecreamIndex >= 3 &&
         break;
-      case 4:
-
+      case "4":
+        // this.state.icecreamIndex >= 4 &&
         break;
       case "d":
         console.log("d:", paperArray[index])
@@ -349,7 +348,7 @@ export default class Game extends Component {
     // pass in state here after eating icecream
     return (
       <>
-        <Background image={this.state.papers[this.state.backgroundIndex]} shouldAnimateBackground={false} />
+        <Background image={this.state.papers[this.state.backgroundIndex]} shouldAnimateBackground={this.state.shouldAnimateBackground} />
         <Loop>
           <Stage>
             <World
