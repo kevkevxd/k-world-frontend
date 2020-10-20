@@ -23,25 +23,19 @@ class SignUpForm extends React.Component {
     this.setState({ username: e.target.value });
   };
 
-
   pickCharacter = (characterIndex) => {
-    console.log(characterIndex);
-    // this.setState({character: char})
     this.setState({ characterIndex });
   };
-  
+
   pickCompanion = (companionIndex) => {
-    // this.setState({character: char})
     this.setState({ companionIndex });
   };
 
-
   render() {
-
     return (
       <div className="sign-up">
-        <SpriteSelect 
-          sprites={this.props.characterArray} 
+        <SpriteSelect
+          sprites={this.props.characterArray}
           characterHandler={this.pickCharacter}
           companionHandler={this.pickCompanion}
           companionArray={this.props.companionArray}
@@ -60,7 +54,7 @@ class SignUpForm extends React.Component {
               className="input-username"
               autocomplete="off"
             />
-        
+
             <button type="submit" name="submit" className="button-submit">Submit</button>
           </div>
         </form>

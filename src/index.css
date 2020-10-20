@@ -161,6 +161,48 @@ button:hover {
   color: #fff;
 }
 
+.character-select-right {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: 'username username' 'character companion';
+  grid-column-gap: 30px;
+  max-width: 600px;
+  margin-left: 50px;
+}
+
+.character-select-username {
+  grid-area: username;
+}
+
+.character-select-character {
+  grid-area: character;
+  margin: auto;
+}
+
+.character-select-companion {
+  grid-area: companion;
+  margin: auto;
+}
+
+.character-select-right h1 {
+  font-family: 'Dosis', sans-serif;
+  font-size: 30px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: #fff;
+  border-radius: 5px;
+  font-weight: 400;
+  text-align: center;
+}
+.character-select-right h2 {
+  font-family: 'Dosis', sans-serif;
+  font-size: 30px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: #fff;
+  text-align: center;
+}
+
 .sprite-select  {
   display: grid;
   grid-template-columns: 1fr 1fr;

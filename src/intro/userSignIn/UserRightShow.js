@@ -1,33 +1,53 @@
 import React from "react";
-import propTypes from 'prop-types';
-
 
 class UserRightShow extends React.Component {
-  // propTypes = {
-  //   userSelector: propTypes.func.isRequired,
-  // }
 
   render() {
-    console.log(this.props.gameProfile);
     return (
-      <div>
-         <h1>{this.props.gameProfile.username}</h1>
-         <h1>{this.props.gameProfile.character}</h1>
-        <div data-sprite-name={this.props.gameProfile.character} 
-          style={{
-            height: "64px",
-            width: "64px",
-            overflow: "hidden",
-            position: "relative",
-          }}
-        >
-          <img
+      <div className="character-select-right">
+
+        <div className="character-select-username">
+          <h1>{this.props.gameProfile.username}</h1>
+        </div>
+
+        <div className="character-select-character">
+          <h2>{this.props.gameProfile.character}</h2>
+          <div
             style={{
-              position: "absolute",
+              height: "64px",
+              width: "64px",
+              overflow: "hidden",
+              position: "relative",
             }}
-            src={this.props.gameProfile.character_src}
-            alt={this.props.gameProfile.username}
-          />
+          >
+            <img
+              style={{
+                position: "absolute",
+              }}
+              src={this.props.gameProfile.character_src}
+              alt={this.props.gameProfile.username}
+            />
+          </div>
+        </div>
+
+        <div className="character-select-companion">
+          <h2>{this.props.gameProfile.companion}</h2>
+          <div
+            style={{
+              height: "64px",
+              width: "64px",
+              overflow: "hidden",
+              position: "relative",
+            }}
+          >
+            <img
+              style={{
+                position: "absolute",
+              }}
+              src={this.props.gameProfile.companion_src}
+              alt={this.props.gameProfile.companion}
+            />
+          </div>
         </div>
       </div>
 
