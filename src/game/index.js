@@ -31,6 +31,7 @@ export default class Game extends Component {
       backgroundIndex: 0,
       icecreamIndex: 0,
       currentPaper: "url",
+      fullPaper: {},
 
       // game store
       characterPosition: { x: 0, y: 0 },
@@ -244,13 +245,71 @@ export default class Game extends Component {
       .then((res) => res.json())
       .then((data) => {
         const papers = data.map((paper) => paper.source);
+        const fullPaper = data.map((paper) => paper)
         this.setState({
           papers, // same as papers: papers (only works when its the same name)
           backgroundIndex: Math.round(Math.random() * papers.length),
+          fullPaper,
+        });
+      });
+
+    document.addEventListener("keydown", this.otherKeyListener);
+  }
+
+  otherKeyListener = (event) => {
+    const paperArray = this.state.fullPaper
+    const index = this.state.backgroundIndex
+    switch (event.key) {
+      // The first ice cream is red
+      case 1:
+
+        break;
+      case 2:
+
+        break;
+      case 3:
+
+        break;
+      case 4:
+
+        break;
+      case "d":
+        console.log("d:", paperArray[index])
+        this.deleteCurrentPaper(paperArray[index])
+        break;
+      default:
+
+    }
+  };
+
+  bgRandomizer = () => {
+    const papers = this.state.papers;
+    this.setState({
+      backgroundIndex: Math.round(Math.random() * papers.length),
+      fade: false,
+    });
+  };
+
+  deleteCurrentPaper = (paper) => {
+    fetch(`http://localhost:5003/wallpapers/${paper.id}`, {
+      method: "DELETE",
+      headers: {
+        "content-type": "application/json",
+        accepts: "application/json",
+      },
+      body: JSON.stringify(paper),
+    })
+      .then((res) => res.json())
+      .then(() => {
+        const papers = this.state.papers.filter(
+          currentObj => paper.id !== currentObj.id
+        );
+
+        this.setState({
+          papers,
         });
       });
   }
-
   componentDidUpdate(prevProps, prevState) {
     if (
       prevState.isIcecreamThere === true &&
@@ -268,14 +327,6 @@ export default class Game extends Component {
     this.keyListener.unsubscribe();
   }
 
-  bgRandomizer = () => {
-    const papers = this.state.papers;
-
-    this.setState({
-      backgroundIndex: Math.round(Math.random() * papers.length),
-      fade: false,
-    });
-  };
 
   render() {
 
@@ -298,6 +349,7 @@ export default class Game extends Component {
       gameProfile: this.props.gameProfile,
     };
 
+    // pass in state here after eating icecream
     return (
       <>
         <Background image={this.state.papers[this.state.backgroundIndex]} shouldAnimateBackground={false} />

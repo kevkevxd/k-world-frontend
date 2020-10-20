@@ -34,7 +34,9 @@ class Portal extends React.Component {
           <img
             src="assets/portal.png"
             alt=""
-            style={{ width: "auto", height: 150 }}
+            style={{
+              width: "auto", height: 200
+            }}
           />
         </div>
       )
