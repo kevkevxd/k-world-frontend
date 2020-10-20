@@ -5,6 +5,9 @@
   width: 500px;
   font-family: 'Dosis', sans-serif;
   font-weight: 400;
+  position: fixed;
+  bottom: 40px;
+  right: 0px;
 }
 
 .now-playing__name {

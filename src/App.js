@@ -210,11 +210,8 @@ class App extends React.Component {
     return <div className="App">
       {showScreen()}
 
-
-
-
       <div className="spotify-app">
-        {!this.state.token && (
+        {!this.state.token && this.state.currentScreenIndex === 0 && (
           <a
             className="btn btn--loginApp-link"
             href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
