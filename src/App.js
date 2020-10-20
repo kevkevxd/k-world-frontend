@@ -344,8 +344,8 @@ class App extends React.Component {
       return <Game gameProfile={this.state.gameProfile} newCreamState={this.newCreamState} />;
     };
 
-    return <div className="App" style={{ position: 'relative' }}>
-      <div style={{ position: 'absolute' }} id="pixi" ref={node => { this.pixiNode = node }}></div>
+    return <div className="App">
+      {/* <div style={{ position: 'absolute' }} id="pixi" ref={node => { this.pixiNode = node }}></div> */}
       {showScreen()}
 
 
