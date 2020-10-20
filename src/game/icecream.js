@@ -34,14 +34,14 @@ class Icecream extends React.Component {
       { primary: "#3e4541", shading: "#2e3330" },
     ];
 
-    const primary = icecreamColors[this.props.currentIndex].primary;
-    const shading = icecreamColors[this.props.currentIndex].shading;
+    const primary = this.props.currentIndex < 5 && icecreamColors[this.props.currentIndex].primary
+    const shading = this.props.currentIndex < 5 && icecreamColors[this.props.currentIndex].shading
 
     return (
-      this.props.store.isIcecreamThere && (
+      this.props.store.isIcecreamThere && this.props.currentIndex < 5 && (
         <div className="icecream" style={this.getWrapperStyles()}>
           <IcecreamIcon
-            style={{ width: 75 }}
+            style={{ width: 85 }}
             primarycolor={primary}
             shadingcolor={shading}
           />
