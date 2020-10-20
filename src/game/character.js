@@ -50,11 +50,12 @@ export default class Character extends Component {
     const { scale } = this.context;
     const { x, y } = characterPosition;
     const targetX = x + stageX;
+    const targetY = y + 14;
 
     return {
       position: "absolute",
       // Translate is a CSS property that will move the container
-      transform: `translate(${targetX * scale}px, ${y * scale}px)`,
+      transform: `translate(${targetX * scale}px, ${targetY * scale}px)`,
       transformOrigin: "left top",
     };
   }
@@ -63,7 +64,7 @@ export default class Character extends Component {
     // this is accessing character position from gamestore through regular props
     // that are imported from gameIndex
     const x = this.props.store.characterPosition.x;
- 
+
     return (
       <div style={this.getWrapperStyles()}>
         <Body
@@ -81,7 +82,7 @@ export default class Character extends Component {
             state={this.state.characterState}
             steps={[5, 5, 1, 0, 0]}
             src={this.props.store.gameProfile.character_src}
-            />
+          />
         </Body>
       </div>
     );
