@@ -3,9 +3,8 @@ import "./player.css";
 
 const Player = props => {
   const backgroundStyles = {
-    backgroundImage:`url(${
-      props.item.album.images[0].url
-    })`,
+    backgroundImage: `url(${props.item.album.images[0].url
+      })`,
   };
 
   const progressBarStyles = {
@@ -13,9 +12,9 @@ const Player = props => {
   };
 
   return (
-    <div className="spotify">
-      <div  onClick={() => { props.playNext() }}>Next Song</div>
 
+    <div className="spotify">
+      <div onClick={() => { props.playNext() }}> >> </div>
       <div className="main-wrapper">
         <div className="now-playing__img">
           <img src={props.item.album.images[0].url} />
