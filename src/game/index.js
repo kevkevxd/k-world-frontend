@@ -31,6 +31,7 @@ export default class Game extends Component {
       currentPaper: "url",
       fullPaper: {},
       shouldAnimateBackground: false,
+      characterFacing: "right",
 
       // game store
       characterPosition: { x: 0, y: 0 },
@@ -275,6 +276,14 @@ export default class Game extends Component {
         console.log("d:", paperArray[index])
         this.deleteCurrentPaper(paperArray[index])
         break;
+      case "ArrowRight":
+        console.log("right")
+        this.setState({ characterFacing: "right" })
+        break;
+      case "ArrowLeft":
+        console.log("left")
+        this.setState({ characterFacing: "left" })
+        break;
       default:
 
     }
@@ -330,11 +339,14 @@ export default class Game extends Component {
     const GameStore = {
       portalPosition: this.state.portalPosition,
       stageX: this.state.stageX,
+      characterFacing: this.state.characterFacing,
       characterPosition: this.state.characterPosition,
       isPortalOpen: this.state.isPortalOpen,
       icecreamPosition: this.state.icecreamPosition,
       isIcecreamThere: this.state.isIcecreamThere,
       icecreamIndex: this.state.icecreamIndex,
+      lootIcecream: this.lootIcecream,
+      gameProfile: this.props.gameProfile,
 
       setStageX: this.setStageX,
       openPortal: this.openPortal,
@@ -342,8 +354,6 @@ export default class Game extends Component {
       setCharacterPosition: this.setCharacterPosition,
       checkEnterPortal: this.checkEnterPortal,
       checkIcecreamLoot: this.checkIcecreamLoot,
-      lootIcecream: this.lootIcecream,
-      gameProfile: this.props.gameProfile,
     };
     // pass in state here after eating icecream
     return (

@@ -14,11 +14,11 @@ class Pet extends React.Component {
   };
 
   getWrapperStyles() {
-    const { characterPosition, stageX } = this.props.store;
+    const { characterPosition, stageX, characterFacing } = this.props.store;
     const { scale } = this.context;
     const { x, y } = characterPosition;
-    const targetX = x + stageX - 100;
-    const targetY = y - 40;
+    const targetX = characterFacing === "right" ? x + stageX - 29 : x + stageX + 48
+    const targetY = y - 1;
 
     return {
       position: "absolute",
@@ -28,18 +28,11 @@ class Pet extends React.Component {
     };
   }
   render() {
+    const charDirection = this.props.store.characterFacing
+
     return (
       <div className="pet" style={this.getWrapperStyles()}>
-        {/* <img src="assets/leattyspritesheet.png" style={{ width: "auto", height: 150 }} /> */}
-        {/* <Body
-          args={[300, 384, 64, 64]}
-          inertia={Infinity}
-          ref={(b) => {
-            this.body = b;
-          }}
-        >
-        </Body> */}
-           <div 
+        <div
           style={{
             height: "64px",
             width: "64px",
@@ -50,6 +43,7 @@ class Pet extends React.Component {
           <img
             style={{
               position: "absolute",
+              // transform: charDirection === "right" ? "" : "scaleX(-1)"
             }}
             src={this.props.store.gameProfile.companion_src}
             alt="companion"
