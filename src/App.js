@@ -67,7 +67,6 @@ class App extends React.Component {
       });
       this.getCurrentlyPlaying(_token);
     }
-
     // set interval for polling every 5 seconds
     this.interval = setInterval(() => this.tick(), 5000);
     // Listens for keyboard events
@@ -75,144 +74,11 @@ class App extends React.Component {
 
     this.setState({ characterArray: SpriteSheets })
     this.setState({ companionArray: Companions })
-
-    this.initPixi();
-
-    if (this.pixiNode) {
-      this.pixiNode.appendChild(
-        this.pixiapp.view
-      );
-    }
   }
 
   componentWillUnmount() {
     // clear the interval to save resources
     clearInterval(this.interval);
-  }
-
-
-  initPixi() {
-    this.pixiapp = new PIXI.Application({
-      resizeTo: window,
-    });
-
-    // load the texture we need
-    this.pixiapp.loader.add('space', 'assets/Space.png').load((loader, resources) => {
-      const image = new PIXI.Sprite(resources.space.texture);
-
-      const filter1 = new RGBSplitFilter(
-        new PIXI.Point(0, 0),
-        new PIXI.Point(0, 0),
-        new PIXI.Point(0, 0),
-      );
-
-      image.filters = [filter1];
-      // image.width = window.innerWidth;
-      // image.height = window.innerHeight;
-      // this.pixiapp.options.width = window.innerWidth;
-      // this.pixiapp.options.height = window.innerHeight;
-
-      // Add the image to the scene we are building
-      this.pixiapp.stage.addChild(image);
-
-      const min = {
-        red: {
-          x: -20,
-          y: -10,
-        },
-        green: {
-          x: -20,
-          y: -10,
-        },
-        blue: {
-          x: -5,
-          y: -10,
-        },
-      };
-
-      const max = {
-        red: {
-          x: 8,
-          y: 10,
-        },
-        green: {
-          x: 8,
-          y: 2,
-        },
-        blue: {
-          x: 20,
-          y: 10,
-        }
-      };
-
-      const increment = {
-        red: {
-          x: true,
-          y: true,
-        },
-        green: {
-          x: true,
-          y: true,
-        },
-        blue: {
-          x: true,
-          y: true,
-        },
-      };
-
-      // const list = [
-      //   ['red', 'x'],
-      //   ['red', 'y'],
-      //   ['green', 'x'],
-      //   ['green', 'y'],
-      //   ['blue', 'x'],
-      //   ['blue', 'y'],
-      // ]
-
-      const list = [
-        'red',
-        'green',
-        'blue',
-      ]
-      let currentListIndex = 0;
-
-      // Listen for frame updates
-      this.pixiapp.ticker.add(() => {
-        const updateCoordinates = (color, axis) => {
-          let currentAxis = image.filters[0][color][axis];
-
-          if (increment[color][axis]) {
-            currentAxis++;
-            if (currentAxis === max[color][axis]) {
-              increment[color][axis] = false;
-              currentAxis--;
-            }
-          } else {
-            currentAxis--;
-            if (currentAxis === min[color][axis]) {
-              increment[color][axis] = true;
-              currentAxis++;
-            }
-          }
-
-          return currentAxis;
-        }
-
-        const currentShift = list[currentListIndex];
-
-        image.filters[0][currentShift].set(updateCoordinates(currentShift, 'x'), updateCoordinates(currentShift, 'y'));
-
-        currentListIndex++;
-        currentListIndex = currentListIndex % list.length;
-      });
-    });
-
-    // Attach the pixi app to pixiNode
-    if (this.pixiNode) {
-      this.pixiNode.appendChild(
-        this.pixiapp.view
-      );
-    }
   }
 
   tick() {
@@ -345,7 +211,6 @@ class App extends React.Component {
     };
 
     return <div className="App">
-      {/* <div style={{ position: 'absolute' }} id="pixi" ref={node => { this.pixiNode = node }}></div> */}
       {showScreen()}
 
 
