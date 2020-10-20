@@ -134,7 +134,7 @@ export default class Game extends Component {
     if (icecreamSpawnChance >= 5) {
       this.setState({
         isIcecreamThere: true,
-        icecreamPosition: { x: icecreamSpawnLocation, y: 320 },
+        icecreamPosition: { x: icecreamSpawnLocation, y: 376 },
       });
     }
   };
@@ -183,24 +183,23 @@ export default class Game extends Component {
   icecreamSpawnIndex = () => {
     // switch statement here. icecream index = what goes inside of post
     const user = this.props.gameProfile;
-
     switch (true) {
       case user.has_red_icecream:
-        this.setState({ iceCreamIndex: 1 })
-        break;
+        this.setState({ icecreamIndex: 1 })
+
       case user.has_yellow_icecream:
-        this.setState({ iceCreamIndex: 2 })
-        break;
+        this.setState({ icecreamIndex: 2 })
+
       case user.has_blue_icecream:
-        this.setState({ iceCreamIndex: 3 })
-        break;
+        this.setState({ icecreamIndex: 3 })
+
       case user.has_green_icecream:
-        this.setState({ iceCreamIndex: 4 })
-        break;
+        this.setState({ icecreamIndex: 4 })
+
       case user.has_black_icecream:
-        this.setState({ iceCreamIndex: 4 })
+        this.setState({ icecreamIndex: 5 })
         break;
-      default:
+
       // code block
     }
   };
@@ -231,7 +230,7 @@ export default class Game extends Component {
     });
 
     this.icecreamSpawnIndex()
-
+    console.log(this.state.icecreamIndex)
     this.keyListener.subscribe([
       this.keyListener.LEFT,
       this.keyListener.RIGHT,
@@ -315,7 +314,7 @@ export default class Game extends Component {
       prevState.isIcecreamThere === true &&
       this.state.isIcecreamThere === false &&
       // the next one will be 4 which is the last index
-      this.state.icecreamIndex <= 3
+      this.state.icecreamIndex <= 4
     ) {
       this.setState({ icecreamIndex: this.state.icecreamIndex + 1 });
       this.patchIcecream();
@@ -326,7 +325,6 @@ export default class Game extends Component {
     this.stopMusic();
     this.keyListener.unsubscribe();
   }
-
 
   render() {
 
@@ -348,7 +346,6 @@ export default class Game extends Component {
       lootIcecream: this.lootIcecream,
       gameProfile: this.props.gameProfile,
     };
-
     // pass in state here after eating icecream
     return (
       <>
