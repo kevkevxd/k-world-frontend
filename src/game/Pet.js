@@ -17,8 +17,8 @@ class Pet extends React.Component {
     const { characterPosition, stageX, characterFacing } = this.props.store;
     const { scale } = this.context;
     const { x, y } = characterPosition;
-    const targetX = characterFacing === "right" ? x + stageX - 29 : x + stageX + 48
-    const targetY = y - 1;
+    const targetX = characterFacing === "right" ? x + stageX - 29 : x + stageX + 58
+    const targetY = y + 11;
 
     return {
       position: "absolute",

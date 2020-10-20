@@ -35,7 +35,7 @@ class IcecreamUI extends React.Component {
     } />)
     return (
       (
-        <div className="icecreamUI" style={{ position: "fixed", bottom: "0px", right: "80px" }}>
+        <div className="icecreamUI" style={{ position: "fixed", bottom: "0px", left: "80px" }}>
           {uiMap}
         </div>
       )
