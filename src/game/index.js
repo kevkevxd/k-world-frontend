@@ -92,12 +92,20 @@ export default class Game extends Component {
   };
 
   openPortal = () => {
+
     const newPortalPosition = {
-      x: this.state.characterPosition.x + 250,
+      x: this.state.characterPosition.x + 230,
       y: this.state.characterPosition.y - 25,
     };
 
-    this.setPortalPosition(newPortalPosition);
+    const newPortalLeft = {
+      x: this.state.characterPosition.x - 230,
+      y: this.state.characterPosition.y - 25,
+    }
+
+    this.state.characterFacing === "right" ?
+      this.setPortalPosition(newPortalPosition) :
+      this.setPortalPosition(newPortalLeft)
 
     this.setState({
       isPortalOpen: true,
@@ -283,6 +291,10 @@ export default class Game extends Component {
       case "ArrowLeft":
         console.log("left")
         this.setState({ characterFacing: "left" })
+        break;
+      case "0":
+        console.log("portal closed")
+        this.setState({ isPortalOpen: false })
         break;
       default:
 
