@@ -11,23 +11,30 @@ import Player from "./music/player";
 import "./App.css";
 import { SpriteSheets } from "./assets/spritesheets/spritesheet"
 import { Companions } from "./assets/spritesheets/companion"
+import * as PIXI from 'pixi.js'
+import Space from "./assets/Space.png"
+import { RGBSplitFilter } from "pixi-filters";
+
+
 class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
+
     this.state = {
       currentScreenIndex: 0,
       characterArray: [
         {
           character: "Sus-Spaceman",
           character_src: "assets/sus.png",
-         
+
         },
       ],
       companionArray: [
         {
           character: "Sus-Spaceman",
           character_src: "assets/sus.png",
-         
+
         },
       ],
       gameProfile: {},
@@ -50,25 +57,32 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-      // Set token
+    // Set token
     let _token = hash.access_token;
 
     if (_token) {
-        // Set token
+      // Set token
       this.setState({
-          token: _token
-    });
+        token: _token
+      });
       this.getCurrentlyPlaying(_token);
     }
-  
-      // set interval for polling every 5 seconds
-     this.interval = setInterval(() => this.tick(), 5000);
-    // Listens for keyboard events
-     document.addEventListener("keydown", this.onEnterIntroScreen);
 
-     this.setState({characterArray: SpriteSheets})
-     this.setState({companionArray: Companions})
-     
+    // set interval for polling every 5 seconds
+    this.interval = setInterval(() => this.tick(), 5000);
+    // Listens for keyboard events
+    document.addEventListener("keydown", this.onEnterIntroScreen);
+
+    this.setState({ characterArray: SpriteSheets })
+    this.setState({ companionArray: Companions })
+
+    this.initPixi();
+
+    if (this.pixiNode) {
+      this.pixiNode.appendChild(
+        this.pixiapp.view
+      );
+    }
   }
 
   componentWillUnmount() {
@@ -76,13 +90,138 @@ class App extends React.Component {
     clearInterval(this.interval);
   }
 
+
+  initPixi() {
+    this.pixiapp = new PIXI.Application({
+      resizeTo: window,
+    });
+
+    // load the texture we need
+    this.pixiapp.loader.add('space', 'assets/Space.png').load((loader, resources) => {
+      const image = new PIXI.Sprite(resources.space.texture);
+
+      const filter1 = new RGBSplitFilter(
+        new PIXI.Point(0, 0),
+        new PIXI.Point(0, 0),
+        new PIXI.Point(0, 0),
+      );
+
+      image.filters = [filter1];
+      // image.width = window.innerWidth;
+      // image.height = window.innerHeight;
+      // this.pixiapp.options.width = window.innerWidth;
+      // this.pixiapp.options.height = window.innerHeight;
+
+      // Add the image to the scene we are building
+      this.pixiapp.stage.addChild(image);
+
+      const min = {
+        red: {
+          x: -20,
+          y: -10,
+        },
+        green: {
+          x: -20,
+          y: -10,
+        },
+        blue: {
+          x: -5,
+          y: -10,
+        },
+      };
+
+      const max = {
+        red: {
+          x: 8,
+          y: 10,
+        },
+        green: {
+          x: 8,
+          y: 2,
+        },
+        blue: {
+          x: 20,
+          y: 10,
+        }
+      };
+
+      const increment = {
+        red: {
+          x: true,
+          y: true,
+        },
+        green: {
+          x: true,
+          y: true,
+        },
+        blue: {
+          x: true,
+          y: true,
+        },
+      };
+
+      // const list = [
+      //   ['red', 'x'],
+      //   ['red', 'y'],
+      //   ['green', 'x'],
+      //   ['green', 'y'],
+      //   ['blue', 'x'],
+      //   ['blue', 'y'],
+      // ]
+
+      const list = [
+        'red',
+        'green',
+        'blue',
+      ]
+      let currentListIndex = 0;
+
+      // Listen for frame updates
+      this.pixiapp.ticker.add(() => {
+        const updateCoordinates = (color, axis) => {
+          let currentAxis = image.filters[0][color][axis];
+
+          if (increment[color][axis]) {
+            currentAxis++;
+            if (currentAxis === max[color][axis]) {
+              increment[color][axis] = false;
+              currentAxis--;
+            }
+          } else {
+            currentAxis--;
+            if (currentAxis === min[color][axis]) {
+              increment[color][axis] = true;
+              currentAxis++;
+            }
+          }
+
+          return currentAxis;
+        }
+
+        const currentShift = list[currentListIndex];
+
+        image.filters[0][currentShift].set(updateCoordinates(currentShift, 'x'), updateCoordinates(currentShift, 'y'));
+
+        currentListIndex++;
+        currentListIndex = currentListIndex % list.length;
+      });
+    });
+
+    // Attach the pixi app to pixiNode
+    if (this.pixiNode) {
+      this.pixiNode.appendChild(
+        this.pixiapp.view
+      );
+    }
+  }
+
   tick() {
-    if(this.state.token) {
+    if (this.state.token) {
       this.getCurrentlyPlaying(this.state.token);
     }
   }
 
-  
+
   getCurrentlyPlaying(token) {
     // Make a call using the token
     $.ajax({
@@ -93,7 +232,7 @@ class App extends React.Component {
       },
       success: data => {
         // Checks if the data is not empty
-        if(!data) {
+        if (!data) {
           this.setState({
             no_data: true,
           });
@@ -122,36 +261,34 @@ class App extends React.Component {
       method: 'POST',
     });
   }
-    // .then((res) => { console.log(res); return res.json() })
-    // .then(data => {
-    //   console.log(data);
-    //   // data.playNext(token);
-    // })
+  // .then((res) => { console.log(res); return res.json() })
+  // .then(data => {
+  //   console.log(data);
+  //   // data.playNext(token);
+  // })
 
-    
-    // setVolume = async () => { 
-    //   return fetch(`https://api.spotify.com/v1/me/player/volume?volume_percent=${volume}`, {
-    //     headers: {
-    //       Authorization: `Bearer ${this.state.token}`,
-    //       'Content-Type': 'application/json',
-    //     },
-    //     method: 'PUT',
-    //   });
-    // }
-    
-  
+
+  // setVolume = async () => { 
+  //   return fetch(`https://api.spotify.com/v1/me/player/volume?volume_percent=${volume}`, {
+  //     headers: {
+  //       Authorization: `Bearer ${this.state.token}`,
+  //       'Content-Type': 'application/json',
+  //     },
+  //     method: 'PUT',
+  //   });
+  // }
 
   onEnterIntroScreen = (event) => {
     if (event.key === "Enter" && this.state.currentScreenIndex === 0) {
       this.setState({ currentScreenIndex: 1 });
     }
   };
-  
+
   choiceSelect = (choice) => {
     if (choice === "Sign In") {
-      this.setState({ currentScreenIndex: 2})
-    } else if ( choice === "Sign Up") {
-      this.setState({ currentScreenIndex: 3})
+      this.setState({ currentScreenIndex: 2 })
+    } else if (choice === "Sign Up") {
+      this.setState({ currentScreenIndex: 3 })
     }
   }
 
@@ -175,39 +312,43 @@ class App extends React.Component {
   };
 
   userSelector = (user) => {
-    this.setState({gameProfile: user})
-        // make user actually represent gameprofile selection (sprites/icecreams)
+    this.setState({ gameProfile: user })
+    // make user actually represent gameprofile selection (sprites/icecreams)
     this.setState({ currentScreenIndex: 4 });
   }
 
   newCreamState = (updatedGameProfile) => {
-    this.setState({gameProfile: updatedGameProfile})
+    this.setState({ gameProfile: updatedGameProfile })
   }
+
+
   render() {
-    // console.log("character array", this.state.characterArray)
-    console.log("currentgameprofile", this.state.gameProfile)
     const showScreen = () => {
       if (this.state.currentScreenIndex === 0) {
-          return <Intro />;
+        return <Intro />;
       } else if (this.state.currentScreenIndex === 1) {
-          return <Choice choiceSelect={this.choiceSelect}/> 
+        return <Choice choiceSelect={this.choiceSelect} />
       } else if (this.state.currentScreenIndex === 2) {
-          return <SignIn userSelector={this.userSelector} gameProfile={this.state.gameProfile}/>
+        return <SignIn userSelector={this.userSelector} gameProfile={this.state.gameProfile} />
       } else if (this.state.currentScreenIndex === 3) {
-          return (
-            <LoginForm
-              onFormComplete={this.onFormComplete}
-              characterArray={this.state.characterArray}
-              companionArray={this.state.companionArray}
-            />
-          );
+        return (
+          <LoginForm
+            onFormComplete={this.onFormComplete}
+            characterArray={this.state.characterArray}
+            companionArray={this.state.companionArray}
+          />
+        );
       }
       //loginform
       //check if game profile is empty or not
-      return <Game gameProfile={this.state.gameProfile} newCreamState={this.newCreamState}/>;
+      return <Game gameProfile={this.state.gameProfile} newCreamState={this.newCreamState} />;
     };
-    return <div className="App">
+
+    return <div className="App" style={{ position: 'relative' }}>
+      <div style={{ position: 'absolute' }} id="pixi" ref={node => { this.pixiNode = node }}></div>
       {showScreen()}
+
+
 
 
       <div className="spotify-app">
@@ -228,7 +369,7 @@ class App extends React.Component {
             progress_ms={this.state.progress_ms}
             playNext={this.playNext}
           />
-          
+
         )}
         {this.state.no_data && (
           <p>
