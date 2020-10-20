@@ -94,7 +94,7 @@ export default class Game extends Component {
   openPortal = () => {
     const newPortalPosition = {
       x: this.state.characterPosition.x + 250,
-      y: this.state.characterPosition.y - 40,
+      y: this.state.characterPosition.y - 25,
     };
 
     this.setPortalPosition(newPortalPosition);
@@ -134,7 +134,7 @@ export default class Game extends Component {
     if (icecreamSpawnChance >= 5) {
       this.setState({
         isIcecreamThere: true,
-        icecreamPosition: { x: icecreamSpawnLocation, y: 376 },
+        icecreamPosition: { x: icecreamSpawnLocation, y: this.state.characterPosition.y - 60, },
       });
     }
   };
