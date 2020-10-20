@@ -10,6 +10,7 @@ import Fade from "./fade";
 import Pet from "./Pet"
 import IcecreamUI from "./icecreamUI"
 import KeyListener from "../utils/key-listener";
+import Background from './Background';
 
 export default class Game extends Component {
   static propTypes = {
@@ -139,13 +140,13 @@ export default class Game extends Component {
 
   patchRequest = (icecream) => {
     fetch(`http://localhost:5003/users/${this.props.gameProfile.id}`, {
-        method: "PATCH",
-        headers: {
-          "content-type": "application/json",
-          accepts: "application/json",
-        },
-        body: JSON.stringify(icecream),
-      })
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+        accepts: "application/json",
+      },
+      body: JSON.stringify(icecream),
+    })
       .then((res) => res.json())
       .then((newobj => {
         this.props.newCreamState(newobj)
@@ -153,53 +154,53 @@ export default class Game extends Component {
   }
 
   patchIcecream = () => {
-      // switch statement here. icecream index = what goes inside of post
-      const iceIndex = this.state.icecreamIndex;
+    // switch statement here. icecream index = what goes inside of post
+    const iceIndex = this.state.icecreamIndex;
 
-      switch(iceIndex) {
-        // The first ice cream is red
-        case 0:
-          this.patchRequest({ has_red_icecream: true});
-          break;
-        case 1:
-          this.patchRequest({ has_yellow_icecream: true })
-          break;
-        case 2:
-          this.patchRequest({ has_blue_icecream: true })
-          break;
-        case 3:
-          this.patchRequest({ has_green_icecream: true })
-          break;
-        case 4:
-          this.patchRequest({ has_black_icecream: true })
-          break;
-        default:
-              // code block
-      }
-  };
-          
-  icecreamSpawnIndex = () => {
-              // switch statement here. icecream index = what goes inside of post
-    const user = this.props.gameProfile;
-        
-      switch(true) {           
-        case user.has_red_icecream:
-          this.setState({iceCreamIndex: 1})
-          break;
-        case user.has_yellow_icecream:
-          this.setState({iceCreamIndex: 2})
-          break;
-        case user.has_blue_icecream: 
-          this.setState({iceCreamIndex: 3})
-          break;
-        case user.has_green_icecream:
-          this.setState({iceCreamIndex: 4})
-          break;
-        case user.has_black_icecream: 
-          this.setState({iceCreamIndex: 4})
-          break;
+    switch (iceIndex) {
+      // The first ice cream is red
+      case 0:
+        this.patchRequest({ has_red_icecream: true });
+        break;
+      case 1:
+        this.patchRequest({ has_yellow_icecream: true })
+        break;
+      case 2:
+        this.patchRequest({ has_blue_icecream: true })
+        break;
+      case 3:
+        this.patchRequest({ has_green_icecream: true })
+        break;
+      case 4:
+        this.patchRequest({ has_black_icecream: true })
+        break;
       default:
-                  // code block
+      // code block
+    }
+  };
+
+  icecreamSpawnIndex = () => {
+    // switch statement here. icecream index = what goes inside of post
+    const user = this.props.gameProfile;
+
+    switch (true) {
+      case user.has_red_icecream:
+        this.setState({ iceCreamIndex: 1 })
+        break;
+      case user.has_yellow_icecream:
+        this.setState({ iceCreamIndex: 2 })
+        break;
+      case user.has_blue_icecream:
+        this.setState({ iceCreamIndex: 3 })
+        break;
+      case user.has_green_icecream:
+        this.setState({ iceCreamIndex: 4 })
+        break;
+      case user.has_black_icecream:
+        this.setState({ iceCreamIndex: 4 })
+        break;
+      default:
+      // code block
     }
   };
   checkIcecreamLoot = () => {
@@ -228,8 +229,8 @@ export default class Game extends Component {
       fade: false,
     });
 
-    this.icecreamSpawnIndex()    
-    
+    this.icecreamSpawnIndex()
+
     this.keyListener.subscribe([
       this.keyListener.LEFT,
       this.keyListener.RIGHT,
@@ -241,7 +242,7 @@ export default class Game extends Component {
 
     fetch("http://localhost:5003/wallpapers")
       .then((res) => res.json())
-      .then((data) => { 
+      .then((data) => {
         const papers = data.map((paper) => paper.source);
         this.setState({
           papers, // same as papers: papers (only works when its the same name)
@@ -249,14 +250,14 @@ export default class Game extends Component {
         });
       });
   }
-    
-    componentDidUpdate(prevProps, prevState) {
-      if (
-        prevState.isIcecreamThere === true &&
-        this.state.isIcecreamThere === false &&
-        // the next one will be 4 which is the last index
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      prevState.isIcecreamThere === true &&
+      this.state.isIcecreamThere === false &&
+      // the next one will be 4 which is the last index
       this.state.icecreamIndex <= 3
-      ) {
+    ) {
       this.setState({ icecreamIndex: this.state.icecreamIndex + 1 });
       this.patchIcecream();
     }
@@ -286,7 +287,7 @@ export default class Game extends Component {
       icecreamPosition: this.state.icecreamPosition,
       isIcecreamThere: this.state.isIcecreamThere,
       icecreamIndex: this.state.icecreamIndex,
-      
+
       setStageX: this.setStageX,
       openPortal: this.openPortal,
       closePortal: this.closePortal,
@@ -296,39 +297,35 @@ export default class Game extends Component {
       lootIcecream: this.lootIcecream,
       gameProfile: this.props.gameProfile,
     };
-    
+
     return (
-      <Loop>
-        <Stage
-          style={{
-            background: `url(${
-              this.state.papers[this.state.backgroundIndex]
-            }&w=1400&fit=max) center / cover no-repeat`,
-          }}
-          >
-          <World
-            onInit={this.physicsInit}
+      <>
+        <Background image={this.state.papers[this.state.backgroundIndex]} shouldAnimateBackground={false} />
+        <Loop>
+          <Stage>
+            <World
+              onInit={this.physicsInit}
             // onCollision={(param) => {
-            
+
             // }}
-          >
-            <Level
-              store={GameStore}
-              currentPaper={this.state.papers[this.state.backgroundIndex]}
-            />
-            <Character store={GameStore} keys={this.keyListener} />
-            <Pet store={GameStore}/>
-            <Portal store={GameStore} />
-            <Icecream
-              store={GameStore}
-              currentIndex={this.state.icecreamIndex}
-            />
-            <IcecreamUI store={GameStore} />
-          </World>
-        </Stage>
-        <Fade visible={this.state.fade} />
-      </Loop>
-      
+            >
+              <Level
+                store={GameStore}
+                currentPaper={this.state.papers[this.state.backgroundIndex]}
+              />
+              <Character store={GameStore} keys={this.keyListener} />
+              <Pet store={GameStore} />
+              <Portal store={GameStore} />
+              <Icecream
+                store={GameStore}
+                currentIndex={this.state.icecreamIndex}
+              />
+              <IcecreamUI store={GameStore} />
+            </World>
+          </Stage>
+          <Fade visible={this.state.fade} />
+        </Loop>
+      </>
     );
   }
 }
