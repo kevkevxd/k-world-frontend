@@ -8,14 +8,15 @@ class Background extends React.Component {
             this.initPixi();
         }
 
-        // if (
-        //     !prevProps.shouldAnimateBackground &&
-        //     prevProps.image !== this.props.image
-        // ) {
-        //     console.log('create new bg');
-        //     // this.pixiapp.destroy();
-        //     // this.initPixi();
-        // }
+        if (
+            this.props.shouldAnimateBackground &&
+            prevProps.image !== this.props.image
+        ) {
+            // Destroy the current pixi and create a new one with the new image
+            this.pixiNode.removeChild(this.pixiapp.view);
+            this.pixiapp.destroy();
+            this.initPixi();
+        }
     }
 
     initPixi = () => {
