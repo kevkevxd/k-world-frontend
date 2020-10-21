@@ -121,6 +121,7 @@ export default class Character extends Component {
         store.setStageX(store.stageX + 5);
         store.checkIcecreamLoot();
         store.checkEnterPortal();
+        store.checkdiceLoot();
         store.icecreamMonkeyPatch();
       }
 
@@ -130,6 +131,7 @@ export default class Character extends Component {
       if (shouldMoveStageRight) {
         store.setStageX(store.stageX - 5);
         store.checkIcecreamLoot();
+        store.checkdiceLoot();
         store.checkEnterPortal();
         store.icecreamMonkeyPatch();
       }

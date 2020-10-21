@@ -11,6 +11,7 @@ import Pet from "./Pet"
 import IcecreamUI from "./icecreamUI"
 import KeyListener from "../utils/key-listener";
 import Clock from '../clock'
+import Dice from "./Dice"
 
 export default class Game extends Component {
   static propTypes = {
@@ -34,6 +35,18 @@ export default class Game extends Component {
       shouldTwisty: false,
       shouldReflect: false,
       shouldRadial: false,
+
+      isGrindDiceThere: false,
+      isNobloomDiceThere: false,
+      isCirclesDiceThere: false,
+      isTempDiceThere: false,
+      dicemap: null,
+
+      grindDicePosition: { x: 0, y: 0, },
+      nobloomDicePosition: { x: 0, y: 0, },
+      circlesDicePosition: { x: 0, y: 0, },
+      tempDicePosition: { x: 0, y: 0, },
+      dicePortalIndex: 0,
 
       // game store
       characterFacing: "right",
@@ -125,6 +138,9 @@ export default class Game extends Component {
     }, 680);
     setTimeout(() => {
       this.icecreamSpawner();
+    }, 1970);
+    setTimeout(() => {
+      this.diceSpawner();
     }, 1970);
   };
 
@@ -233,8 +249,6 @@ export default class Game extends Component {
       });
     }
   }
-
-  //////////////////////////////////////////////////////////
   //base music
   componentDidMount() {
     this.player = new AudioPlayer("/assets/ellinia.wav", () => {
@@ -369,12 +383,67 @@ export default class Game extends Component {
       this.setState({ icecreamIndex: this.state.icecreamIndex + 1 });
       this.patchIcecream();
     }
+    if (
+      prevState.isPortalOpen === true &&
+      this.state.isPortalOpen === false &&
+      this.props.gameProfile.username === "victor"
+    ) {
+      this.setState({ dicePortalIndex: this.state.dicePortalIndex + 1 });
+    }
+
   }
 
   componentWillUnmount() {
     this.stopMusic();
     this.keyListener.unsubscribe();
   }
+
+  diceSpawner = () => {
+    const min = 500;
+    const max = 2500;
+    const diceSpawnLocation0 = Math.floor(Math.random() * (max - min) + min);
+    const diceSpawnLocation1 = Math.floor(Math.random() * (max - min) + min);
+    const diceSpawnLocation2 = Math.floor(Math.random() * (max - min) + min);
+    const diceSpawnLocation3 = Math.floor(Math.random() * (max - min) + min);
+    // const diceSpawnChance = Math.round(Math.random() * 10);
+    if (this.state.dicePortalIndex === 1) {
+      this.setState({
+        isNobloomDiceThere: true,
+        isTempDiceThere: true,
+        isCirclesDiceThere: true,
+        isGrindDiceThere: true,
+        grindDicePosition: { x: diceSpawnLocation0, y: this.state.characterPosition.y - 5, },
+        nobloomDicePosition: { x: diceSpawnLocation1, y: this.state.characterPosition.y - 5, },
+        circlesDicePosition: { x: diceSpawnLocation2, y: this.state.characterPosition.y - 5, },
+        tempDicePosition: { x: diceSpawnLocation3, y: this.state.characterPosition.y - 5, },
+      });
+    }
+  };
+
+  checkdiceLoot = () => {
+    if (this.state.characterPosition.x >= this.state.grindDicePosition.x - 24 &&
+      this.state.characterPosition.x <= this.state.grindDicePosition.x + 24) {
+      this.setState({ isGrindDiceThere: false });
+      console.log("i pikup")
+    }
+    if (this.state.characterPosition.x >= this.state.nobloomDicePosition.x - 24 &&
+      this.state.characterPosition.x <= this.state.nobloomDicePosition.x + 24) {
+      this.setState({ isNobloomDiceThere: false });
+      console.log("i pikup")
+    }
+    if (this.state.characterPosition.x >= this.state.circlesDicePosition.x - 24 &&
+      this.state.characterPosition.x <= this.state.circlesDicePosition.x + 24) {
+      this.setState({ isCirclesDiceThere: false });
+      console.log("i pikup")
+    }
+    if (this.state.characterPosition.x >= this.state.tempDicePosition.x - 24 &&
+      this.state.characterPosition.x <= this.state.tempDicePosition.x + 24) {
+      this.setState({ isTempDiceThere: false });
+      console.log("i pikup")
+    }
+
+  };
+  //////////////////////////////////////////////////////////
 
   render() {
 
@@ -398,6 +467,16 @@ export default class Game extends Component {
       shouldReflect: this.state.shouldReflect,
       shouldRadial: this.state.shouldRadial,
 
+      grindDicePosition: this.state.grindDicePosition,
+      nobloomDicePosition: this.state.nobloomDicePosition,
+      circlesDicePosition: this.state.circlesDicePosition,
+      tempDicePosition: this.state.tempDicePosition,
+      isGrindDiceThere: this.state.isGrindDiceThere,
+      isNobloomDiceThere: this.state.isNobloomDiceThere,
+      isCirclesDiceThere: this.state.isCirclesDiceThere,
+      isTempDiceThere: this.state.isTempDiceThere,
+      dicemap: this.state.dicemap,
+      dicePortalIndex: this.state.dicePortalIndex,
 
       setStageX: this.setStageX,
       openPortal: this.openPortal,
@@ -405,6 +484,7 @@ export default class Game extends Component {
       setCharacterPosition: this.setCharacterPosition,
       checkEnterPortal: this.checkEnterPortal,
       checkIcecreamLoot: this.checkIcecreamLoot,
+      checkdiceLoot: this.checkdiceLoot
     };
     // pass in state here after eating icecream
     return (
@@ -418,6 +498,7 @@ export default class Game extends Component {
               <Level
                 store={GameStore}
               />
+              <Dice store={GameStore} />
               <Character store={GameStore} keys={this.keyListener} />
               <Pet store={GameStore} />
               <Portal store={GameStore} />

@@ -131,10 +131,19 @@ class Background extends React.Component {
     });
 
     // Add the image to pixi
-    this.pixiapp.loader.add('image', `${this.props.store.image}?q=80&fm=jpg&w=${bgwidth}&h=${window.innerHeight}&fit=crop&crop=edges`).load((loader, resources) => {
+
+
+    ///this.props.store.dicePortalIndex === 1 ? load "./assets/coffeetable.png" else continue random bg
+    const isVictor = this.props.store.dicePortalIndex === 1;
+    const imageURL = `${this.props.store.image}?q=80&fm=jpg&w=${bgwidth}&h=${window.innerHeight}&fit=crop&crop=edges`;
+    const coffeeImage = '../assets/coffeetable.png';
+
+    this.pixiapp.loader.add('image', isVictor ? coffeeImage : imageURL).load((loader, resources) => {
       this.image = PIXI.Sprite.from(resources.image.url);
       this.image.width = bgwidth;
-
+      console.log("resources.image.texture", resources.image.texture)
+      console.log("resources.image.url", resources.image.url)
+      console.log("vic?", isVictor)
       // filters
       const rgb = new RGBSplitFilter(
         new PIXI.Point(0, 0),
