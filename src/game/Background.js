@@ -141,9 +141,7 @@ class Background extends React.Component {
     this.pixiapp.loader.add('image', isVictor ? coffeeImage : imageURL).load((loader, resources) => {
       this.image = PIXI.Sprite.from(resources.image.url);
       this.image.width = bgwidth;
-      console.log("resources.image.texture", resources.image.texture)
-      console.log("resources.image.url", resources.image.url)
-      console.log("vic?", isVictor)
+
       // filters
       const rgb = new RGBSplitFilter(
         new PIXI.Point(0, 0),
@@ -159,7 +157,6 @@ class Background extends React.Component {
       const center = new PIXI.Point(bgwidth / 2, window.innerHeight / 2);
       const radial = new RadialBlurFilter(0, center, 5, 0);
 
-      console.log(radial);
 
       this.image.filters = [rgb, twisty, reflection, radial];
 
