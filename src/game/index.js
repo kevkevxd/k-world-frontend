@@ -10,7 +10,7 @@ import Fade from "./fade";
 import Pet from "./Pet"
 import IcecreamUI from "./icecreamUI"
 import KeyListener from "../utils/key-listener";
-import Background from './Background';
+import Clock from '../clock'
 
 export default class Game extends Component {
   static propTypes = {
@@ -31,6 +31,7 @@ export default class Game extends Component {
       currentPaper: "url",
       fullPaper: {},
       shouldAnimateBackground: false,
+      shouldTwisty: false,
       characterFacing: "right",
 
       // game store
@@ -269,10 +270,12 @@ export default class Game extends Component {
     switch (event.key) {
       // The first ice cream is red
       case "1":
-        this.state.icecreamIndex >= 1 && this.setState({ shouldAnimateBackground: !this.state.shouldAnimateBackground })
+        // this.state.icecreamIndex >= 1 && 
+        this.setState({ shouldAnimateBackground: !this.state.shouldAnimateBackground })
         break;
       case "2":
-        // this.state.icecreamIndex >= 2 &&
+        // this.state.icecreamIndex >= 2 && 
+        this.setState({ shouldTwisty: !this.state.shouldTwisty })
         break;
       case "3":
         // this.state.icecreamIndex >= 3 &&
@@ -370,7 +373,7 @@ export default class Game extends Component {
     // pass in state here after eating icecream
     return (
       <>
-        <Background image={this.state.papers[this.state.backgroundIndex]} shouldAnimateBackground={this.state.shouldAnimateBackground} />
+        <Clock />
         <Loop>
           <Stage>
             <World
@@ -380,8 +383,11 @@ export default class Game extends Component {
             // }}
             >
               <Level
+                image={this.state.papers[this.state.backgroundIndex]}
                 store={GameStore}
                 currentPaper={this.state.papers[this.state.backgroundIndex]}
+                shouldAnimateBackground={this.state.shouldAnimateBackground}
+                shouldTwisty={this.state.shouldTwisty}
               />
               <Character store={GameStore} keys={this.keyListener} />
               <Pet store={GameStore} />
