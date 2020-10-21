@@ -32,6 +32,8 @@ export default class Game extends Component {
       fullPaper: {},
       shouldRGB: false,
       shouldTwisty: false,
+      shouldReflect: false,
+      shouldRadial: false,
 
       // game store
       characterFacing: "right",
@@ -276,12 +278,16 @@ export default class Game extends Component {
       case "2":
         // this.state.icecreamIndex >= 2 && 
         this.setState({ shouldTwisty: !this.state.shouldTwisty })
+        console.log("twisty")
         break;
       case "3":
         // this.state.icecreamIndex >= 3 &&
+        this.setState({ shouldReflect: !this.state.shouldReflect })
+        console.log("wavey")
         break;
       case "4":
         // this.state.icecreamIndex >= 4 &&
+        this.setState({ shouldRadial: !this.state.shouldRadial })
         break;
       case "d":
         console.log("d:", paperArray[index])
@@ -367,6 +373,8 @@ export default class Game extends Component {
       currentPaper: this.state.papers[this.state.backgroundIndex],
       shouldRGB: this.state.shouldRGB,
       shouldTwisty: this.state.shouldTwisty,
+      shouldReflect: this.state.shouldReflect,
+      shouldRadial: this.state.shouldshouldRadial,
 
 
       setStageX: this.setStageX,

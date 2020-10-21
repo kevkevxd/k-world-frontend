@@ -1,6 +1,6 @@
 import React from "react";
 import * as PIXI from 'pixi.js';
-import { RGBSplitFilter, TwistFilter } from "pixi-filters";
+import { ReflectionFilter, RGBSplitFilter, TwistFilter } from "pixi-filters";
 
 const bgwidth = 7650;
 
@@ -63,33 +63,40 @@ class Background extends React.Component {
     return ({
       rgb: this.animateRGB,
       twisty: this.animateTwisty,
+      reflection: this.animateReflection
     });
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.image === undefined && this.props.image) {
+    if (prevProps.store.image === undefined && this.props.store.image) {
       console.log('image ready');
       this.initPixi();
     }
 
-    if (!prevProps.shouldRGB && this.props.shouldRGB) {
+    if (!prevProps.store.shouldRGB && this.props.store.shouldRGB) {
       this.addImageEffect('rgb');
     }
 
-    if (prevProps.shouldRGB && !this.props.shouldRGB) {
+    if (prevProps.store.shouldRGB && !this.props.store.shouldRGB) {
       this.removeImageEffect('rgb');
     }
 
-
-    if (!prevProps.shouldTwisty && this.props.shouldTwisty) {
+    if (!prevProps.store.shouldTwisty && this.props.store.shouldTwisty) {
       this.addImageEffect('twisty');
     }
-    if (prevProps.shouldTwisty && !this.props.shouldTwisty) {
+    if (prevProps.store.shouldTwisty && !this.props.store.shouldTwisty) {
       this.removeImageEffect('twisty');
     }
 
+    if (!prevProps.store.shouldTwisty && this.props.store.shouldReflect) {
+      this.addImageEffect('reflection');
+    }
+    if (prevProps.store.shouldTwisty && !this.props.store.shouldReflect) {
+      this.removeImageEffect('reflection');
+    }
+
     if (
-      prevProps.image !== this.props.image
+      prevProps.store.image !== this.props.store.image
     ) {
       // Destroy the current pixi and create a new one with the new image
       if (this.pixiNode.contains(this.pixiapp.view)) {
@@ -97,7 +104,7 @@ class Background extends React.Component {
       }
       this.pixiapp.destroy();
       this.initPixi();
-      if (this.props.shouldAnimateBackground) {
+      if (this.props.store.shouldRGB) {
         this.addImageEffect();
       }
     }
@@ -106,7 +113,7 @@ class Background extends React.Component {
   initPixi = () => {
     // console.log(`${this.props.image}?q=80&fm=jpg&w=${bgwidth}&h=${window.innerHeight}&fit=crop&crop=edges`);
 
-    if (!this.props.image) {
+    if (!this.props.store.image) {
       return;
     }
 
@@ -116,7 +123,7 @@ class Background extends React.Component {
     });
 
     // Add the image to pixi
-    this.pixiapp.loader.add('image', `${this.props.image}?q=80&fm=jpg&w=${bgwidth}&h=${window.innerHeight}&fit=crop&crop=edges`).load((loader, resources) => {
+    this.pixiapp.loader.add('image', `${this.props.store.image}?q=80&fm=jpg&w=${bgwidth}&h=${window.innerHeight}&fit=crop&crop=edges`).load((loader, resources) => {
       this.image = PIXI.Sprite.from(resources.image.url);
       this.image.width = bgwidth;
 
@@ -130,11 +137,14 @@ class Background extends React.Component {
       const twisty = new TwistFilter(0, 0);
       twisty.offset = new PIXI.Point(bgwidth / 2, window.innerHeight / 2);
 
-      this.image.filters = [rgb, twisty];
+      const reflection = new ReflectionFilter({ mirror: true, boundary: 1, amplitude: [0, 0], });
+
+      this.image.filters = [rgb, twisty, reflection];
 
       // Add the image to the scene we are building
       this.pixiapp.stage.addChild(this.image);
     });
+
 
     // Attach the pixi app to pixiNode
     if (this.pixiNode && this.pixiNode.children.length <= 0) {
@@ -197,6 +207,16 @@ class Background extends React.Component {
     }
     if (twistFilter.radius <= 10000) {
       twistFilter.radius++;
+    }
+  }
+
+  animateReflection = () => {
+    const reflectionFilter = this.image.filters[2];
+    if (reflectionFilter.boundary <= 1) {
+      reflectionFilter.boundary = reflectionFilter.boundary - .1;
+    }
+    if (reflectionFilter.amplitude[0] <= 0) {
+      reflectionFilter.amplitude[0]++;
     }
   }
 
