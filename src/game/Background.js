@@ -1,6 +1,6 @@
 import React from "react";
 import * as PIXI from 'pixi.js';
-import { ReflectionFilter, RGBSplitFilter, TwistFilter } from "pixi-filters";
+import { RadialBlurFilter, ReflectionFilter, RGBSplitFilter, TwistFilter } from "pixi-filters";
 
 const bgwidth = 7650;
 
@@ -63,7 +63,8 @@ class Background extends React.Component {
     return ({
       rgb: this.animateRGB,
       twisty: this.animateTwisty,
-      reflection: this.animateReflection
+      reflection: this.animateReflection,
+      radial: this.animateRadial,
     });
   }
 
@@ -95,6 +96,13 @@ class Background extends React.Component {
       this.removeImageEffect('reflection');
     }
 
+    if (!prevProps.store.shouldTwisty && this.props.store.shouldRadial) {
+      console.log('start radial');
+      this.addImageEffect('radial');
+    }
+    if (prevProps.store.shouldTwisty && !this.props.store.shouldRadial) {
+      this.removeImageEffect('radial');
+    }
     if (
       prevProps.store.image !== this.props.store.image
     ) {
@@ -139,11 +147,17 @@ class Background extends React.Component {
 
       const reflection = new ReflectionFilter({ mirror: true, boundary: 1, amplitude: [0, 0], });
 
-      this.image.filters = [rgb, twisty, reflection];
+      const center = new PIXI.Point(bgwidth / 2, window.innerHeight / 2);
+      const radial = new RadialBlurFilter(0, center, 5, 0);
+
+      console.log(radial);
+
+      this.image.filters = [rgb, twisty, reflection, radial];
 
       // Add the image to the scene we are building
       this.pixiapp.stage.addChild(this.image);
     });
+
 
 
     // Attach the pixi app to pixiNode
@@ -210,14 +224,29 @@ class Background extends React.Component {
     }
   }
 
+  reflectionState = { mirror: true, boundary: 1, amplitude: [0, 0] };
   animateReflection = () => {
-    const reflectionFilter = this.image.filters[2];
-    if (reflectionFilter.boundary <= 1) {
-      reflectionFilter.boundary = reflectionFilter.boundary - .1;
+    if (this.reflectionState.boundary <= 1) {
+      this.reflectionState.boundary = this.reflectionState.boundary - 0.000001;
     }
-    if (reflectionFilter.amplitude[0] <= 0) {
-      reflectionFilter.amplitude[0]++;
+    if (this.reflectionState.amplitude[0] <= 50) {
+      this.reflectionState.amplitude[0]++;
     }
+
+    this.image.filters[2] = new ReflectionFilter(this.reflectionState);
+  }
+
+  radialState = { angle: 0, radius: 0 }
+  animateRadial = () => {
+    if (this.radialState.angle <= 100) {
+      this.radialState.angle++;
+    }
+    if (this.radialState.radius <= 10000) {
+      this.radialState.radius++;
+    }
+
+    const center = new PIXI.Point(bgwidth / 2, window.innerHeight / 2);
+    this.image.filters[3] = new RadialBlurFilter(this.radialState.angle, center, 5, this.radialState.radius);
   }
 
   render() {

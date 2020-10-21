@@ -288,6 +288,7 @@ export default class Game extends Component {
       case "4":
         // this.state.icecreamIndex >= 4 &&
         this.setState({ shouldRadial: !this.state.shouldRadial })
+        console.log("radial")
         break;
       case "d":
         console.log("d:", paperArray[index])
