@@ -30,11 +30,11 @@ export default class Game extends Component {
       icecreamIndex: 0,
       currentPaper: "url",
       fullPaper: {},
-      shouldAnimateBackground: false,
+      shouldRGB: false,
       shouldTwisty: false,
-      characterFacing: "right",
 
       // game store
+      characterFacing: "right",
       characterPosition: { x: 0, y: 0 },
       stageX: 0,
       portalPosition: { x: 0, y: 0 },
@@ -271,7 +271,7 @@ export default class Game extends Component {
       // The first ice cream is red
       case "1":
         // this.state.icecreamIndex >= 1 && 
-        this.setState({ shouldAnimateBackground: !this.state.shouldAnimateBackground })
+        this.setState({ shouldRGB: !this.state.shouldRGB })
         break;
       case "2":
         // this.state.icecreamIndex >= 2 && 
@@ -363,6 +363,12 @@ export default class Game extends Component {
       lootIcecream: this.lootIcecream,
       gameProfile: this.props.gameProfile,
 
+      image: this.state.papers[this.state.backgroundIndex],
+      currentPaper: this.state.papers[this.state.backgroundIndex],
+      shouldRGB: this.state.shouldRGB,
+      shouldTwisty: this.state.shouldTwisty,
+
+
       setStageX: this.setStageX,
       openPortal: this.openPortal,
       closePortal: this.closePortal,
@@ -378,16 +384,9 @@ export default class Game extends Component {
           <Stage>
             <World
               onInit={this.physicsInit}
-            // onCollision={(param) => {
-
-            // }}
             >
               <Level
-                image={this.state.papers[this.state.backgroundIndex]}
                 store={GameStore}
-                currentPaper={this.state.papers[this.state.backgroundIndex]}
-                shouldAnimateBackground={this.state.shouldAnimateBackground}
-                shouldTwisty={this.state.shouldTwisty}
               />
               <Character store={GameStore} keys={this.keyListener} />
               <Pet store={GameStore} />
