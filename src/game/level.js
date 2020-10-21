@@ -54,9 +54,9 @@ export default class Level extends Component {
     return (
       <div style={this.getWrapperStyles()}>
         <Background
-          image={this.props.image}
-          shouldAnimateBackground={this.props.shouldAnimateBackground}
-          shouldTwisty={this.props.shouldTwisty}
+          image={this.props.store.image}
+          shouldRGB={this.props.store.shouldRGB}
+          shouldTwisty={this.props.store.shouldTwisty}
         />
         <TileMap
           style={{ top: Math.floor(64 * this.context.scale), opacity: 0.25 }}

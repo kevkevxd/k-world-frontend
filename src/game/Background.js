@@ -72,11 +72,11 @@ class Background extends React.Component {
       this.initPixi();
     }
 
-    if (!prevProps.shouldAnimateBackground && this.props.shouldAnimateBackground) {
+    if (!prevProps.shouldRGB && this.props.shouldRGB) {
       this.addImageEffect('rgb');
     }
 
-    if (prevProps.shouldAnimateBackground && !this.props.shouldAnimateBackground) {
+    if (prevProps.shouldRGB && !this.props.shouldRGB) {
       this.removeImageEffect('rgb');
     }
 
@@ -147,7 +147,6 @@ class Background extends React.Component {
   addImageEffect = (type) => {
     const animation = this.filterAnimationMap[type];
     // console.log('animation', animation);
-    debugger;
 
     if (animation) {
       this.pixiapp.ticker.add(animation);
