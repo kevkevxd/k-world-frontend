@@ -224,6 +224,15 @@ export default class Game extends Component {
       });
     }
   }
+  icecreamMonkeyPatch = () => {
+    if (
+      this.props.gameProfile.has_red_icecream && !this.props.gameProfile.has_black_icecream && this.state.icecreamIndex === 5
+    ) {
+      this.setState({
+        icecreamIndex: 2
+      });
+    }
+  }
 
   //////////////////////////////////////////////////////////
   //base music
@@ -290,6 +299,17 @@ export default class Game extends Component {
         this.setState({ shouldRadial: !this.state.shouldRadial })
         console.log("radial")
         break;
+      case "5":
+        // this.state.icecreamIndex >= 4 &&
+        this.setState({
+          shouldRGB: false,
+          shouldTwisty: false,
+          shouldReflect: false,
+          shouldRadial: false,
+        })
+        console.log("stopping all filters")
+        break;
+
       case "d":
         console.log("d:", paperArray[index])
         this.deleteCurrentPaper(paperArray[index])
@@ -369,13 +389,14 @@ export default class Game extends Component {
       icecreamIndex: this.state.icecreamIndex,
       lootIcecream: this.lootIcecream,
       gameProfile: this.props.gameProfile,
+      icecreamMonkeyPatch: this.icecreamMonkeyPatch,
 
       image: this.state.papers[this.state.backgroundIndex],
       currentPaper: this.state.papers[this.state.backgroundIndex],
       shouldRGB: this.state.shouldRGB,
       shouldTwisty: this.state.shouldTwisty,
       shouldReflect: this.state.shouldReflect,
-      shouldRadial: this.state.shouldshouldRadial,
+      shouldRadial: this.state.shouldRadial,
 
 
       setStageX: this.setStageX,
