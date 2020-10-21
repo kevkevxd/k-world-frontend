@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200;400;800&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani&display=swap');
 @font-face {
   font-family: "8BIT WONDER";
   src: url("/assets/8BITWONDERNominal.eot");
@@ -186,7 +186,7 @@ button:hover {
 
 .character-select-right h1 {
   font-family: 'Dosis', sans-serif;
-  font-size: 30px;
+  font-size: 60px;
   letter-spacing: 5px;
   text-transform: uppercase;
   color: #fff;
@@ -280,6 +280,7 @@ button:hover {
 
 
 .spotify-app {
+  font-family: 'Rajdhani', sans-serif;
   position: absolute;
   left: 20px;
   bottom: 100px;
