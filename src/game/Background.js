@@ -89,18 +89,20 @@ class Background extends React.Component {
       this.removeImageEffect('twisty');
     }
 
-    if (!prevProps.store.shouldTwisty && this.props.store.shouldReflect) {
+    if (!prevProps.store.shouldReflect && this.props.store.shouldReflect) {
       this.addImageEffect('reflection');
+      console.log("refrect!")
     }
-    if (prevProps.store.shouldTwisty && !this.props.store.shouldReflect) {
+    if (prevProps.store.shouldReflect && !this.props.store.shouldReflect) {
       this.removeImageEffect('reflection');
+      console.log("stop refrect!")
     }
 
-    if (!prevProps.store.shouldTwisty && this.props.store.shouldRadial) {
+    if (!prevProps.store.shouldRadial && this.props.store.shouldRadial) {
       console.log('start radial');
       this.addImageEffect('radial');
     }
-    if (prevProps.store.shouldTwisty && !this.props.store.shouldRadial) {
+    if (prevProps.store.shouldRadial && !this.props.store.shouldRadial) {
       this.removeImageEffect('radial');
     }
     if (
@@ -120,11 +122,9 @@ class Background extends React.Component {
 
   initPixi = () => {
     // console.log(`${this.props.image}?q=80&fm=jpg&w=${bgwidth}&h=${window.innerHeight}&fit=crop&crop=edges`);
-
     if (!this.props.store.image) {
       return;
     }
-
     this.pixiapp = new PIXI.Application({
       width: bgwidth,
       height: window.innerHeight,
@@ -132,8 +132,6 @@ class Background extends React.Component {
 
     // Add the image to pixi
 
-
-    ///this.props.store.dicePortalIndex === 1 ? load "./assets/coffeetable.png" else continue random bg
     const isVictor = this.props.store.dicePortalIndex === 1;
     const imageURL = `${this.props.store.image}?q=80&fm=jpg&w=${bgwidth}&h=${window.innerHeight}&fit=crop&crop=edges`;
     const coffeeImage = '../assets/coffeetable.png';
@@ -233,16 +231,15 @@ class Background extends React.Component {
   reflectionState = { mirror: true, boundary: 1, amplitude: [0, 0] };
   animateReflection = () => {
     if (this.reflectionState.boundary <= 1) {
-      this.reflectionState.boundary = this.reflectionState.boundary - 0.000001;
+      this.reflectionState.boundary = this.reflectionState.boundary - 0.0001;
     }
     if (this.reflectionState.amplitude[0] <= 50) {
       this.reflectionState.amplitude[0]++;
     }
-
     this.image.filters[2] = new ReflectionFilter(this.reflectionState);
   }
 
-  radialState = { angle: 0, radius: 0 }
+  radialState = { angle: 0, radius: 0, kernelSize: 23 }
   animateRadial = () => {
     if (this.radialState.angle <= 100) {
       this.radialState.angle++;
@@ -251,8 +248,9 @@ class Background extends React.Component {
       this.radialState.radius++;
     }
 
+
     const center = new PIXI.Point(bgwidth / 2, window.innerHeight / 2);
-    this.image.filters[3] = new RadialBlurFilter(this.radialState.angle, center, 5, this.radialState.radius);
+    this.image.filters[3] = new RadialBlurFilter(this.radialState.angle, center, 5, this.radialState.radius, this.radialState.kernelSize);
   }
 
   render() {
