@@ -56,6 +56,11 @@ const list = [
 ]
 
 class Background extends React.Component {
+
+  state = {
+    currentImage: ""
+  }
+
   currentListIndex = 0;
 
   // Map the filter names to the function you pass into ticker
@@ -65,6 +70,7 @@ class Background extends React.Component {
       twisty: this.animateTwisty,
       reflection: this.animateReflection,
       radial: this.animateRadial,
+      reset: this.reset
     });
   }
 
@@ -105,6 +111,12 @@ class Background extends React.Component {
     if (prevProps.store.shouldRadial && !this.props.store.shouldRadial) {
       this.removeImageEffect('radial');
     }
+    if (!prevProps.store.shouldReset && this.props.store.shouldReset) {
+      console.log('reset bg');
+      this.pixiNode.removeChild(this.pixiapp.view)
+      this.pixiapp.destroy()
+      this.initPixi()
+    }
     if (
       prevProps.store.image !== this.props.store.image
     ) {
@@ -114,9 +126,9 @@ class Background extends React.Component {
       }
       this.pixiapp.destroy();
       this.initPixi();
-      if (this.props.store.shouldRGB) {
-        this.addImageEffect();
-      }
+      // if (this.props.store.shouldRGB) {
+      //   this.addImageEffect();
+      // }
     }
   }
 
@@ -139,7 +151,7 @@ class Background extends React.Component {
     this.pixiapp.loader.add('image', isVictor ? coffeeImage : imageURL).load((loader, resources) => {
       this.image = PIXI.Sprite.from(resources.image.url);
       this.image.width = bgwidth;
-
+      isVictor ? this.setState({ currentImage: this.isVictor }) : this.setState({ currentImage: this.imageURL })
       // filters
       const rgb = new RGBSplitFilter(
         new PIXI.Point(0, 0),
@@ -252,6 +264,7 @@ class Background extends React.Component {
     const center = new PIXI.Point(bgwidth / 2, window.innerHeight / 2);
     this.image.filters[3] = new RadialBlurFilter(this.radialState.angle, center, 5, this.radialState.radius, this.radialState.kernelSize);
   }
+
 
   render() {
     return (
