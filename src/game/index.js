@@ -296,21 +296,34 @@ export default class Game extends Component {
       // The first ice cream is red
       case "1":
         // this.state.icecreamIndex >= 1 && 
-        this.setState({ shouldRGB: !this.state.shouldRGB })
+        this.setState({
+          shouldRGB: !this.state.shouldRGB,
+          shouldReset: false,
+        })
         break;
       case "2":
         // this.state.icecreamIndex >= 2 && 
-        this.setState({ shouldTwisty: !this.state.shouldTwisty })
+        this.setState({
+          shouldTwisty: !this.state.shouldTwisty,
+          shouldReset: false,
+        })
         console.log("twisty")
         break;
       case "3":
         // this.state.icecreamIndex >= 3 &&
-        this.setState({ shouldReflect: !this.state.shouldReflect })
+        this.setState({
+          shouldReflect: !this.state.shouldReflect,
+          shouldReset: false,
+        })
         console.log("wavey")
         break;
       case "4":
         // this.state.icecreamIndex >= 4 &&
-        this.setState({ shouldRadial: !this.state.shouldRadial })
+        this.setState({
+          shouldRadial: !this.state.shouldRadial,
+          shouldReset: false,
+        })
+
         console.log("radial")
         break;
       case "5":
@@ -323,7 +336,16 @@ export default class Game extends Component {
         })
         console.log("stopping all filters")
         break;
-
+      case "6":
+        console.log("6:", "Reset Paper")
+        this.setState({
+          shouldRGB: false,
+          shouldTwisty: false,
+          shouldReflect: false,
+          shouldRadial: false,
+          shouldReset: true,
+        })
+        break;
       case "d":
         console.log("d:", paperArray[index])
         this.deleteCurrentPaper(paperArray[index])
@@ -466,6 +488,7 @@ export default class Game extends Component {
       shouldTwisty: this.state.shouldTwisty,
       shouldReflect: this.state.shouldReflect,
       shouldRadial: this.state.shouldRadial,
+      shouldReset: this.state.shouldReset,
 
       grindDicePosition: this.state.grindDicePosition,
       nobloomDicePosition: this.state.nobloomDicePosition,
