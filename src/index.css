@@ -1,81 +1,289 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200;400;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani&display=swap');
 @font-face {
-  font-family: '8BIT WONDER';
-  src: url('assets/8BITWONDERNominal.eot');
-  src: url('assets/8BITWONDERNominal.eot?#iefix') format('embedded-opentype'),
-    url('assets/8BITWONDERNominal.woff') format('woff'),
-    url('assets/8BITWONDERNominal.ttf') format('truetype');
+  font-family: "8BIT WONDER";
+  src: url("/assets/8BITWONDERNominal.eot");
+  src: url("/assets/8BITWONDERNominal.eot?#iefix") format("embedded-opentype"),
+    url("/assets/8BITWONDERNominal.woff") format("woff"),
+    url("/assets/8BITWONDERNominal.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
-html, body, #root {
+
+html,
+body,
+#root,
+.App {
   background: black;
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
   color: white;
-  font-family: 'Helvetica Neue';
+  font-family: "Helvetica Neue";
   font-size: 3vw;
+  
 }
+  
+  .yellow {
+    color: #f1c40f;
+  }
+  
+  del {
+    color: #e74c3c;
+  }
+  
+  p {
+    font-size: 1.2em;
+    line-height: 1.5;
+  }
+  
+  li {
+    font-size: 1.3em;
+    line-height: 1.5;
+  }
+  
+  pre {
+    font-size: 1.5vw;
+    max-height: 100%;
+    overflow: hidden;
+  }
+  
 
-.yellow {
-  color: #f1c40f;
-}
-
-del {
-  color: #e74c3c;
-}
-
-p {
-  font-size: 1.2em;
-  line-height: 1.5;
-}
-
-li {
-  font-size: 1.3em;
-  line-height: 1.5;
-}
-
-pre {
-  font-size: 1.5vw;
-  max-height: 100%;
-  overflow: hidden;
-}
-
-.intro {
+.intro-container {
   margin: auto;
   width: 100%;
   max-width: 1024px;
-  display: block;
-}
-
-.start {
-  font-family: '8BIT WONDER';
-  display: block;
-  width: 400px;
-  font-size: 24px;
-  margin: -1% auto 0px;
+  padding: 15% 0px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Dosis', sans-serif;
   text-align: center;
-  color: white;
+  justify-content: center; 
 }
 
-.fade {
+.intro {
+  font-weight: 200;
+  font-size: 70px;
+  width: 100%;
+  margin-right: 25%;
+  margin-bottom: 10%;
+}
+.intro span {
+  margin-right: 30px;
+}
+
+.intro-text {
+  width: 100%;
+  margin-left: 25%;
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: #777;
+}
+
+
+  .signin-signup { 
+    margin: auto;
+    width: 100%;
+    max-width: 1024px;
+    padding: 15% 0px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center; 
+  }
+
+  .signin-signup button {
+    margin: 0 15px;
+  }
+  
+button, input {
+  font-family: 'Dosis', sans-serif;
+  font-size: 40px;
+  font-weight: 200;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  border: 1px solid #fff;
+  background: transparent;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #2a82a8;
+  border-color: transparent;
+}
+
+.character-select {
+  font-family: 'Dosis', sans-serif;
+  font-size: 30px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  border: 1px solid #fff;
+  background: transparent;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  font-weight: 400;
+}
+
+.character-option {
+  padding: 10px 20px;
+  border-top: 1px solid #fff;
+}
+
+.character-option.selected {
+  background: #eee;
+  color: #000;
+  position: relative;
+}
+
+.character-option.selected::after {
+  content: 'Selected';
   position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background: black;
-  -webkit-transition: 500ms opacity linear;
-  transition: 1s opacity linear;
-  opacity: 0;
+  right: 0px;
+  bottom: 0px;
+  font-size: 20px;
+  letter-spacing: 3px;
 }
 
-.fade.active {
- opacity: 1;
+.character-option:hover {
+  background: #2a82a8;
+  color: #fff;
 }
 
-* {
-  box-sizing: border-box;
+.character-select-right {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: 'username username' 'character companion';
+  grid-column-gap: 30px;
+  max-width: 600px;
+  margin-left: 50px;
+}
+
+.character-select-username {
+  grid-area: username;
+}
+
+.character-select-character {
+  grid-area: character;
+  margin: auto;
+}
+
+.character-select-companion {
+  grid-area: companion;
+  margin: auto;
+}
+
+.character-select-right h1 {
+  font-family: 'Dosis', sans-serif;
+  font-size: 60px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: #fff;
+  border-radius: 5px;
+  font-weight: 400;
+  text-align: center;
+}
+.character-select-right h2 {
+  font-family: 'Dosis', sans-serif;
+  font-size: 30px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: #fff;
+  text-align: center;
+}
+
+.sprite-select  {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 30px;
+}
+
+.sprite-select h1 {
+  font-family: 'Dosis', sans-serif;
+  font-size: 45px;
+  margin-bottom: 20px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+}
+
+.sign-up {
+  margin: 10px 30px;
+}
+
+.row {
+  display: flex;
+  margin-top: 20px;
+}
+
+.input-username {
+  width: 500px;
+  margin-right: 20px;
+}
+
+/* .character-container {
+  width: 50%;
+} */
+
+
+.user-sign-in-container {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+}
+
+.user-select-form button {
+  width: 100%;
+  font-size: 24px;
+}
+
+
+  .start {
+    font-family: "8BIT WONDER";
+    display: block;
+    width: 400px;
+    font-size: 24px;
+    margin: -1% auto 0px;
+    text-align: center;
+    color: white;
+  }
+  
+  .fade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: black;
+    -webkit-transition: 500ms opacity linear;
+    transition: 1s opacity linear;
+    opacity: 0;
+  }
+  
+  .fade.active {
+    opacity: 1;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+
+
+.spotify-app {
+  font-family: 'Rajdhani', sans-serif;
+  position: absolute;
+  left: 20px;
+  bottom: 100px;
+  font-size: 20px;
+  letter-spacing: 0px;
 }

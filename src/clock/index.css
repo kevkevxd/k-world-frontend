@@ -1,0 +1,29 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+
+
+body {
+  background: black;
+}
+
+#MyClockDisplay {
+position: absolute;
+top: 22%;
+right: 5%;
+}
+
+.clock {
+  position: absolute;
+  z-index: 10;
+  top: 50%;
+  right: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  /* color: #17D4FE; */
+  color: rgba(255,255,255,0.9);
+  font-size: 140px;
+  font-family: 'Quicksand', sans-serif;
+  letter-spacing: 9px;
+ 
+
+
+}
