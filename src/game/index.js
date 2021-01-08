@@ -167,7 +167,8 @@ export default class Game extends Component {
   };
 
   patchRequest = (icecream) => {
-    fetch(`http://localhost:5003/users/${this.props.gameProfile.id}`, {
+    fetch(`https://git.heroku.com/k-world-backend.git
+/users/${this.props.gameProfile.id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
@@ -274,7 +275,8 @@ export default class Game extends Component {
       this.keyListener.CTRL,
     ]);
 
-    fetch("http://localhost:5003/wallpapers")
+    fetch("https://git.heroku.com/k-world-backend.git
+/wallpapers")
       .then((res) => res.json())
       .then((data) => {
         const papers = data.map((paper) => paper.source);
@@ -376,7 +378,8 @@ export default class Game extends Component {
   };
 
   deleteCurrentPaper = (paper) => {
-    fetch(`http://localhost:5003/wallpapers/${paper.id}`, {
+    fetch(`https://git.heroku.com/k-world-backend.git
+/wallpapers/${paper.id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
