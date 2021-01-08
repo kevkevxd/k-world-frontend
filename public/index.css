@@ -20,6 +20,7 @@ body,
   color: white;
   font-family: "Helvetica Neue";
   font-size: 3vw;
+ 
 }
 
 .yellow {
@@ -44,13 +45,6 @@ pre {
   font-size: 1.5vw;
   max-height: 100%;
   overflow: hidden;
-}
-
-.intro {
-  margin: auto;
-  width: 100%;
-  max-width: 1024px;
-  display: block;
 }
 
 .start {

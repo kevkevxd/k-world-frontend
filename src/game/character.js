@@ -7,7 +7,6 @@ import { AudioPlayer, Body, Sprite } from "react-game-kit";
 export default class Character extends Component {
   static propTypes = {
     keys: PropTypes.object,
-    onEnterBuilding: PropTypes.func,
     store: PropTypes.object,
   };
 
@@ -21,8 +20,7 @@ export default class Character extends Component {
 
     this.loopID = null;
     this.isJumping = false;
-    this.isPunching = false;
-    this.isLeaving = false;
+
     this.lastX = 0;
 
     this.state = {
@@ -33,9 +31,6 @@ export default class Character extends Component {
 
     this.handlePlayStateChanged = this.handlePlayStateChanged.bind(this);
     this.jump = this.jump.bind(this);
-    this.punch = this.punch.bind(this);
-    this.getDoorIndex = this.getDoorIndex.bind(this);
-    this.enterBuilding = this.enterBuilding.bind(this);
     this.checkKeys = this.checkKeys.bind(this);
     this.update = this.update.bind(this);
     //.bind(this) gives them this prop in functional component
@@ -55,11 +50,12 @@ export default class Character extends Component {
     const { scale } = this.context;
     const { x, y } = characterPosition;
     const targetX = x + stageX;
+    const targetY = y + 14;
 
     return {
       position: "absolute",
       // Translate is a CSS property that will move the container
-      transform: `translate(${targetX * scale}px, ${y * scale}px)`,
+      transform: `translate(${targetX * scale}px, ${targetY * scale}px)`,
       transformOrigin: "left top",
     };
   }
@@ -82,10 +78,10 @@ export default class Character extends Component {
           <Sprite //current character selected
             repeat={this.state.repeat}
             onPlayStateChanged={this.handlePlayStateChanged}
-            src="assets/leattyspritesheet.png"
             scale={this.context.scale * 1}
             state={this.state.characterState}
-            steps={[10, 10, 0, 5, 6]}
+            steps={[5, 5, 1, 0, 0]}
+            src={this.props.store.gameProfile.character_src}
           />
         </Body>
       </div>
@@ -105,45 +101,8 @@ export default class Character extends Component {
   jump(body) {
     this.jumpNoise.play();
     this.isJumping = true;
-    Matter.Body.applyForce(body, { x: 0, y: 0 }, { x: 0, y: -0.15 });
+    Matter.Body.applyForce(body, { x: 0, y: 0 }, { x: 0, y: -0.15 }); //physics for moving sprite up and down
     Matter.Body.set(body, "friction", 0.0001);
-  }
-
-  enterPortal() {}
-  punch() {
-    this.isPunching = true;
-    this.setState({
-      characterState: 4,
-      repeat: false,
-    });
-  }
-
-  getDoorIndex(body) {
-    let doorIndex = null;
-
-    const doorPositions = [...Array(6).keys()].map((a) => {
-      return [512 * a + 208, 512 * a + 272];
-    });
-
-    doorPositions.forEach((dp, di) => {
-      if (body.position.x + 64 > dp[0] && body.position.x + 64 < dp[1]) {
-        doorIndex = di;
-      }
-    });
-    //where each door is. we can use body.position to figure out items and portals
-    return doorIndex;
-  }
-
-  enterBuilding(body) {
-    const doorIndex = this.getDoorIndex(body);
-
-    if (doorIndex !== null) {
-      this.setState({
-        characterState: 3,
-      });
-      this.isLeaving = true;
-      this.props.onEnterBuilding(doorIndex);
-    }
   }
 
   checkKeys(shouldMoveStageLeft, shouldMoveStageRight) {
@@ -151,26 +110,19 @@ export default class Character extends Component {
     const { body } = this.body;
 
     let characterState = 2;
-
-    // Punch when you press A
-    if (keys.isDown(keys.A)) {
-      return this.punch();
-    }
-
     // Jump when you press space
     if (keys.isDown(keys.SPACE)) {
       this.jump(body);
     }
 
-    // Enter building when you press up
-    if (keys.isDown(keys.UP)) {
-      return this.enterBuilding(body);
-    }
-
-    // ???? when you press down
+    // Move left or right
     if (keys.isDown(keys.LEFT)) {
       if (shouldMoveStageLeft) {
         store.setStageX(store.stageX + 5);
+        store.checkIcecreamLoot();
+        store.checkEnterPortal();
+        store.checkdiceLoot();
+        store.icecreamMonkeyPatch();
       }
 
       this.move(body, -5);
@@ -178,6 +130,10 @@ export default class Character extends Component {
     } else if (keys.isDown(keys.RIGHT)) {
       if (shouldMoveStageRight) {
         store.setStageX(store.stageX - 5);
+        store.checkIcecreamLoot();
+        store.checkdiceLoot();
+        store.checkEnterPortal();
+        store.icecreamMonkeyPatch();
       }
 
       this.move(body, 5);
@@ -213,16 +169,11 @@ export default class Character extends Component {
     }
 
     // When character is moving or doing something
-    if (!this.isJumping && !this.isPunching && !this.isLeaving) {
+    if (!this.isJumping && !this.isLeaving) {
       this.checkKeys(shouldMoveStageLeft, shouldMoveStageRight);
 
       store.setCharacterPosition(body.position);
-
-      store.checkEnterPortal();
     } else {
-      if (this.isPunching && this.state.spritePlaying === false) {
-        this.isPunching = false;
-      }
       if (this.isJumping) {
         store.setCharacterPosition(body.position);
       }
