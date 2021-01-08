@@ -376,7 +376,7 @@ export default class Game extends Component {
   };
 
   deleteCurrentPaper = (paper) => {
-    fetch(`https://git.heroku.com/k-world-backend.git/wallpapers/${paper.id}`, {
+    fetch(`https://k-world-backend.herokuapp.com/wallpapers/${paper.id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
