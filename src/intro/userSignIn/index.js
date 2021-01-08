@@ -14,7 +14,7 @@ state = {
 }
   
 componentDidMount() {
-    fetch("https://git.heroku.com/k-world-backend.git/users")
+    fetch("https://k-world-backend.herokuapp.com/users")
     .then((res) => res.json())
     .then((data) => 
     this.setState({ allUsers: data }));
@@ -26,7 +26,7 @@ moveTempState = (obj) => {
 }
 
 deleteUser = (user) => {
-  fetch(`https://git.heroku.com/k-world-backend.git/users/${user.id}`, {
+  fetch(`https://k-world-backend.herokuapp.com/users/${user.id}`, {
     method: "DELETE",
     headers: {
       "content-type": "application/json",
