@@ -3,8 +3,7 @@ import propTypes from 'prop-types';
 import UserSelectForm from "./UserSelectForm";
 import UserRightShow from "./UserRightShow"
 
-class SignIn extends React.Component {
-
+class SignIn extends React.Component { 
   // propTypes = {
   //   userSelector: propTypes.func.isRequired,
   // }
