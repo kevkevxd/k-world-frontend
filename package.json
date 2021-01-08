@@ -22,7 +22,7 @@
     "serve": "^11.3.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node index.js",
     "dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
