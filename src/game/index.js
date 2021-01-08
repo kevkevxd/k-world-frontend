@@ -213,16 +213,16 @@ export default class Game extends Component {
     switch (true) {
       case user.has_red_icecream:
         this.setState({ icecreamIndex: 1 })
-
+        break;
       case user.has_yellow_icecream:
         this.setState({ icecreamIndex: 2 })
-
+        break;
       case user.has_blue_icecream:
         this.setState({ icecreamIndex: 3 })
-
+        break;
       case user.has_green_icecream:
         this.setState({ icecreamIndex: 4 })
-
+        break;
       case user.has_black_icecream:
         this.setState({ icecreamIndex: 5 })
         break;
@@ -251,13 +251,13 @@ export default class Game extends Component {
   }
   //base music
   componentDidMount() {
-    this.player = new AudioPlayer("/assets/ellinia.wav", () => {
-      this.stopMusic = this.player.play({
-        loop: true,
-        offset: 1,
-        volume: 0,
-      });
-    });
+    // this.player = new AudioPlayer("/assets/ellinia.wav", () => {
+    //   this.stopMusic = this.player.play({
+    //     loop: true,
+    //     offset: 1,
+    //     volume: 0,
+    //   });
+    // });
 
     this.setState({
       fade: false,
