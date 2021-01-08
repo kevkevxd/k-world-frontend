@@ -250,14 +250,14 @@ export default class Game extends Component {
     }
   }
   //base music
-  // componentDidMount() {
-  //   this.player = new AudioPlayer("/assets/ellinia.wav", () => {
-  //     this.stopMusic = this.player.play({
-  //       loop: true,
-  //       offset: 1,
-  //       volume: 0,
-  //     });
-  //   });
+  componentDidMount() {
+    // this.player = new AudioPlayer("/assets/ellinia.wav", () => {
+    //   this.stopMusic = this.player.play({
+    //     loop: true,
+    //     offset: 1,
+    //     volume: 0,
+    //   });
+    // });
 
     this.setState({
       fade: false,
