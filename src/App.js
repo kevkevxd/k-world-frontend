@@ -157,7 +157,7 @@ class App extends React.Component {
 
   onFormComplete = (characterFormObj) => {
     console.log("formobj:", characterFormObj)
-    fetch("https://git.heroku.com/k-world-backend.git/users", {
+    fetch("https://k-world-backend.herokuapp.com/users", {
       method: "POST",
       headers: {
         "content-type": "application/json",
