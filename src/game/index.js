@@ -7,11 +7,12 @@ import Portal from "./Portal";
 import Character from "./character";
 import Level from "./level";
 import Fade from "./fade";
-import Pet from "./Pet"
-import IcecreamUI from "./icecreamUI"
+import Pet from "./Pet";
+import IcecreamUI from "./icecreamUI";
 import KeyListener from "../utils/key-listener";
-import Clock from '../clock'
-import Dice from "./Dice"
+import Clock from "../clock";
+import Dice from "./Dice";
+import TempInstructions from "../tempInstructions";
 
 export default class Game extends Component {
   static propTypes = {
@@ -42,10 +43,10 @@ export default class Game extends Component {
       isTempDiceThere: false,
       dicemap: null,
 
-      grindDicePosition: { x: 0, y: 0, },
-      nobloomDicePosition: { x: 0, y: 0, },
-      circlesDicePosition: { x: 0, y: 0, },
-      tempDicePosition: { x: 0, y: 0, },
+      grindDicePosition: { x: 0, y: 0 },
+      nobloomDicePosition: { x: 0, y: 0 },
+      circlesDicePosition: { x: 0, y: 0 },
+      tempDicePosition: { x: 0, y: 0 },
       dicePortalIndex: 0,
 
       // game store
@@ -108,7 +109,6 @@ export default class Game extends Component {
   };
 
   openPortal = () => {
-
     const newPortalPosition = {
       x: this.state.characterPosition.x + 230,
       y: this.state.characterPosition.y - 25,
@@ -117,11 +117,11 @@ export default class Game extends Component {
     const newPortalLeft = {
       x: this.state.characterPosition.x - 230,
       y: this.state.characterPosition.y - 25,
-    }
+    };
 
-    this.state.characterFacing === "right" ?
-      this.setPortalPosition(newPortalPosition) :
-      this.setPortalPosition(newPortalLeft)
+    this.state.characterFacing === "right"
+      ? this.setPortalPosition(newPortalPosition)
+      : this.setPortalPosition(newPortalLeft);
 
     this.setState({
       isPortalOpen: true,
@@ -161,25 +161,31 @@ export default class Game extends Component {
     if (icecreamSpawnChance >= 5) {
       this.setState({
         isIcecreamThere: true,
-        icecreamPosition: { x: icecreamSpawnLocation, y: this.state.characterPosition.y - 60, },
+        icecreamPosition: {
+          x: icecreamSpawnLocation,
+          y: this.state.characterPosition.y - 60,
+        },
       });
     }
   };
 
   patchRequest = (icecream) => {
-    fetch(`https://k-world-backend.herokuapp.com/users/${this.props.gameProfile.id}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-        accepts: "application/json",
-      },
-      body: JSON.stringify(icecream),
-    })
+    fetch(
+      `https://k-world-backend.herokuapp.com/users/${this.props.gameProfile.id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+          accepts: "application/json",
+        },
+        body: JSON.stringify(icecream),
+      }
+    )
       .then((res) => res.json())
-      .then((newobj => {
-        this.props.newCreamState(newobj)
-      }))
-  }
+      .then((newobj) => {
+        this.props.newCreamState(newobj);
+      });
+  };
 
   patchIcecream = () => {
     // switch statement here. icecream index = what goes inside of post
@@ -191,16 +197,16 @@ export default class Game extends Component {
         this.patchRequest({ has_red_icecream: true });
         break;
       case 1:
-        this.patchRequest({ has_yellow_icecream: true })
+        this.patchRequest({ has_yellow_icecream: true });
         break;
       case 2:
-        this.patchRequest({ has_blue_icecream: true })
+        this.patchRequest({ has_blue_icecream: true });
         break;
       case 3:
-        this.patchRequest({ has_green_icecream: true })
+        this.patchRequest({ has_green_icecream: true });
         break;
       case 4:
-        this.patchRequest({ has_black_icecream: true })
+        this.patchRequest({ has_black_icecream: true });
         break;
       default:
       // code block
@@ -212,19 +218,19 @@ export default class Game extends Component {
     const user = this.props.gameProfile;
     switch (true) {
       case user.has_red_icecream:
-        this.setState({ icecreamIndex: 1 })
+        this.setState({ icecreamIndex: 1 });
 
       case user.has_yellow_icecream:
-        this.setState({ icecreamIndex: 2 })
+        this.setState({ icecreamIndex: 2 });
 
       case user.has_blue_icecream:
-        this.setState({ icecreamIndex: 3 })
+        this.setState({ icecreamIndex: 3 });
 
       case user.has_green_icecream:
-        this.setState({ icecreamIndex: 4 })
+        this.setState({ icecreamIndex: 4 });
 
       case user.has_black_icecream:
-        this.setState({ icecreamIndex: 5 })
+        this.setState({ icecreamIndex: 5 });
         break;
 
       // code block
@@ -239,16 +245,18 @@ export default class Game extends Component {
         isIcecreamThere: false,
       });
     }
-  }
+  };
   icecreamMonkeyPatch = () => {
     if (
-      this.props.gameProfile.has_red_icecream && !this.props.gameProfile.has_black_icecream && this.state.icecreamIndex === 5
+      this.props.gameProfile.has_red_icecream &&
+      !this.props.gameProfile.has_black_icecream &&
+      this.state.icecreamIndex === 5
     ) {
       this.setState({
-        icecreamIndex: 2
+        icecreamIndex: 2,
       });
     }
-  }
+  };
   //base music
   componentDidMount() {
     // this.player = new AudioPlayer("/assets/ellinia.wav", () => {
@@ -263,8 +271,8 @@ export default class Game extends Component {
       fade: false,
     });
 
-    this.icecreamSpawnIndex()
-    console.log(this.state.icecreamIndex)
+    this.icecreamSpawnIndex();
+    console.log(this.state.icecreamIndex);
     this.keyListener.subscribe([
       this.keyListener.LEFT,
       this.keyListener.RIGHT,
@@ -278,7 +286,7 @@ export default class Game extends Component {
       .then((res) => res.json())
       .then((data) => {
         const papers = data.map((paper) => paper.source);
-        const fullPaper = data.map((paper) => paper)
+        const fullPaper = data.map((paper) => paper);
         this.setState({
           papers, // same as papers: papers (only works when its the same name)
           backgroundIndex: Math.round(Math.random() * papers.length),
@@ -290,41 +298,41 @@ export default class Game extends Component {
   }
 
   otherKeyListener = (event) => {
-    const paperArray = this.state.fullPaper
-    const index = this.state.backgroundIndex
+    const paperArray = this.state.fullPaper;
+    const index = this.state.backgroundIndex;
     switch (event.key) {
       // The first ice cream is red
       case "1":
-        // this.state.icecreamIndex >= 1 && 
+        // this.state.icecreamIndex >= 1 &&
         this.setState({
           shouldRGB: !this.state.shouldRGB,
           shouldReset: false,
-        })
+        });
         break;
       case "2":
-        // this.state.icecreamIndex >= 2 && 
+        // this.state.icecreamIndex >= 2 &&
         this.setState({
           shouldTwisty: !this.state.shouldTwisty,
           shouldReset: false,
-        })
-        console.log("twisty")
+        });
+        console.log("twisty");
         break;
       case "3":
         // this.state.icecreamIndex >= 3 &&
         this.setState({
           shouldReflect: !this.state.shouldReflect,
           shouldReset: false,
-        })
-        console.log("wavey")
+        });
+        console.log("wavey");
         break;
       case "4":
         // this.state.icecreamIndex >= 4 &&
         this.setState({
           shouldRadial: !this.state.shouldRadial,
           shouldReset: false,
-        })
+        });
 
-        console.log("radial")
+        console.log("radial");
         break;
       case "5":
         // this.state.icecreamIndex >= 4 &&
@@ -333,37 +341,36 @@ export default class Game extends Component {
           shouldTwisty: false,
           shouldReflect: false,
           shouldRadial: false,
-        })
-        console.log("stopping all filters")
+        });
+        console.log("stopping all filters");
         break;
       case "6":
-        console.log("6:", "Reset Paper")
+        console.log("6:", "Reset Paper");
         this.setState({
           shouldRGB: false,
           shouldTwisty: false,
           shouldReflect: false,
           shouldRadial: false,
           shouldReset: true,
-        })
+        });
         break;
       case "d":
-        console.log("d:", paperArray[index])
-        this.deleteCurrentPaper(paperArray[index])
+        console.log("d:", paperArray[index]);
+        this.deleteCurrentPaper(paperArray[index]);
         break;
       case "ArrowRight":
-        console.log("right")
-        this.setState({ characterFacing: "right" })
+        console.log("right");
+        this.setState({ characterFacing: "right" });
         break;
       case "ArrowLeft":
-        console.log("left")
-        this.setState({ characterFacing: "left" })
+        console.log("left");
+        this.setState({ characterFacing: "left" });
         break;
       case "0":
-        console.log("portal closed")
-        this.setState({ isPortalOpen: false })
+        console.log("portal closed");
+        this.setState({ isPortalOpen: false });
         break;
       default:
-
     }
   };
 
@@ -387,14 +394,14 @@ export default class Game extends Component {
       .then((res) => res.json())
       .then(() => {
         const papers = this.state.papers.filter(
-          currentObj => paper.id !== currentObj.id
+          (currentObj) => paper.id !== currentObj.id
         );
 
         this.setState({
           papers,
         });
       });
-  }
+  };
   componentDidUpdate(prevProps, prevState) {
     if (
       prevState.isIcecreamThere === true &&
@@ -412,7 +419,6 @@ export default class Game extends Component {
     ) {
       this.setState({ dicePortalIndex: this.state.dicePortalIndex + 1 });
     }
-
   }
 
   componentWillUnmount() {
@@ -434,41 +440,59 @@ export default class Game extends Component {
         isTempDiceThere: true,
         isCirclesDiceThere: true,
         isGrindDiceThere: true,
-        grindDicePosition: { x: diceSpawnLocation0, y: this.state.characterPosition.y - 5, },
-        nobloomDicePosition: { x: diceSpawnLocation1, y: this.state.characterPosition.y - 5, },
-        circlesDicePosition: { x: diceSpawnLocation2, y: this.state.characterPosition.y - 5, },
-        tempDicePosition: { x: diceSpawnLocation3, y: this.state.characterPosition.y - 5, },
+        grindDicePosition: {
+          x: diceSpawnLocation0,
+          y: this.state.characterPosition.y - 5,
+        },
+        nobloomDicePosition: {
+          x: diceSpawnLocation1,
+          y: this.state.characterPosition.y - 5,
+        },
+        circlesDicePosition: {
+          x: diceSpawnLocation2,
+          y: this.state.characterPosition.y - 5,
+        },
+        tempDicePosition: {
+          x: diceSpawnLocation3,
+          y: this.state.characterPosition.y - 5,
+        },
       });
     }
   };
 
   checkdiceLoot = () => {
-    if (this.state.characterPosition.x >= this.state.grindDicePosition.x - 24 &&
-      this.state.characterPosition.x <= this.state.grindDicePosition.x + 24) {
+    if (
+      this.state.characterPosition.x >= this.state.grindDicePosition.x - 24 &&
+      this.state.characterPosition.x <= this.state.grindDicePosition.x + 24
+    ) {
       this.setState({ isGrindDiceThere: false });
-      console.log("i pikup")
+      console.log("i pikup");
     }
-    if (this.state.characterPosition.x >= this.state.nobloomDicePosition.x - 24 &&
-      this.state.characterPosition.x <= this.state.nobloomDicePosition.x + 24) {
+    if (
+      this.state.characterPosition.x >= this.state.nobloomDicePosition.x - 24 &&
+      this.state.characterPosition.x <= this.state.nobloomDicePosition.x + 24
+    ) {
       this.setState({ isNobloomDiceThere: false });
-      console.log("i pikup")
+      console.log("i pikup");
     }
-    if (this.state.characterPosition.x >= this.state.circlesDicePosition.x - 24 &&
-      this.state.characterPosition.x <= this.state.circlesDicePosition.x + 24) {
+    if (
+      this.state.characterPosition.x >= this.state.circlesDicePosition.x - 24 &&
+      this.state.characterPosition.x <= this.state.circlesDicePosition.x + 24
+    ) {
       this.setState({ isCirclesDiceThere: false });
-      console.log("i pikup")
+      console.log("i pikup");
     }
-    if (this.state.characterPosition.x >= this.state.tempDicePosition.x - 24 &&
-      this.state.characterPosition.x <= this.state.tempDicePosition.x + 24) {
+    if (
+      this.state.characterPosition.x >= this.state.tempDicePosition.x - 24 &&
+      this.state.characterPosition.x <= this.state.tempDicePosition.x + 24
+    ) {
       this.setState({ isTempDiceThere: false });
-      console.log("i pikup")
+      console.log("i pikup");
     }
-
   };
   //////////////////////////////////////////////////////////
 
   render() {
-
     const GameStore = {
       portalPosition: this.state.portalPosition,
       stageX: this.state.stageX,
@@ -507,20 +531,17 @@ export default class Game extends Component {
       setCharacterPosition: this.setCharacterPosition,
       checkEnterPortal: this.checkEnterPortal,
       checkIcecreamLoot: this.checkIcecreamLoot,
-      checkdiceLoot: this.checkdiceLoot
+      checkdiceLoot: this.checkdiceLoot,
     };
     // pass in state here after eating icecream
     return (
       <>
         <Clock />
+        <TempInstructions />
         <Loop>
           <Stage>
-            <World
-              onInit={this.physicsInit}
-            >
-              <Level
-                store={GameStore}
-              />
+            <World onInit={this.physicsInit}>
+              <Level store={GameStore} />
               <Dice store={GameStore} />
               <Character store={GameStore} keys={this.keyListener} />
               <Pet store={GameStore} />
